@@ -1,0 +1,37 @@
+<div id="user-link-container">
+    <img [src]="'http://localhost/markt_php/uploads/'+profile_image+'small.jpg'" alt="" id="user-img-profile" routerLink="/account"> 
+</div>
+<div [ngSwitch]="user">
+    <div *ngSwitchCase="'seller'">
+        
+        <div routerLink="/home" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Home</div>
+
+        <div routerLink="/orders/seller" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Orders</div>
+
+        <div routerLink="/products/seller" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Products</div>
+    </div>
+    <div *ngSwitchCase="'buyer'">
+
+        <div routerLink="/home" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Home</div>
+
+        <div routerLink="/marketplace" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Marketplace</div>
+
+        <div class="inv-nav-option" routerLink="/basket" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page">Basket</div>
+
+        <div class="inv-nav-option" routerLink="/favorites" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page">Favorites</div>
+    </div>
+    <div *ngSwitchCase="'delivery'">
+        <div class="inv-nav-option" routerLink="/orders/delivery" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page">Delivery Orders</div>
+        <div class="inv-nav-option" routerLink="/pendingorders/delivery" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page">Pending Deliveries</div>
+    </div>
+    <div *ngSwitchDefault>output2</div>
+</div>

@@ -1,0 +1,21 @@
+.nav-output-cont:last-child{
+    width: 80vw;
+}
+.chatbox{
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    border: hidden;
+    border-radius: 10px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0 48px 100px 0;
+    padding: 5px;
+    background-color: white;
+}
+@media screen and (max-width:800px){
+    .sidebar-container,#sidebar-slater{
+        display: none;
+    }
+    .nav-output-cont{
+        padding: 10px;
+    }
+}

@@ -1,0 +1,121 @@
+<ng-container>
+    <!-- <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <button type="submit" [disabled]="!form.form.valid">
+            Save
+        </button>
+    </form> -->
+    <div  id="new-prod-cont">
+        <div class="in-new-prod-cont">
+            <span (click)="removecomponent()">
+                <svg width="20" height="18" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 22.6066C11.0711 
+                    23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 
+                    12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 
+                    10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
+                    </svg>
+            </span>
+            <h1>Add new Product</h1>
+        </div>
+        <div class="in-new-prod-cont" id="sec-prod-cont">
+            <label for="product_name">Product Name</label>
+            <br>
+            <input type="text" name="product_name" id="product_name" class="inputs" 
+            [(ngModel)]="newproduct.product_name">
+            <br>
+            <label for="product_price">Product Price</label>
+            <br>
+            <input type="text" name="product_price" id="product_price" class="inputs" 
+            [(ngModel)]="newproduct.product_price">
+            <br>
+            <span>
+                <label for="product_quantity">Product Quantity</label>
+                <br>
+                <input type="number" name="product_quantity" id="product_quantity" class="inputs" 
+                [(ngModel)]="newproduct.product_quantity">
+            </span>
+            <br>
+            <label for="product_type">Product Type</label>
+            <br>
+            <select [(ngModel)]="newproduct.product_type" id="product_type" name="product_type" class="inputs">
+                <option *ngFor="let item of types" [value]="item">{{item}}</option>
+            </select>
+            <br>
+            <label for="estimated_size">Product Estimated Size</label>
+            <br>
+            <input type="range" name="estimated_size" id="estimated_size" class="inputs" max="400" min="100"
+            [(ngModel)]="newproduct.estimated_size">
+            <br>
+            <label for="product_description">Product Description</label>
+            <br>
+            <textarea name="product_description" id="product_description" cols="30" rows="10" class="inputs"
+            [(ngModel)]="newproduct.product_description">
+            </textarea>
+            <div>
+                <h2>Add Category</h2>
+                <div class="list">
+                    <div *ngFor="let item of category_list" class="button-active">
+                        <span style="margin-right: 5px;">{{item}}</span> 
+                        <span (click)="removefromcategories(item)">x</span>
+                    </div>
+                </div>
+                <button class="inv-button-active" (click)="setcatgadd('category')">add +</button>
+            </div>
+            <div>
+                <h2>Add Tags</h2>
+                <div class="list">
+                    <div *ngFor="let item of tag_list" class="button-active">
+                        <span style="margin-right: 5px;">{{item}}</span> 
+                        <span (click)="removefromtags(item)">x</span>
+                    </div>
+                </div>
+                <button class="inv-button-active" (click)="setcatgadd('tags')">add +</button>
+            </div>
+            <div>
+                <h2>Add Images</h2>
+                <div id="images-list-cont">
+                    <img [src]="item | safe" alt="" *ngFor="let item of image_links" class="small-image-displays">
+                </div>
+                <br>
+                <label for="product_images" id="product_image_label">
+                    Add new image
+                </label>
+                <br>
+                <input type="file" name="product_images" id="product_images" class="inputs" accept=".jpg,.png,.webp"
+                (change)="addtoimagesarray($event)">
+            </div>
+            <button class="button-active" (click)="Submit()">Create Product</button>
+        </div>
+    </div>
+    <div class="all-categories-display" *ngIf="catgshow">
+        <div id="all-categories-head">
+            <h1>All Categories</h1>
+            <span (click)="removecatgadd()">
+                <p>X</p>
+            </span>
+        </div>
+        <div class="all-categories-body" *ngIf="catgtypeopened == 'tags'">
+            <div *ngFor="let maincat of allcategories">
+                <h1>{{maincat.name}}</h1>
+                <div *ngFor="let cat of maincat.tags" class="catg-cont" [style]="{
+                    backgroundColor: temp_tag_list.includes(cat.name) ? '#f7ae40' : 'white'
+                    }" (click)="addtag(cat.name)">
+                    <span>
+                        {{cat.name}}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="all-categories-body" *ngIf="catgtypeopened == 'category'">
+            <div *ngFor="let cat of maincategories" class="catg-cont" [style]="{
+                backgroundColor: temp_cat_list.includes(cat) ? '#f7ae40' : 'white'
+                }" (click)="addcat(cat)">
+               <span>
+                   {{cat}}
+               </span>
+           </div>
+        </div>
+        <div id="all-categories-footer">
+            <button (click)="mergecatgs()" class="button-active">Add</button>
+        </div>
+    </div>
+</ng-container>

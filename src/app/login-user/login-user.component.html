@@ -1,0 +1,37 @@
+<div class="login">
+    <div class="signincontainer"> 
+        <div class="signin-cont-child" id="cont-illustr">
+            <div id="illustr-cont">
+                <h1 class="en-vert">Unlock new ways to buy and sell</h1>
+            </div>
+        </div>
+        <div class="signin-cont-child">
+            <div id="contains-inputs">
+                <h1>Sign in as {{usertype}}</h1>
+                <h4 class="warn-text">{{warnerr}}</h4>
+                <label for="usershopdeliveryname">{{namestate}}, email or phone number</label>
+                <br>
+                <input type="text" name="usershopdeliveryname" id="usershopdeliveryname" class="inputs" 
+                [(ngModel)]="userlogindata.username">
+                <br>
+                <label for="password">password</label>
+                <br>
+                <input type="password" name="password" id="password" class="inputs" 
+                [(ngModel)]="userlogindata.password">
+                <br>
+                <a routerLink="/passwordretrieval">Forgot Password?</a>
+                <h2>Sign in as</h2>
+                <div id="oth-choices"> 
+                    <div class="user-choice" [class.set]="usertype == 'buyer'" (click)="setuser('Buyer')">Buyer</div>
+                    <div class="user-choice" [class.set]="usertype == 'seller'" (click)="setuser('Seller')">Seller</div>
+                    <div class="user-choice" [class.set]="usertype == 'delivery'" (click)="setuser('Delivery')">Delivery</div>
+                </div>
+                <button class="button-active" [disabled]="emptyfields()" (click)="loginuser()">Sign in</button>
+                <span class="bar">
+                    <h4 style="margin: 0;">New user?</h4>
+                    <a routerLink="/new">sign up here</a> 
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

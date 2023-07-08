@@ -1,0 +1,25 @@
+<div class="content">
+    <h1>Favorites</h1>
+    <div id="al-fav-cont">
+        <h2>Products</h2>
+        <app-loader *ngIf="!favoritesproducttype.length"></app-loader>
+        <div class="favorites-container" *ngIf="favoritesproducttype.length">
+            <div *ngFor="let fav of favoritesproducttype" class="favorite">
+                <img [src]="fav.profile_image" alt="" class="favorite-image">
+                <span>
+                    <h3>{{fav.name}}</h3>
+                </span>
+            </div>
+        </div>
+        <h2>Sellers</h2>
+        <app-loader *ngIf="!favoritessellertype.length"></app-loader>
+        <div class="favorites-container" *ngIf="favoritessellertype.length">
+            <div *ngFor="let fav of favoritessellertype" class="favorite">
+                <img [src]="fav.profile_image" alt="" class="favorite-image">
+                <span>
+                    <h3>{{fav.name}}</h3>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

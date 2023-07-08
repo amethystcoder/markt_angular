@@ -1,0 +1,32 @@
+<div class="content">
+    <h1>Pending Deliveries</h1>
+    <div>
+        <div *ngFor="let delivorders of pendingdeliveries" class="order-container">
+            <div class="order-cont-sec-one">
+                <img [src]="'http://localhost/markt_php/uploads/'+delivorders.product_image+'small.jpg'" alt=""
+                class="prod-img">
+            </div>
+            <div class="order-cont-sec-two">
+                <h2>{{delivorders.product_name}}</h2>
+                <span class="det-bar">
+                    <h3>Seller:</h3>
+                    <p class="h-light">{{delivorders.seller_name}}</p>
+                </span>
+                <span class="det-bar">
+                    <h3>Buyer:</h3>
+                    <p class="h-light">{{delivorders.buyer_name}}</p>
+                </span>
+                <p class="h-light" *ngIf="checkdeliverystate(delivorders) == 'unreceived'">
+                    You have not collected this item from the seller</p>
+                <p class="h-light" *ngIf="checkdeliverystate(delivorders) == 'undelivered'">
+                    You have not delivered this item to the buyer</p>
+                <span class="button-bar-far" *ngIf="checkdeliverystate(delivorders) == 'unreceived'">
+                    <button class="button-active">View Seller Address</button>
+                </span>
+                <span class="button-bar-far" *ngIf="checkdeliverystate(delivorders) == 'undelivered'">
+                    <button class="button-active">View Buyer Address</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

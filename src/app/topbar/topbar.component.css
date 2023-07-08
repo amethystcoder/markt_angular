@@ -1,0 +1,15 @@
+#top-bar,.user-set-cont{
+    display: flex;
+    align-items: center;
+}
+#top-bar{
+    width: 100%;
+    justify-content: space-between;
+}
+#logout-link{
+    font-size:x-large;
+}
+.user-contrl-cont{
+    width: 50%;
+    justify-content: space-evenly;
+}

@@ -1,0 +1,21 @@
+<div class="content">
+    <h1>Basket</h1>
+    <app-loader *ngIf="!buyercart.length"></app-loader>
+    <div id="basket-items" *ngIf="buyercart.length">
+        <div *ngFor="let item of buyercart" class="basket-item">
+            <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt="" 
+            class="cart-item-image">
+            <h3>{{item.product_name}}</h3>
+            <span class="det-bar">
+                <h4>{{item.product_price}}</h4>
+                <div class="dot"></div>
+                <h4>Qty: {{item.quantity}}</h4>
+            </span>
+            <button class="button-active" (click)="removeproduct(item)">Remove</button>
+        </div>
+    </div>
+    <div class="checkout-cont">
+        <button class="checkout button-active" (click)="checkout()">Checkout</button>
+    </div>
+</div> 
+

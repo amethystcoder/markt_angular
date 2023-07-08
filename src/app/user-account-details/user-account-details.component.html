@@ -1,0 +1,275 @@
+<div class="content" *ngIf="usertype == 'buyer'">
+    <div class="main-user-det-cont">
+        <div>
+            <img [src]="'http://localhost/markt_php/uploads/'+buyer?.profile_image+'small.jpg'" 
+            alt="buyer profile image" class="profile-img">
+            <label for="profile_image_uploader" *ngIf="onedit">Change Profile Image</label>
+            <input type="file" name="" id="profile_image_uploader" accept=".jpg,.png,.webp" *ngIf="onedit" 
+            (change)="upload_profile_image($event)">
+        </div>
+        <div>
+            <h1>{{buyer?.username}}</h1>
+            <input type="text" name="" id="" class="inputs" placeholder="username" 
+                [(ngModel)]="buyerplac!.username" *ngIf="onedit">
+            <p>email: {{buyer?.email}}</p>
+            <a>Logout</a>
+        </div>
+    </div>
+    <div class="t-det-top">
+        <h1>Details</h1>
+        <h3 *ngIf="!onedit" (click)="switchmode()">edit</h3>
+        <h3 *ngIf="onedit" (click)="switchmode()">close edit</h3>
+    </div>
+    <div class="basc-info">
+        <span>
+            <h2>Location</h2>
+            <p>No {{buyer?.house_number}}, {{buyer?.street}}, 
+                {{buyer?.city}},{{buyer?.state}}</p>
+                <input type="text" name="" id="" class="inputs" placeholder="house no" 
+                [(ngModel)]="buyerplac!.house_number" *ngIf="onedit"> 
+                <input type="text" name="" id="" class="inputs" placeholder="street" 
+                [(ngModel)]="buyerplac!.street" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="city" 
+                [(ngModel)]="buyerplac!.city" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="state" 
+                [(ngModel)]="buyerplac!.state" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Postal Code</h4>
+            <p>{{buyer?.postal_code}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="postal code" 
+                [(ngModel)]="buyerplac!.postal_code" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Country</h4>
+            <p>{{buyer?.country}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="country" 
+                [(ngModel)]="buyerplac!.country" *ngIf="onedit">
+        </span>
+        <span>
+            <h2>Phone Number</h2>
+            <p>{{buyer?.phone_number}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="phone no" 
+                [(ngModel)]="buyerplac!.phone_number" *ngIf="onedit">
+        </span>
+    </div>
+    <button (click)="changebuyerdet()" class="button-active" *ngIf="onedit">
+        Change Buyer Details</button>
+    <h2>Payment Details</h2>
+    <div *ngFor="let payment of buyer?.payment">
+        <span class="bar">
+            <h3>Account Name:</h3>
+            <p>{{payment.payment_account_first_name}} {{payment.payment_account_last_name}}</p>
+        </span>
+        <span class="bar">
+            <h3>Account Number</h3>
+            <p>{{payment.payment_account_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Card Number</h3>
+            <p>{{payment.card_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Expiry Date</h3>
+            <p>{{payment.card_expiry_date}}</p>
+        </span>
+        <span class="bar">
+            <h3>CVC</h3>
+            <p>{{payment.cvc}}</p>
+        </span>
+    </div>
+</div>
+<div class="content" *ngIf="usertype == 'seller'">
+    <div class="main-user-det-cont">
+        <div>
+            <img [src]="'http://localhost/markt_php/uploads/'+seller?.profile_image+'small.jpg'" 
+            alt="seller profile image" class="profile-img">
+            <label for="profile_image_uploader" *ngIf="onedit">Change Profile Image</label>
+            <input type="file" name="" id="profile_image_uploader" accept=".jpg,.png,.webp" *ngIf="onedit" 
+            (change)="upload_profile_image($event)">
+        </div>
+        <div>
+            <h1>{{seller?.shopname}}</h1>
+            <input type="text" name="" id="" class="inputs" placeholder="shop name" 
+                [(ngModel)]="sellerplac!.shopname" *ngIf="onedit">
+            <p>email: {{seller?.email}}</p>
+            <a>Logout</a>
+        </div>
+    </div>
+    <div class="t-det-top">
+        <h1>Details</h1>
+        <h3 *ngIf="!onedit" (click)="switchmode()">edit</h3>
+        <h3 *ngIf="onedit" (click)="switchmode()">close edit</h3>
+    </div>
+    <div class="basc-info">
+        <span>
+            <h2>Location</h2>
+            <p>No {{seller?.house_number}}, {{seller?.street}}, 
+                {{seller?.city}},{{seller?.state}}</p>
+                <input type="text" name="" id="" class="inputs" placeholder="house no" 
+                [(ngModel)]="sellerplac!.house_number" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="street" 
+                [(ngModel)]="sellerplac!.street" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="city" 
+                [(ngModel)]="sellerplac!.city" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="state" 
+                [(ngModel)]="sellerplac!.state" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Postal Code</h4>
+            <p>{{seller?.postal_code}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="postal code" 
+                [(ngModel)]="sellerplac!.postal_code" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Country</h4>
+            <p>{{seller?.country}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="country" 
+                [(ngModel)]="sellerplac!.country" *ngIf="onedit">
+        </span>
+        <span>
+            <h2>Phone Number</h2>
+            <p>{{seller?.phone_number}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="phon no" 
+                [(ngModel)]="sellerplac!.phone_number" *ngIf="onedit">
+        </span>
+        <span>
+            <h2>Rating</h2>
+            <h1>{{seller?.rating}}</h1>
+        </span>
+        <span>
+            <h2>Description</h2>
+            <p>{{seller?.description}}</p>
+            <textarea id="txtarea" class="inputs" placeholder="shop description" 
+                [(ngModel)]="sellerplac!.description" *ngIf="onedit"></textarea>
+        </span>
+        <span>
+            <h2>Category</h2>
+            <div class="catg-cont">
+                <div *ngFor="let item of seller?.category" class="button-active">
+                    {{item}}
+                </div>
+                <button class="inv-button-active" *ngIf="onedit">add</button>
+            </div>
+        </span>
+        <span>
+            <h2>Directions</h2>
+            <p>{{seller?.directions}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="directions" 
+                [(ngModel)]="sellerplac!.directions" *ngIf="onedit">
+        </span>
+    </div>
+    <button (click)="changesellerdet()" class="button-active" *ngIf="onedit">
+        Change Seller Details</button>
+    <h2>Payment Details</h2>
+    <div *ngFor="let payment of seller?.payment">
+        <span class="bar">
+            <h3>Account Name:</h3>
+            <p>{{payment.payment_account_first_name}} {{payment.payment_account_last_name}}</p>
+        </span>
+        <span class="bar">
+            <h3>Account Number</h3>
+            <p>{{payment.payment_account_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Card Number</h3>
+            <p>{{payment.card_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Expiry Date</h3>
+            <p>{{payment.card_expiry_date}}</p>
+        </span>
+        <span class="bar">
+            <h3>CVC</h3>
+            <p>{{payment.cvc}}</p>
+        </span>
+    </div>
+</div>
+<div class="content" *ngIf="usertype == 'delivery'">
+    <div class="main-user-det-cont">
+        <div>
+            <img [src]="'http://localhost/markt_php/uploads/'+delivery?.profile_image+'small.jpg'"
+         alt="delivery profile image" class="profile-img">
+            <label for="profile_image_uploader" *ngIf="onedit">Change Profile Image</label>
+            <input type="file" name="" id="profile_image_uploader" accept=".jpg,.png,.webp" *ngIf="onedit" 
+            (change)="upload_profile_image($event)">
+        </div>
+        <div>
+            <h1>{{delivery?.deliveryname}}</h1>
+            <input type="text" name="" id="" class="inputs" placeholder="delivery name" 
+                [(ngModel)]="deliveryplac!.deliveryname" *ngIf="onedit">
+            <p>email: {{delivery?.email}}</p>
+            <a>Logout</a>
+        </div>
+    </div>
+    <div class="t-det-top">
+        <h1>Details</h1>
+        <h3 *ngIf="!onedit" (click)="switchmode()">edit</h3>
+        <h3 *ngIf="onedit" (click)="switchmode()">close edit</h3>
+    </div>
+    <div class="basc-info">
+        <span>
+            <h2>Location</h2>
+            <p>No {{delivery?.house_number}}, {{delivery?.street}}, 
+                {{delivery?.city}},{{delivery?.state}}</p>
+                <input type="text" name="" id="" class="inputs" placeholder="house no" 
+                [(ngModel)]="deliveryplac!.house_number" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="street"  
+                [(ngModel)]="deliveryplac!.street" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="city" 
+                [(ngModel)]="deliveryplac!.city" *ngIf="onedit">
+                <input type="text" name="" id="" class="inputs" placeholder="state" 
+                [(ngModel)]="deliveryplac!.state" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Postal Code</h4>
+            <p>{{delivery?.postal_code}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="postal code" 
+                [(ngModel)]="deliveryplac!.postal_code" *ngIf="onedit">
+        </span>
+        <span>
+            <h4>Country</h4>
+            <p>{{delivery?.country}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="country" 
+                [(ngModel)]="deliveryplac!.country" *ngIf="onedit">
+        </span>
+        <span>
+            <h2>Phone Number</h2>
+            <p>{{delivery?.phone_number}}</p>
+            <input type="text" name="" id="" class="inputs" placeholder="phon no" 
+                [(ngModel)]="deliveryplac!.phone_number" *ngIf="onedit">
+        </span>
+        <span *ngIf="delivery?.working_for_org">
+            <h2>Org Name</h2>
+            <h3>{{delivery?.org_name}}</h3>
+            <input type="text" name="" id="" class="inputs" placeholder="org name" 
+                [(ngModel)]="deliveryplac!.org_name" *ngIf="onedit">
+        </span>
+    </div>
+    <button (click)="changedeliverydet()" class="button-active" *ngIf="onedit">
+        Change Delivery Details</button>
+    <h2>Payment Details</h2>
+    <div *ngFor="let payment of delivery?.payment">
+        <span class="bar">
+            <h3>Account Name:</h3>
+            <p>{{payment.payment_account_first_name}} {{payment.payment_account_last_name}}</p>
+        </span>
+        <span class="bar">
+            <h3>Account Number</h3>
+            <p>{{payment.payment_account_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Card Number</h3>
+            <p>{{payment.card_number}}</p>
+        </span>
+        <span class="bar">
+            <h3>Expiry Date</h3>
+            <p>{{payment.card_expiry_date}}</p>
+        </span>
+        <span class="bar">
+            <h3>CVC</h3>
+            <p>{{payment.cvc}}</p>
+        </span>
+    </div>
+</div>
+

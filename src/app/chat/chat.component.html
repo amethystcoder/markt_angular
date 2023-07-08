@@ -1,0 +1,94 @@
+<div *ngIf="state == 'closed'" class="chatbox" (click)="openallchats()">
+<svg id="chatsvg" width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_30_23)">
+    <path d="M35 8.75C20.5377 8.75 8.75 20.5377 8.75 35C8.75 49.4623 20.5377 61.25 35 61.25V70.2677L39.4889 
+    67.3909C46.0101 63.2084 57.9018 54.1781 60.6632 40.4915C61.0413 38.7262 61.25 36.8893 61.25 35C61.25 
+    20.5377 49.4623 8.75 35 8.75ZM35 14.5833C46.3093 14.5833 55.4167 23.6907 55.4167 35C55.4167 36.4705 
+    55.2552 37.9032 54.9552 39.2952L54.9495 39.318L54.9438 39.3351C53.2109 47.9336 46.5838 54.2652 40.8333 
+    58.7378V54.8299L37.5521 55.2401C36.6743 55.3498 35.8281 55.4167 35 55.4167C23.6907 55.4167 14.5833 46.3093 
+    14.5833 35C14.5833 23.6907 23.6907 14.5833 35 14.5833Z" fill="#E94C2A"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_30_23">
+    <rect width="70" height="70" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+</div>
+<div *ngIf="state == 'all'" class="openchatbox">
+    <div class="messages-top-bar">
+        <h1>messages</h1>
+    </div>
+    <div class="messages-container">
+        <div *ngFor="let item of chats" class="messages" (click)="openchat(item)">
+            <div class="image-container">
+                <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
+                [alt]="item.user_name+'s profile image'" class="messanger-image">
+            </div>
+            <div class="message-details-container">
+                <h2>{{item.user_name}}</h2>
+                <p *ngIf="user_id == item.messages[item.messages.length-1].sent_from">
+                    You:
+                    <b>{{item.messages[item.messages.length-1].message}}</b>
+                </p>
+                <p *ngIf="user_id != item.messages[item.messages.length-1].sent_from">
+                    {{item.user_name}}:
+                    <b>{{item.messages[item.messages.length-1].message}}</b>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="state == 'selected'" class="openchatbox">
+    <div class="messages-top-bar">
+        <span>
+            <span></span>
+            <h3>Chat with {{selectedchatdetails!.user_name}}</h3>
+        </span>
+    </div>
+    <div class="selected-messages-container">
+        <div *ngFor="let message of selectedchatdetails!.messages" class="msg">
+            <div [class.chatsentcont]="message.sent_from == user_id" >
+                <span [class.chatsent]="message.sent_from == user_id" [class.chatreceived]="message.sent_to == user_id">
+                    <p>{{message.message}}</p>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="inputs-and-lists-cont">
+        <div id="messanger-image-list">
+            <div *ngFor="let item of chats" class="message-heads" (click)="openchat(item)">
+                <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
+                [alt]="item.user_name+'s profile image'" class="messanger-image">
+            </div>
+        </div>
+        <div id="contains-message-inputs-wt-sent">
+            <div id="contains-message-inputs">
+                <input type="text" placeholder="write a message" id="message-input-box">
+                <label for="message-file">
+                    <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_916_8)">
+                    <path d="M47.9992 60.8002C55.0685 60.8002 60.7992 55.0694 60.7992 48.0002C60.7992 40.9309 
+                    55.0685 35.2002 47.9992 35.2002C40.93 35.2002 35.1992 40.9309 35.1992 48.0002C35.1992 
+                    55.0694 40.93 60.8002 47.9992 60.8002Z" fill="rgb(78, 78, 78)"/>
+                    <path d="M36 8L28.68 16H16C11.6 16 8 19.6 8 24V72C8 76.4 11.6 80 16 80H80C84.4 80 88 76.4 
+                    88 72V24C88 19.6 84.4 16 80 16H67.32L60 8H36ZM48 68C36.96 68 28 59.04 28 48C28 36.96 36.96 
+                    28 48 28C59.04 28 68 36.96 68 48C68 59.04 59.04 68 48 68Z" fill="rgb(78, 78, 78)"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_916_8">
+                    <rect width="96" height="96" fill="white"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+                </label>
+                <input type="file" name="message-file" id="message-file" accept=".jpg,.png,.webp">
+            </div>
+            <span>
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" enable-background="new 0 0 16 16">
+                <path d="M0,9l4,1.5L6,16l2.861-3.82L14,14l2-14L0,9z M7.169,11.44l-0.916,2.485l-1.086-3.118l8.402-7.631L7.169,11.44z"/>
+               </svg>
+               </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+#user-link-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 220px;
+}
+#user-img-profile{
+    width: 14vw;
+    height: 14vw;
+    background-color: #d8dada;
+    border: hidden;
+    border-radius: 100%;
+}

@@ -1,0 +1,11 @@
+<h1>Categories</h1>
+<div class="catg-cont">
+    <div class="category-holder">
+        <div *ngFor="let cat of categories" class="button-active" (click)="setcatgory(cat)">{{cat}}</div>
+    </div>
+</div>
+<div class="product-search">
+    <label for="search-input" id="search-label">Search a product</label>
+    <input type="text" name="search-input" id="search-input" [(ngModel)]="searchquery" 
+    placeholder="search product" (input)="searchproduct()">
+</div>

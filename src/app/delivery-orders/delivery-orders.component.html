@@ -1,0 +1,30 @@
+<div class="content">
+    <h1>Orders close to you</h1>
+    <p>A list of orders that took place near you, click handle if you want to deliver the items or ignore
+        if you don't.
+    </p>
+    <a routerLink="/pendingorders/delivery">View pending deliveries</a>
+    <app-loader *ngIf="!deliveryorders.length"></app-loader>
+    <div *ngIf="deliveryorders.length">
+        <div *ngFor="let delivorders of deliveryorders" class="order-container">
+            <div class="order-cont-sec-one">
+                <img [src]="'http://localhost/markt_php/uploads/'+delivorders.product_image+'small.jpg'" alt=""
+                class="prod-img">
+            </div>
+            <div class="order-cont-sec-two">
+                <h2>{{delivorders.product_name}}</h2>
+                <span class="det-bar">
+                    <h3>Seller:</h3>
+                    <p class="h-light">{{delivorders.seller_name}}</p>
+                </span>
+                <span class="det-bar">
+                    <h3>Buyer:</h3>
+                    <p class="h-light">{{delivorders.buyer_name}}</p>
+                </span>
+                <span class="button-bar-far">
+                    <button class="button-active" (click)="handledelivery(delivorders)">Handle</button>
+                </span>
+            </div> 
+        </div>
+    </div>
+</div>

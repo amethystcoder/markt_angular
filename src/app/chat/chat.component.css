@@ -1,0 +1,118 @@
+#chatsvg{
+    width: 50px;
+    height: 50px;
+}
+.openchatbox{
+    width: 300px;
+    height: max-content;
+}
+.messages-top-bar{
+    width: 100%;
+    height: 10%;
+}
+.messages{
+    display: flex;
+    width: 100%;
+    height: max-content;
+    border-bottom: solid thin #e0e0e0;
+}
+.messages-container{
+    overflow-y: scroll;
+    width: 100%;
+    height: 90%;
+}
+.image-container{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.messanger-image{
+    background-color: rgb(110, 110, 110);
+    border: hidden;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.selected-messages-container{
+    height: 50vh;
+    overflow-y: scroll;
+    padding: 8px;
+}
+#contains-message-inputs-wt-sent{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+#contains-message-inputs{
+    display: flex;
+    width: 80%;
+    background-color: #c0c0c0;
+    border: hidden;
+    border-radius: 10px;
+    padding: 5px;
+    justify-content: space-between;
+}
+#message-input-box{
+    background-color: #c0c0c0;
+    color: black;
+    border:none;
+    height: 20px;
+    max-height: max-content;
+    width: 90%;
+}
+label{
+    height: 30px;
+}
+label>svg{
+    height: 100%;
+    width: 100%;
+}
+#message-input-box:focus-visible{
+    background-color: #c0c0c0;
+    color: black;
+    border:none;
+    outline: none;
+}
+#message-file{
+    display: none;
+}
+#messanger-image-list{
+    display: flex;
+    gap: 10px;
+    width: max-content;
+    height: max-content;
+}
+.message-details-container{
+    width: 80%;
+    height: 100%;
+}
+#inputs-and-lists-cont{
+    height: max-content;
+}
+.chatsent,.chatreceived{
+    padding: 10px;
+    border: hidden;
+    border-radius: 10px;
+    display: block;
+    width: max-content;
+}
+.chatsent{
+    border-bottom-right-radius: 0;
+    background-color: #c0c0c0;
+}
+.chatsent>p{
+    color: black;
+}
+.chatsentcont{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.chatreceived{
+    border-bottom-left-radius: 0;
+    background-color: #E94C24;
+}
+.chatreceived>p{
+    color: white;
+}

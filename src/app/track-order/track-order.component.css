@@ -1,0 +1,36 @@
+#track-main-container{
+    width: 80vw;
+}
+.map-cont{
+    position: relative;
+    width: 100%;
+}
+.floating-opts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: hidden;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+.info{
+    color: #E94C24;
+    font-weight: bolder;
+}
+#back-arrow-cont{
+    left: 50px;
+}
+#info-cont{
+    right: 50px;
+}
+.map{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(128, 128, 128);
+    z-index: -1; 
+}

@@ -1,0 +1,246 @@
+<div class="signup-container" [formGroup]="signupform">
+    <div class="nw-inputs-main" *ngIf="isslidablelarge(0)">
+        <div id="signup-img-container" class="illustr signup-child-one">
+            <div class="img-container"></div>
+        </div>
+        <div class="signup-child-two">
+            <h1>Sign up as {{states.user}}</h1>
+            <label for="username">{{states.userplaceholder}}</label>
+                <input type="text" name="username" id="username" formControlName="username" class="inputs">
+                <label for="password">password</label>
+                <input type="password" name="password" id="password" formControlName="password" class="inputs">
+                <label for="re_entered_password">Re-enter password</label>
+                <input type="password" name="re_entered_password" id="re_entered_password" formControlName="re_entered_password" 
+                class="inputs">
+                <h4>Sign up as</h4>
+                <div id="oth-choices"> 
+                    <div class="user-choice" [class.set]="usertype == 'buyer'" (click)="setuser('Buyer')">Buyer</div>
+                    <div class="user-choice" [class.set]="usertype == 'seller'" (click)="setuser('Seller')">Seller</div>
+                    <div class="user-choice" [class.set]="usertype == 'delivery'" (click)="setuser('Delivery')">Delivery</div> 
+                </div>
+                <button [disabled]="!passwordsame()" 
+                class="button-active" (click)="incsignuplevel()">Continue</button>
+                <span class="bar">
+                    <h4 style="margin: 0;">Have an account?</h4>
+                    <a href="" routerLink="/userauth">login here</a>
+                </span>
+            </div> 
+    </div> 
+    <div class="signup-sections" id="inp-sect-main" *ngIf="isslidablelarge(1)">
+        <div class="signup-child-one">
+            <div>
+                <span (click)="redsignuplevel()">
+                    <svg width="20" height="18" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 22.6066C11.0711 
+                        23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 
+                        12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 
+                        10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#E94C2A"/>
+                        </svg>
+                </span>
+                <h1>Add Profile</h1>
+                <div>
+                    <label for="profile-image-input" id="label-for-profile-image">
+                        <img id="user-image-display" [src]="profile_img_file | safe">
+                        Add a profile image
+                    </label>
+                    <input type="file" name="profile-image-input" id="profile-image-input" 
+                    accept=".jpeg,.jpg,.png,.webp" (change)="upload_profile_image($event)">
+                </div>
+                <div *ngIf="states.category_add_cont">
+                    <h3>What products or services does your business offer</h3>
+                    <!--Come back to finish this one-->
+                    <div class="categories-container">
+                        <div class="categories-list">
+                            <div class="button-active" *ngFor="let items of category_list">
+                                <span style="margin-right: 5px;">{{items}}</span> 
+                                <span (click)="removefromcategories(items)">x</span>
+                            </div>
+                            <div class="inv-button-active" (click)="setcatgadd()">Add +</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="signup-child-two">
+            <div>
+                <input type="email" name="email" id="email" formControlName="email" placeholder="email" class="inputs">
+                <input type="tel" name="phone" id="phone_number" formControlName="phone_number" placeholder="phone number"
+                class="inputs">
+                <!--Come back to finish this one-->
+                <div *ngIf="states.working_for_org_and_vehicle_type_add">
+                    <span>
+                        <h4>What kind of vehicle do you use</h4>
+                        <select name="vehicle-choice" id="vehicle-choice" class="inputs" formControlName="vehicle_type">
+                            <optgroup>
+                                <option value="100">Motorbike(Okada)</option>
+                                <option value="200">Car</option>
+                                <option value="300">Bus</option>
+                                <option value="400">Truck</option>
+                            </optgroup>
+                        </select>
+                    </span>
+                    <span>
+                        <h4>Do you work for a Logistics organization or are you solo</h4>
+                        <span>
+                            <span>
+                                Organization
+                                <input type="checkbox" class="checkboxes" [checked]="workingfororgdelivery == 'org'" (click)="setorg('org')" name="org-or-solo" formControlName="working_for_org">
+                            </span>
+                            <span>
+                                Solo
+                                <input type="checkbox" class="checkboxes" [checked]="workingfororgdelivery == ''" (click)="setorg('')" name="org-or-solo" formControlName="working_for_org">
+                            </span>
+                        </span>
+                        <input type="text" *ngIf="workingfororgdelivery == 'org'" name="org-name" id="org-name" placeholder="organization name" 
+                        class="inputs" formControlName="org_name">
+                    </span>
+                </div>
+                <div *ngIf="states.shop_desc_and_dir">
+                    <h3>Tell us what your shop is all about. For example, the type of products you sell, 
+                        your opening and closing hours and so on.
+                    </h3>
+                    <textarea name="description" id="description" placeholder="Add Shop Description" class="inputs"
+                    formControlName="description" rows="15"></textarea> 
+                </div>
+            </div>
+            <button class="button-active" (click)="incsignuplevel()" [disabled]="!basicinfofilled()">
+                Continue</button>
+        </div>
+    </div>
+    <div class="nw-inputs-main" *ngIf="isslidablelarge(2)">
+        <div class="illustr signup-child-one">
+            <div>
+                <span (click)="redsignuplevel()">
+                    <svg width="20" height="18" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 22.6066C11.0711 
+                        23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 
+                        12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 
+                        10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#E94C2A"/>
+                        </svg>
+                </span>
+                <h1>Add Location</h1>
+                <br>
+                <h3>Adding Location helps us to connect you to other users(buyer, seller) and other users 
+                    to you too, helps delivery personnel get to you easier and deliver products faster
+                </h3>
+                <div class="location-img-div"></div>
+            </div>
+        </div>
+        <div class="signup-child-two">
+            <h2>Add Location Manually</h2>
+            <div class="input-grid">
+                <span id="input-cont-one">
+                    <label for="house-no">House no</label>
+                    <br>
+                    <input type="number" name="house-no" id="house-no" class="grid-inputs" 
+                    formControlName="house_number">
+                </span>
+                <span id="input-cont-two">
+                    <label for="street">Street</label>
+                    <br>
+                    <input type="text" name="street" id="street" class="grid-inputs" formControlName="street">
+                </span>
+                <span id="input-cont-three">
+                    <label for="city">City</label>
+                    <br>
+                    <input type="text" name="city" id="city" class="grid-inputs" formControlName="city">
+                </span>
+                <span id="input-cont-four">
+                    <label for="state">State</label>
+                    <br>
+                    <input type="text" name="state" id="state" class="grid-inputs" formControlName="state">
+                </span>
+                <span id="input-cont-five">
+                    <label for="country">Country</label>
+                    <br>
+                    <input type="text" name="country" id="country" class="grid-inputs" 
+                    formControlName="country">
+                </span>
+                <span id="input-cont-six">
+                    <label for="postal-code">Postal Code</label>
+                    <br>
+                    <input type="number" name="postal-code" id="postal-code" class="grid-inputs" 
+                    formControlName="postal_code">
+                </span>
+            </div>
+            <div id="mid">
+                <h1>Or</h1>
+            </div>
+            <h3>Allow Markt to use your current location</h3>
+            <p id="set-location" (click)="uselocation()">set up</p>
+            <button class="button-active" (click)="incsignuplevel()">Continue</button>
+        </div>
+    </div>
+    <div class="nw-inputs-main" *ngIf="isslidablelarge(3)">
+        <div class="illustr signup-child-one">
+            <div>
+                <span (click)="redsignuplevel()">
+                    <svg width="20" height="18" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 22.6066C11.0711 
+                        23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 
+                        12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 
+                        10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#E94C2A"/>
+                        </svg>
+                </span>
+                <h1>Add Payment Details</h1>
+                <h4>Almost done. All that is left is to enter your payment details and you are all set</h4>
+                <div class="location-img-div"></div>
+            </div>
+        </div>
+        <div class="signup-child-two">
+            <div class="input-grid" formGroupName="payment_details">
+                <span id="accgrone">
+                    <label for="">Account Holder Name</label>
+                    <br>
+                    <input type="text" class="grid-inputs" name="payment-account-first-name" id="payment-account-first-name" 
+                    formControlName="payment_account_first_name">
+                </span>
+                <span id="accgrtwo">
+                    <label for="">Account Number (Optional)</label>
+                    <br>
+                    <input type="text" class="grid-inputs" name="payment-account-number" id="payment-account-number" 
+                    formControlName="payment_account_number" placeholder="1234567890">
+                </span>
+                <span id="accgrthree">
+                    <label for="">Card Number</label>
+                    <br>
+                    <input type="text" class="grid-inputs" name="card-number" id="card-number" 
+                    formControlName="card_number" placeholder="0000 0000 0000 0000">
+                </span>
+                <span id="accgrfour">
+                    <label for="">Expiry Date</label>
+                    <br>
+                    <input type="text" class="grid-inputs" name="card-expiry-date" id="card-expiry-date" 
+                    formControlName="card_expiry_date" (change)="adddatestroke()" placeholder="XX/XX">
+                </span>
+                <span id="accgrfive">
+                    <label for="">CVC</label>
+                    <br>
+                    <input type="text" class="grid-inputs" name="cvc" id="cvc" formControlName="cvc" 
+                    placeholder="###">
+                </span>
+            </div>
+            <button class="button-active" (click)="displayvalues()">Finish</button>
+        </div>
+    </div>
+    <div class="all-categories-display" *ngIf="states.catgshow">
+        <div id="all-categories-head">
+            <h1>All Categories</h1>
+            <span (click)="removecatgadd()">
+                <p>X</p>
+            </span>
+        </div>
+        <div id="all-categories-body">
+            <div *ngFor="let cat of allcategories" class="catg-cont" [style]="{
+                 backgroundColor: temp_cat_list.includes(cat) ? '#f7ae40' : 'white'
+                 }" (click)="addcat(cat)">
+                <span>
+                    {{cat}}
+                </span>
+            </div>
+        </div>
+        <div id="all-categories-footer">
+            <button (click)="mergecatgs()" class="button-active">Add</button>
+        </div>
+    </div>
+</div>

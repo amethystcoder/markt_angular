@@ -1,0 +1,55 @@
+<div class="content">
+    <div id="order-type-opt">
+        <span class="order-opt-container" (click)="settype('pending')">
+            <p [class.selected]="orderviewtype == 'pending'">Pending</p>
+        </span>
+        <span class="order-opt-container" (click)="settype('accepted')">
+            <p [class.selected]="orderviewtype == 'accepted'">Accepted</p>
+        </span>
+    </div>
+    <div class="orders-container" id="pending-order-cont" *ngIf="orderviewtype == 'pending'">
+        <h1>Pending Orders</h1>
+        <div class="orders">
+            <div *ngFor="let item of pendingorders" class="order">
+                <div id="order-main-details">
+                    <div>
+                        <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt=""
+                        class="product-order-image">
+                    </div>
+                    <div>
+                        <h2>{{item.product_name}}</h2>
+                        <h4>Qty:{{item.product_quantity}}</h4>
+                        <h6>From {{item.buyer_name}}</h6>
+                    </div>
+                </div>
+                <span>
+                    <button class="button-active" (click)="acceptorder(item)">
+                        Accept</button>
+                    <button class="button-active" (click)="declineorder(item)">
+                        Decline</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="orders-container" id="accepted-order-cont" *ngIf="orderviewtype == 'accepted'">
+        <h1>Accepted Orders</h1>
+        <div class="orders">
+            <div *ngFor="let item of acceptedorders" class="order">
+                <div id="order-main-details">
+                    <div>
+                        <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt=""
+                        class="product-order-image">
+                    </div>
+                    <div>
+                        <h2>{{item.product_name}}</h2>
+                        <h4>Qty:{{item.product_quantity}}</h4>
+                        <h6>From {{item.buyer_name}}</h6>
+                    </div>
+                </div>
+                <span>
+                    <button class="button-active">View Status</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+.catg-cont{
+    padding: 8px;
+    overflow-x: auto;
+}
+.category-holder{
+    display: flex;
+    width: max-content;
+}
+.product-search{
+    display: flex;
+    width: 80%;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-around;
+    position: sticky;
+    top: 0;
+    right: 0;
+}
+#search-label,#search-input{
+    color: darkslategray;
+    font-weight: bolder;
+}
+#search-input{
+    background-color: rgba(229, 229, 229);
+    border: hidden;
+    border-radius: 15px;
+    width: 60%;
+    padding: 15px;
+    color: darkslategray;
+    font-weight: bolder;
+}

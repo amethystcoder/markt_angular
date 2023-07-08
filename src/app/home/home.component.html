@@ -1,0 +1,62 @@
+<div class="content">
+    <div id="seller-det" *ngIf="usertype == 'seller'">
+        <div *ngIf="sellerproductlist.length == 0"></div>
+        <div *ngIf="sellerpendingorderlist.length == 0"></div>
+        <div id="orders-part" *ngIf="sellerpendingorderlist.length > 0">
+            <h2>New Orders</h2>
+            <div id="orders-container">
+                <div *ngFor="let item of sellerpendingorderlist" class="order">
+                    <div id="order-main-details">
+                        <div>
+                            <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt=""
+                            class="product-order-image">
+                        </div>
+                        <div>
+                            <h2>{{item.product_name}}</h2>
+                            <h4>Qty:{{item.product_quantity}}</h4>
+                            <h6>From {{item.buyer_name}}</h6>
+                        </div>
+                    </div>
+                    <span>
+                        <button class="button-active" (click)="acceptorder(item.order_id)">
+                            Accept</button>
+                        <button class="button-active" (click)="declineorder(item.order_id)">
+                            Decline</button>
+                    </span>
+                </div>
+            </div>
+        </div> 
+        <div id="products-part" *ngIf="sellerproductlist.length > 0">
+            <h2>Your Shop Products</h2>
+            <div class="products-container">
+                <div *ngFor="let item of sellerproductlist" class="product">
+                    <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'" 
+                    alt="" srcset="" class="product-image">
+                    <div class="product-details">
+                        <h3>{{item.product_name}}</h3>
+                        <span class="bar">
+                            <p>{{item.product_price}}</p>
+                            <div class="seperator"></div>
+                            <p>{{item.product_type}}</p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="buyer-det" *ngIf="usertype == 'buyer'">
+        <h2>One or more of your recent orders are already on their way</h2>
+        <div class="order-container">
+            <div *ngFor="let order of buyerorderlist" class="buyer-order-cont">
+                <div [style]="" class="buyer-order-img"></div>
+                <div class="buyer-order-det">
+                    <h3>{{order.product_name}}</h3>
+                    <h4>Sold by {{order.seller_shopname}}</h4>
+                    <p>qty: {{order.product_quantity}}</p>
+                </div>
+            </div>
+        </div>
+        <h4>Buy more products or services in the <a routerLink="/marketplace"> Marketplace</a></h4>
+    </div>
+</div>
+
