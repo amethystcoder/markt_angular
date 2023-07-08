@@ -8,9 +8,9 @@ export class UserstateService {
 
   constructor() { }
 
-  user_type = new BehaviorSubject<string>("seller")
+  user_type = new BehaviorSubject<string>("buyer")
   user_name = new BehaviorSubject<string>("")
-  user_id = new BehaviorSubject<string>("seller-64428fb75dc101.47953919")
+  user_id = new BehaviorSubject<string>("")
   user_profile_image = new BehaviorSubject<string>("")
 
   user_type_sub = this.user_type.asObservable()

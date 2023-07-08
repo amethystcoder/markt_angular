@@ -44,9 +44,16 @@ a{
     background-color: #a8a8a8;
     color: rgb(77, 77, 77);
 }
-.inv-button-active,.inv-nav-option{
+.inv-button-active{
     background-color: white;
     color: #E94C24;
+}
+.inv-nav-option{
+    width: 90%;
+    border: hidden;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 15px 0 15px 12px;
 }
 .inv-button-active{box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;}
 .inv-button-active,.button-active,.button-disable,button:disabled{
@@ -59,12 +66,9 @@ a{
     font-size:large;
     margin: 5px;
 }
-.nav-option,.inv-nav-option{
-    width: 90%;
-    border: hidden;
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 15px 0 15px 12px;
+.nav-option{
+    background-color: #E94C24;
+    color: white;
 }
 .main{
     display: flex;
