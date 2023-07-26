@@ -64,7 +64,7 @@
         </div>
         <div id="contains-message-inputs-wt-sent">
             <div id="contains-message-inputs">
-                <input type="text" placeholder="write a message" id="message-input-box">
+                <input type="text" placeholder="write a message" id="message-input-box" [(ngModel)]="newmessage">
                 <label for="message-file">
                     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_916_8)">
@@ -82,9 +82,9 @@
                     </defs>
                     </svg>
                 </label>
-                <input type="file" name="message-file" id="message-file" accept=".jpg,.png,.webp">
+                <input type="file" name="message-file" id="message-file" accept=".jpg,.png,.webp" (change)="add_image($event)">
             </div>
-            <span>
+            <span (click)="send()">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" enable-background="new 0 0 16 16">
                 <path d="M0,9l4,1.5L6,16l2.861-3.82L14,14l2-14L0,9z M7.169,11.44l-0.916,2.485l-1.086-3.118l8.402-7.631L7.169,11.44z"/>
                </svg>

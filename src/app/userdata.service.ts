@@ -68,6 +68,15 @@ export interface Favorite{
   favorite_id:string
 }
 
+export interface BuyerUncheckedItems{
+  cart_item_number:number,
+  order_item_number:number
+}
+
+export interface SellerUncheckedItems{
+  unattended_order_item_number:number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -126,6 +135,22 @@ export class UserdataService {
   getdeliverydata(deliveryid:string|null){
     return this.http.get<Delivery>(
       `http://localhost/markt_php/get_user_data.php?user_id=${deliveryid}&user_type=delivery`)
+    .pipe(
+      retry(2)
+    )
+  }
+
+  get_buyer_unchecked_items(buyerid:string){
+    return this.http.get<BuyerUncheckedItems>(
+      `http://localhost/markt_php/get_unchecked_items.php?user_id=${buyerid}&user_type=buyer`)
+    .pipe(
+      retry(2)
+    )
+  }
+
+  get_seller_unchecked_items(sellerid:string){
+    return this.http.get<SellerUncheckedItems>(
+      `http://localhost/markt_php/get_unchecked_items.php?user_id=${sellerid}&user_type=seller`)
     .pipe(
       retry(2)
     )

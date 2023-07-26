@@ -7,21 +7,30 @@
         <div routerLink="/home" routerLinkActive="nav-option"
         ariaCurrentWhenActive="page" class="inv-nav-option">Home</div>
 
+        <div routerLink="/buyer/productqueries" routerLinkActive="nav-option"
+        ariaCurrentWhenActive="page" class="inv-nav-option">Buyer Queries</div>
+
         <div routerLink="/orders/seller" routerLinkActive="nav-option"
-        ariaCurrentWhenActive="page" class="inv-nav-option">Orders</div>
+        ariaCurrentWhenActive="page" class="inv-nav-option">Orders 
+        <div *ngIf="sellerunattendedordernum">{{sellerunattendedordernum}}</div>
+    </div>
 
         <div routerLink="/products/seller" routerLinkActive="nav-option"
         ariaCurrentWhenActive="page" class="inv-nav-option">Products</div>
     </div>
     <div *ngSwitchCase="'buyer'">
-        <div routerLink="/home" routerLinkActive="nav-option"
-        ariaCurrentWhenActive="page" class="inv-nav-option">Home</div>
+        <div routerLink="/home" routerLinkActive="nav-option" 
+        ariaCurrentWhenActive="page" class="inv-nav-option">Home 
+        <div *ngIf="buyerordernum">{{buyerordernum}}</div>
+    </div>
 
         <div routerLink="/marketplace" routerLinkActive="nav-option"
         ariaCurrentWhenActive="page" class="inv-nav-option">Marketplace</div>
 
         <div class="inv-nav-option" routerLink="/basket" routerLinkActive="nav-option"
-        ariaCurrentWhenActive="page">Basket</div>
+        ariaCurrentWhenActive="page">Basket 
+        <div *ngIf="buyercartitemnum">{{buyercartitemnum}}</div>
+    </div>
 
         <div class="inv-nav-option" routerLink="/favorites" routerLinkActive="nav-option"
         ariaCurrentWhenActive="page">Favorites</div>

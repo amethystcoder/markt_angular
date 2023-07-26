@@ -16,7 +16,7 @@
                             <h4>Qty:{{item.product_quantity}}</h4>
                             <h6>From {{item.buyer_name}}</h6>
                         </div>
-                    </div>
+                    </div> 
                     <span>
                         <button class="button-active" (click)="acceptorder(item.order_id)">
                             Accept</button>
@@ -48,11 +48,24 @@
         <h2>One or more of your recent orders are already on their way</h2>
         <div class="order-container">
             <div *ngFor="let order of buyerorderlist" class="buyer-order-cont">
-                <div [style]="" class="buyer-order-img"></div>
+                <div [style]="" class="buyer-order-img">
+                    <!-- 'http://localhost/markt_php/uploads/'+order.product_image+'small.jpg' -->
+                </div>
                 <div class="buyer-order-det">
                     <h3>{{order.product_name}}</h3>
-                    <h4>Sold by {{order.seller_shopname}}</h4>
+                    <p *ngIf="order.accepted && order.received_by_delivery">
+                        <b>Status: </b>
+                    </p>
+                    <p *ngIf="order.accepted && !order.received_by_delivery">
+                        <b>Status: </b>Not Collected(Still with seller)
+                    </p>
+                    <p *ngIf="!order.accepted && order.seller_id"><b>Status: </b>Not yet accepted or declined</p>
+                    <p *ngIf="!order.accepted && !order.seller_id"><b>Status: </b>Order declined by Seller</p>
                     <p>qty: {{order.product_quantity}}</p>
+                    <span class="bar">
+                        <button class="button-active" (click)="opennewchat()">Chat with Seller</button>
+                        <button class="button-active" routerLink="/sellerview" [queryParams]="[order.seller_id]">Seller Info</button>
+                    </span>
                 </div>
             </div>
         </div>

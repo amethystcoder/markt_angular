@@ -18,6 +18,11 @@ export class TopbarComponent implements OnInit{
   }
 
   username:string = ""
+  sidebaropen = false
+
+  togglesidebar(){
+    this.sidebaropen = !this.sidebaropen
+  }
 
   logoutuser(){
     //TODO here we need to send a request to the server to stop the session
@@ -25,4 +30,5 @@ export class TopbarComponent implements OnInit{
     this.userstate.user_name.next("")
     this.router.navigate(["userauth"])
   }
+
 }

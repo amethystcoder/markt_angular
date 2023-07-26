@@ -1,4 +1,4 @@
-import { Component,DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserstateService } from './userstate.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
   styleUrls: ['./app.component.css'],
   providers: [UserstateService]
 })
-export class AppComponent implements DoCheck,OnInit{
+export class AppComponent implements OnInit{
   title = 'markt';
   user_type = ''
   username = ''
@@ -36,13 +36,8 @@ export class AppComponent implements DoCheck,OnInit{
 
   presentlocation = ""
 
-  ngDoCheck(): void {
-    
-  }
-
   antisidebars = ["/new","/userauth","/passwordretrieval"]
   antitopbars = ["/new","/userauth","/account","/passwordretrieval"]
   antichats = ["/new","/userauth","/account","/passwordretrieval"]
-
 
 }

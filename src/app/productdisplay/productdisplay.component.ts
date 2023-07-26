@@ -32,6 +32,8 @@ export class ProductdisplayComponent implements OnInit{
 
   userid = ""
 
+  productaddedtocart = false
+
   producttodisplay!: Product;
   likeproduct: Product[] = []
 
@@ -83,7 +85,7 @@ export class ProductdisplayComponent implements OnInit{
     }
     this.productservice.additemtocart(this.userid,this.usertype,newcartitem)
     .subscribe((data)=>{
-      console.log(data)
+      this.productaddedtocart = data
     })
   }
 

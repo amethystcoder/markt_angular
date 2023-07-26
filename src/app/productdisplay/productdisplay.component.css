@@ -105,6 +105,11 @@
 .change-image:hover>svg{
     opacity: 1;
 }
+baskt-add:disabled{
+    color: green;
+    background-color: white;
+    border-color: green;
+}
 @media screen and (max-width:800px){
     .viewing{
         width: fit-content;

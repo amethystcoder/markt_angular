@@ -11,4 +11,8 @@
     background-color: #d8dada;
     border: hidden;
     border-radius: 100%;
+    cursor: pointer;
+}
+.inv-nav-option{
+    cursor: pointer;
 }

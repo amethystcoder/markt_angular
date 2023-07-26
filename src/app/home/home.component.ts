@@ -58,6 +58,8 @@ export class HomeComponent implements OnInit{
     this.orderapi.declineorder(orderid,this.userid,'seller')
     .subscribe((data)=>{
       console.log(data)
-    })
+    }) 
   }
+
+  opennewchat(){} 
 }

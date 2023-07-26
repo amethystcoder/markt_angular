@@ -1,13 +1,13 @@
 <div [class.main]="!antisidebars.includes(presentlocation)">
     <div class="sidebar-container" *ngIf="!antisidebars.includes(presentlocation)"> 
         <app-sidebar></app-sidebar>
-    </div>
+    </div> 
     <div id="sidebar-slater" *ngIf="!antisidebars.includes(presentlocation)"></div>
     <div class="nav-output-cont">
         <app-topbar *ngIf="!antitopbars.includes(presentlocation)"></app-topbar>
         <router-outlet></router-outlet>
     </div>
     <div class="chatbox" *ngIf="!antichats.includes(presentlocation)">
-        <app-chat></app-chat>
+        <app-chat></app-chat> 
     </div>
 </div>

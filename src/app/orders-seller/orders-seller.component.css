@@ -9,6 +9,9 @@
     padding-left: 10px;
     border-right: #bababa solid thin;
 }
+.order-opt-container>p{
+    cursor: pointer;
+}
 .selected{
     color: #E94C24;
 }

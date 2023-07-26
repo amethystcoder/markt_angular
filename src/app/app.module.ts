@@ -32,6 +32,7 @@ import { SellerPageComponent } from './seller-page/seller-page.component';
 import { RetrievePasswordComponent } from './retrieve-password/retrieve-password.component';
 import { ChatComponent } from './chat/chat.component';
 import { LoaderComponent } from './loader/loader.component';
+import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { LoaderComponent } from './loader/loader.component';
     SellerPageComponent,
     RetrievePasswordComponent,
     ChatComponent,
-    LoaderComponent
+    LoaderComponent,
+    BuyerQueryComponent
   ],
   imports: [
     BrowserModule,

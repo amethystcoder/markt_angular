@@ -16,6 +16,7 @@ import { PendingDeliveriesComponent } from './pending-deliveries/pending-deliver
 import { TrackOrderComponent } from './track-order/track-order.component';
 import { SellerPageComponent } from './seller-page/seller-page.component';
 import { RetrievePasswordComponent } from './retrieve-password/retrieve-password.component';
+import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 
 const routes: Routes = [
   {path:"new",component:SignupComponent},
@@ -32,7 +33,8 @@ const routes: Routes = [
   {path:"pendingorders/delivery",component:PendingDeliveriesComponent},
   {path:"ordertrack",component:TrackOrderComponent},
   {path:"sellerview",component:SellerPageComponent},
-  {path:"passwordretrieval",component:RetrievePasswordComponent}
+  {path:"passwordretrieval",component:RetrievePasswordComponent},
+  {path:"buyer/productqueries",component:BuyerQueryComponent}
 ];
 
 @NgModule({

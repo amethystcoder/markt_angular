@@ -6,8 +6,21 @@
     </span>
     <span class="user-set-cont user-contrl-cont">
         <h2>Logged in as {{username}}</h2>  
-        <a id="logout-link" (click)="logoutuser()">Logout</a>
+        <a class="logout-link" (click)="logoutuser()">Logout</a>
     </span>
 </div>
-
- 
+<div id="top-bar-small">
+    <span class="user-set-cont">
+        <span>
+            <h2>Markt</h2>
+        </span>
+    </span>
+    <span class="hamburger-cont" (click)="togglesidebar()">
+        <span class="hamburger" id="long"></span>
+        <span class="hamburger" id="short"></span>
+    </span>
+    <div class="container-for-sidebar" *ngIf="sidebaropen">
+        <app-sidebar></app-sidebar>
+        <a class="logout-link" (click)="logoutuser()">Logout</a>
+    </div>
+</div>

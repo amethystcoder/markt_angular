@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OrderApiService, Orders, UnacceptedOrders } from '../order-api.service';
-import { ProductApiService } from '../product-api.service';
 import { UserstateService } from '../userstate.service';
 
 @Component({
@@ -19,13 +18,11 @@ export class OrdersSellerComponent implements OnInit{
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
     })
-    this.order_api.getacceptedorders(this.userid)
-    .subscribe((orders)=>{
-      this.acceptedorders = orders
-    })
-    this.order_api.getpendingorders(this.userid)
-    .subscribe((orders)=>{
+    this.order_api.getpendingorders(this.userid).subscribe((orders)=>{
       this.pendingorders = orders
+    })
+    this.order_api.getacceptedorders(this.userid).subscribe((orders)=>{
+      this.acceptedorders = orders 
     })
   }
 

@@ -7,7 +7,7 @@ body{
     margin: 0;
     /* overflow-x: hidden; */
 }
-h1,h2,h3,h4,h5,h6,button,label{
+h1,h2,h3,h4,h5,h6,label,button{
     font-weight:500;
 }
 h1,h2,h3,h4,h5,h6,p,li,ul,div,input,button,textarea{
@@ -55,6 +55,16 @@ a{
     border-bottom-right-radius: 25px;
     padding: 15px 0 15px 12px;
 }
+.inv-nav-option>div{
+    display: inline;
+    padding-left: 6px;
+    padding-right: 6px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    position: relative;
+    right: -100px;
+}
 .inv-button-active{box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;}
 .inv-button-active,.button-active,.button-disable,button:disabled{
     display: flex;
@@ -63,29 +73,35 @@ a{
     padding: 7px 12px 7px 12px;
     width: max-content;
     height: max-content;
-    font-size:large;
+    font-size:medium;
     margin: 5px;
 }
 .nav-option{
     background-color: #E94C24;
     color: white;
+    cursor: pointer;
+}
+.nav-option>div{
+    display: none;
 }
 .main{
     display: flex;
     overflow-y: hidden;
     overflow-x: hidden;
-    width: 100vw;
 }
 .content{
     width: 80vw;
 }
-.sidebar-container,#sidebar-slater{
+.sidebar-container{
     width: 20%;
     height: 100%;
     background-color: white;
 }
 .sidebar-container{
     position: fixed;
+}
+#sidebar-slater{
+    padding-left: 20vw;
 }
 .product-image{
     width: 100%;
@@ -140,4 +156,23 @@ button,.product{
         margin-left: 0;
     }
 }
-
+/* @keyframes cutbackandxone {
+    0%{width: 45px;}
+    40%{width:0;}
+    50%{transform: rotate(45deg);}
+    100%{width: 45px;}
+}
+@keyframes cutbackandxtwo {
+    0%{width: 30px;}
+    40%{width:0;}
+    50%{transform: rotate(135deg);}
+    100%{width: 45px;}
+} */
+/* @keyframes identifier {
+    from{width: 0;}
+    to{width:45px}
+}
+@keyframes identifier {
+    from{width: 0;}
+    to{width:45px}
+} */

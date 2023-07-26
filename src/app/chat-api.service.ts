@@ -26,8 +26,6 @@ export interface Chats{
 }
 
 export interface Chat{
-  id:number,
-  message_id:string,
   sent_to:string,
   sent_from:string,
   status:string,
@@ -76,6 +74,7 @@ export class ChatApiService {
   messages = this.messagesubject.pipe(switchAll(),catchError(e => {throw e}))
 
   connect(conntype : {reconnect:boolean} = {reconnect:false}){
+    console.log("connecting")
     if(!this.subject || this.subject.closed){
       this.subject = this.newsocketconnection()
       const messages = this.subject.pipe(
@@ -87,7 +86,12 @@ export class ChatApiService {
         catchError(err => EMPTY)
       )
       this.messagesubject.next(messages)
+      console.log("connected")
     }
+  }
+
+  initializewsuser(user_id:string){
+    this.subject.next(JSON.stringify({register_id:user_id}))
   }
 
   newsocketconnection(){
@@ -110,6 +114,7 @@ export class ChatApiService {
 
   message(message:Chat){
     this.subject.next(JSON.stringify(message))
+    console.log("sent")
   }
 
   closeconn(){

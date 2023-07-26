@@ -63,6 +63,7 @@ export interface BuyerOrders{
   product_image:string,
   buyer_id:string,
   buyer_name:string
+  received_by_delivery:boolean
 }
 
 export interface SuccessfulOrder{
@@ -191,4 +192,6 @@ export class OrderApiService {
       retry(2)
     )
   }
+
+  get_buyer_queries(){}
 }

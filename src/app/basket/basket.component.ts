@@ -23,6 +23,7 @@ export class BasketComponent implements OnInit{
     })
     this.productapi.getbuyerbasketitems(this.userid,this.usertype)
     .subscribe((cartitems)=>{
+      console.log(cartitems)
       this.buyercart = cartitems
     })
   }
@@ -37,6 +38,7 @@ export class BasketComponent implements OnInit{
     .subscribe((result)=>{
       if(result)
         this.buyercart.splice(this.buyercart.indexOf(cartitem),1)
+        this.userstate.cartitems.next(this.buyercart)
     })
   }
 

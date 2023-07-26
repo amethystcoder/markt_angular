@@ -20,7 +20,7 @@
                 <button class="button-active">Chat Seller</button>
                 <button class="button-active">Favorite</button>
             </span>
-            <button class="baskt-add button-active" (click)="addtocart()">Add to Basket</button>
+            <button class="baskt-add button-active" [disabled]="productaddedtocart" (click)="addtocart()">Add to Basket</button>
             <div id="prod-desc">
                 <h1>Product description</h1>
                 <p>{{producttodisplay.product_description}}</p>

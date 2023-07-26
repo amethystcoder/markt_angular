@@ -171,13 +171,13 @@ export class ProductApiService {
     )
   }
 
-  additemtocart(buyerid:string,usertype:string,item:CartItem){
+  additemtocart(buyerid:string,usertype:string,item:CartItem):Observable<boolean>{
     let cartdata = new FormData()
     cartdata.append("user_id",buyerid)
     cartdata.append("user_type",usertype)
     cartdata.append("product_id",item.product_id)
     cartdata.append("quantity",item.quantity.toString())
-    return this.http.post("http://localhost/markt_php/add_to_cart.php",cartdata)
+    return this.http.post<boolean>("http://localhost/markt_php/add_to_cart.php",cartdata)
     .pipe(
       retry(1)
     )
