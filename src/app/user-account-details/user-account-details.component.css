@@ -31,3 +31,14 @@
 #profile_image_uploader{
     display: none;
 }
+@media screen and (max-width:800px){
+    .main-user-det-cont{
+        flex-direction: column;
+    }
+    .basc-info{
+        display: block;
+    }
+    .small-to-center{
+        text-align:center
+    }
+}

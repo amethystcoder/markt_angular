@@ -23,8 +23,6 @@ export class FavoritesComponent implements OnInit{
     this.userdata.getbuyerfavorites(this.userid,this.usertype)
     .subscribe((favorites)=>{
       this.allfavorites = favorites
-      this.favoritessellertype = this.allfavorites.filter((favorite) => {favorite.favorite_type = "seller"})
-      this.favoritesproducttype = this.allfavorites.filter((favorite) => {favorite.favorite_type = "product"})
     })
   }
 
@@ -32,7 +30,9 @@ export class FavoritesComponent implements OnInit{
   usertype = ""
 
   allfavorites:Favorite[] = []
-  favoritessellertype:Favorite[] = []
-  favoritesproducttype:Favorite[] = []
+
+  previous(){
+    this.userstate.previouspage()
+   }
 
 }

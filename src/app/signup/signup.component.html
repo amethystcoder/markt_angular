@@ -48,7 +48,6 @@
                 </div>
                 <div *ngIf="states.category_add_cont">
                     <h3>What products or services does your business offer</h3>
-                    <!--Come back to finish this one-->
                     <div class="categories-container">
                         <div class="categories-list">
                             <div class="button-active" *ngFor="let items of category_list">
@@ -223,24 +222,5 @@
             <button class="button-active" (click)="displayvalues()">Finish</button>
         </div>
     </div>
-    <div class="all-categories-display" *ngIf="states.catgshow">
-        <div id="all-categories-head">
-            <h1>All Categories</h1>
-            <span (click)="removecatgadd()">
-                <p>X</p>
-            </span>
-        </div>
-        <div id="all-categories-body">
-            <div *ngFor="let cat of allcategories" class="catg-cont" [style]="{
-                 backgroundColor: temp_cat_list.includes(cat) ? '#f7ae40' : 'white'
-                 }" (click)="addcat(cat)">
-                <span>
-                    {{cat}}
-                </span>
-            </div>
-        </div>
-        <div id="all-categories-footer">
-            <button (click)="mergecatgs()" class="button-active">Add</button>
-        </div>
-    </div>
+   <app-category-list *ngIf="states.catgshow" (lister)="mergecatgs($event)" [state]="'categories'"></app-category-list>
 </div>

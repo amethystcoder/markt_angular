@@ -1,0 +1,32 @@
+<div class="all-categories-display">
+    <div id="all-categories-head">
+        <h1>All Categories</h1>
+        <span (click)="removecatgadd()">
+            <p>X</p>
+        </span>
+    </div>
+    <div class="all-categories-body" *ngIf="state == 'categories'">
+        <div *ngFor="let cat of maincategories" class="catg-cont" [style]="{
+            backgroundColor: temp_cat_list.includes(cat) ? '#f7ae40' : 'white'
+            }" (click)="addcat(cat)">
+           <span>
+               {{cat}} 
+           </span>
+       </div>
+    </div>
+    <div class="all-categories-body" *ngIf="state == 'tags'">
+        <div *ngFor="let maincat of allcategories">
+            <h1>{{maincat.name}}</h1>
+            <div *ngFor="let cat of maincat.tags" class="catg-cont" [style]="{
+                backgroundColor: temp_tag_list.includes(cat.name) ? '#f7ae40' : 'white'
+                }" (click)="addtag(cat.name)">
+                <span>
+                    {{cat.name}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="all-categories-footer">
+        <button (click)="mergecatgs()" class="button-active">Add</button>
+    </div>
+</div>

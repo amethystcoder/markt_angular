@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EMPTY, Observable, Subject, catchError, delayWhen, retry, retryWhen, switchAll, tap, timer } from 'rxjs';
-import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
+import { EMPTY, Observable, Subject, retry } from 'rxjs';
 
 export interface Comment{
   comment_body:string,
@@ -12,8 +11,17 @@ export interface Comment{
   rating:number
 }
 
+export interface RetrievedComment{
+  comment_body:string,
+  comment_place:string,
+  comment_place_id:string,
+  commenter:string,
+  comment_title:string,
+  rating:number
+}
+
 export interface Review{
-  comments:Comment[],
+  comments:RetrievedComment[],
   rating:number
 }
 
@@ -22,7 +30,7 @@ export interface Chats{
   user_name:string,
   user_profile_image:string,
   user_type:string,
-  messages:Chat[]
+  messages:any[]
 }
 
 export interface Chat{
@@ -69,56 +77,45 @@ export class ChatApiService {
     )
   }
 
-  private subject!:WebSocketSubject<any>
-  private messagesubject = new Subject<any>()
-  messages = this.messagesubject.pipe(switchAll(),catchError(e => {throw e}))
+  subject!: WebSocket;
+  messagesobservable:Subject<any> = new Subject<any>()
 
-  connect(conntype : {reconnect:boolean} = {reconnect:false}){
-    console.log("connecting")
-    if(!this.subject || this.subject.closed){
-      this.subject = this.newsocketconnection()
-      const messages = this.subject.pipe(
-        conntype.reconnect? this.reconnect : o => o,
-        tap({
-          error: err => console.log(err),
-          next: next => console.log(next)
-        }),
-        catchError(err => EMPTY)
-      )
-      this.messagesubject.next(messages)
-      console.log("connected")
+  connectws(){
+    if (!this.subject) {
+      this.subject = new WebSocket("ws://localhost:8080")
+      this.subject.onmessage = (message)=>{
+        this.messagesobservable.next(message.data)
+        console.log(message.data);
+      }
+      this.subject.onerror = (err)=>{
+        console.error(err);
+      }
+      this.subject.onopen = (ev)=>{
+        console.log(ev)
+      }
     }
   }
-
-  initializewsuser(user_id:string){
-    this.subject.next(JSON.stringify({register_id:user_id}))
+  
+  initializenewuser(user_id:string){
+    if (this.subject.readyState == this.subject.CLOSED || this.subject.readyState == this.subject.CLOSING) {
+      this.connectws()
+    }
+    let registr = {
+      register_id:user_id
+    }
+    this.subject.send(JSON.stringify(registr))
   }
 
-  newsocketconnection(){
-    return webSocket({
-      url:"ws://localhost:8080",
-      closeObserver: {
-        next: () => {
-          this.connect({reconnect:true})
-        }
-      }
-    })
+  sendmessage(message:any){
+    if (this.subject.readyState == this.subject.CLOSED || this.subject.readyState == this.subject.CLOSING) {
+      this.connectws()
+    }
+    this.subject.send(JSON.stringify(message))
   }
 
-  reconnect(observable : Observable<any>):Observable<any>{
-    return observable.pipe(
-      retry(2),
-      delayWhen(_ => timer(4000))
-    )
+  closeconnection(){
+    this.subject.close()
   }
 
-  message(message:Chat){
-    this.subject.next(JSON.stringify(message))
-    console.log("sent")
-  }
-
-  closeconn(){
-    this.subject.complete()
-  }
 
 }

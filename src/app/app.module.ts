@@ -33,6 +33,7 @@ import { RetrievePasswordComponent } from './retrieve-password/retrieve-password
 import { ChatComponent } from './chat/chat.component';
 import { LoaderComponent } from './loader/loader.component';
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
+import { CategoryListComponent } from './category-list/category-list.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
     RetrievePasswordComponent,
     ChatComponent,
     LoaderComponent,
-    BuyerQueryComponent
+    BuyerQueryComponent,
+    CategoryListComponent
   ],
   imports: [
     BrowserModule,

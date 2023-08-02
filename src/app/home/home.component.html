@@ -45,6 +45,29 @@
         </div>
     </div>
     <div id="buyer-det" *ngIf="usertype == 'buyer'">
+        <div class="product-query-container">
+            <div>
+                <h1 id="in-header-text">Looking for something in particular?</h1>
+                <p>Type in the kind of product you are looking for or a description of the product 
+                    and have sellers respond to your requests.</p>
+            </div>
+            <div>
+                <textarea name="query-text" id="query-text" cols="30" rows="10" 
+                [placeholder]="'e.g '+queryplaceholder" [(ngModel)]="query">
+                </textarea>
+                <span>
+                    <p id="und-p-text">Add a category you think the product would be in</p>
+                    <div id="query-catg-cont" *ngIf="buyerquerycategory.length">
+                        <div *ngFor="let item of buyerquerycategory" class="button-active">
+                            <span style="margin-right: 5px;">{{item}}</span> 
+                            <span (click)="removefromcategories(item)">x</span>
+                        </div>
+                    </div>
+                    <button class="inv-button-active" (click)="opencatgories()">add +</button>
+                </span>
+                <button class="submit-button inv-button-active" (click)="submitquery()">Submit</button>
+            </div>
+        </div>
         <h2>One or more of your recent orders are already on their way</h2>
         <div class="order-container">
             <div *ngFor="let order of buyerorderlist" class="buyer-order-cont">
@@ -72,4 +95,4 @@
         <h4>Buy more products or services in the <a routerLink="/marketplace"> Marketplace</a></h4>
     </div>
 </div>
-
+<app-category-list *ngIf="catgshow" (lister)="mergecatgs($event)" [state]="'categories'"></app-category-list>

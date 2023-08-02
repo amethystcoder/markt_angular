@@ -1,9 +1,4 @@
 <ng-container>
-    <!-- <form (ngSubmit)="onSubmit()" #form="ngForm">
-        <button type="submit" [disabled]="!form.form.valid">
-            Save
-        </button>
-    </form> -->
     <div  id="new-prod-cont">
         <div class="in-new-prod-cont">
             <span (click)="removecomponent()">
@@ -58,7 +53,7 @@
                         <span (click)="removefromcategories(item)">x</span>
                     </div>
                 </div>
-                <button class="inv-button-active" (click)="setcatgadd('category')">add +</button>
+                <button class="inv-button-active" (click)="setcatgadd('categories')">add +</button>
             </div>
             <div>
                 <h2>Add Tags</h2>
@@ -83,39 +78,9 @@
                 <input type="file" name="product_images" id="product_images" class="inputs" accept=".jpg,.png,.webp"
                 (change)="addtoimagesarray($event)">
             </div>
-            <button class="button-active" (click)="Submit()">Create Product</button>
+            <button class="button-active" *ngIf="!edit" (click)="Submit()">Create Product</button>
+            <button class="button-active" *ngIf="edit" (click)="Edit()">Edit Product</button>
         </div>
     </div>
-    <div class="all-categories-display" *ngIf="catgshow">
-        <div id="all-categories-head">
-            <h1>All Categories</h1>
-            <span (click)="removecatgadd()">
-                <p>X</p>
-            </span>
-        </div>
-        <div class="all-categories-body" *ngIf="catgtypeopened == 'tags'">
-            <div *ngFor="let maincat of allcategories">
-                <h1>{{maincat.name}}</h1>
-                <div *ngFor="let cat of maincat.tags" class="catg-cont" [style]="{
-                    backgroundColor: temp_tag_list.includes(cat.name) ? '#f7ae40' : 'white'
-                    }" (click)="addtag(cat.name)">
-                    <span>
-                        {{cat.name}}
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="all-categories-body" *ngIf="catgtypeopened == 'category'">
-            <div *ngFor="let cat of maincategories" class="catg-cont" [style]="{
-                backgroundColor: temp_cat_list.includes(cat) ? '#f7ae40' : 'white'
-                }" (click)="addcat(cat)">
-               <span>
-                   {{cat}}
-               </span>
-           </div>
-        </div>
-        <div id="all-categories-footer">
-            <button (click)="mergecatgs()" class="button-active">Add</button>
-        </div>
-    </div>
+    <app-category-list *ngIf="catgshow" (lister)="mergecatgs($event)" [state]="catgtypeopened"></app-category-list>
 </ng-container>

@@ -37,13 +37,10 @@ export class SignupComponent {
 
   category_list:Array<string> = []
 
-  temp_cat_list:Array<string> = []
-
   users = { buyer:false,seller:true,delivery:false}
 
   profile_img_file = ""
 
-  allcategories:Array<string> = []
 
   signupform = new FormGroup({
     username : new FormControl(''),
@@ -75,10 +72,6 @@ export class SignupComponent {
       cvc: new FormControl('')
     })
   })
-
-  addcat(category:string){
-    this.temp_cat_list.push(category)
-  }
 
   public setuser(user:string){
     switch(user){
@@ -157,25 +150,14 @@ export class SignupComponent {
     }
   }
 
-  mergecatgs(){
-    this.temp_cat_list.forEach((cat)=>{
+  mergecatgs(catgs:string[]){
+    catgs.forEach((cat)=>{
       this.category_list.push(cat)
     })
-    this.temp_cat_list = []
     this.states.catgshow = false
   }
 
-  removecatgadd(){
-    this.states.catgshow = false
-    this.temp_cat_list = []
-  } 
-
   setcatgadd(){
-    if(this.allcategories.length == 0){
-      this.productservice.getcategorynames().subscribe((data)=>{
-        this.allcategories = data
-      })
-    }
     this.states.catgshow = true
   }
 
@@ -193,6 +175,7 @@ export class SignupComponent {
   displayvalues(){
     this.signupform.controls.category.setValue(this.category_list.toString())
     this.signupform.controls.working_for_org.setValue(this.workingfororgdelivery)
+    console.log(this.signupform.value)
     this.signupservice.createnewuser(this.signupform.value,this.file,this.usertype)
     .subscribe((data)=>{
       console.log(data)

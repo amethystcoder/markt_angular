@@ -78,7 +78,7 @@ export class SignupandloginService {
     formdata.append("latitude",user.latitude)
     formdata.append("longtitude",user.longtitude)
     formdata.append("org_name",user.org_name)
-    formdata.append("payment_details",user.payment_details)
+    formdata.append("payment_details",JSON.stringify(user.payment_details))
     formdata.append("phone_number",user.phone_number)
     formdata.append("postal_code",user.postal_code)
     formdata.append("state",user.state)

@@ -3,7 +3,7 @@
         <app-sidebar></app-sidebar>
     </div> 
     <div id="sidebar-slater" *ngIf="!antisidebars.includes(presentlocation)"></div>
-    <div class="nav-output-cont">
+    <div [class.nav-output-cont]="presentlocation != '/userauth'"> 
         <app-topbar *ngIf="!antitopbars.includes(presentlocation)"></app-topbar>
         <router-outlet></router-outlet>
     </div>

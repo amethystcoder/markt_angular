@@ -98,7 +98,7 @@ export class UserdataService {
     favoriteformdata.append("favorite_type",favoritetype)
     favoriteformdata.append("favorite_id",favoriteid)
     favoriteformdata.append("control_type","add")
-    return this.http.post("http://localhost/markt_php/control_favorites.php",favoriteformdata)
+    return this.http.post<boolean>("http://localhost/markt_php/control_favorites.php",favoriteformdata)
     .pipe(
       retry(2)
     )
@@ -110,7 +110,7 @@ export class UserdataService {
     favoriteformdata.append("favorite_type",favoritetype)
     favoriteformdata.append("favorite_id",favoriteid)
     favoriteformdata.append("control_type","remove")
-    return this.http.post("http://localhost/markt_php/control_favorites.php",favoriteformdata)
+    return this.http.post<boolean>("http://localhost/markt_php/control_favorites.php",favoriteformdata)
     .pipe(
       retry(2)
     )

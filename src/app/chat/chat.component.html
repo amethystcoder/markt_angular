@@ -59,7 +59,7 @@
         <div id="messanger-image-list">
             <div *ngFor="let item of chats" class="message-heads" (click)="openchat(item)">
                 <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
-                [alt]="item.user_name+'s profile image'" class="messanger-image">
+                [alt]="item.user_name+'s profile image'" class="messanger-image" [title]="item.user_name">
             </div>
         </div>
         <div id="contains-message-inputs-wt-sent">

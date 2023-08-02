@@ -40,6 +40,19 @@ export interface CartItem{
   product_id:string
 }
 
+export interface ProductQuery{
+  query_id:string,
+  buyer_id:string, 
+  buyer_name:string,
+  city:string,
+  state:string,
+  date_created:string,
+  message:string, 
+  category:string,
+  stale_time:number,
+  profile_image:string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -163,6 +176,31 @@ export class ProductApiService {
     )
   }
 
+  //TODO: WORK HERE OOOOOOOOOO
+  editproduct(product:Product,images:File[]){
+    let formdata = new FormData()
+    formdata.append("product_id",product.product_id)
+    formdata.append("product_name",product.product_name)
+    formdata.append("product_type",product.product_type)
+    formdata.append("product_price",product.product_price.toString())
+    formdata.append("product_description",product.product_description)
+    formdata.append("product_category",product.product_category)
+    formdata.append("tags",product.tags.toString())
+    formdata.append("product_quantity",product.product_quantity.toString())
+    formdata.append("estimated_size",product.estimated_size.toString())
+    formdata.append("seller_id",product.seller_id)
+    formdata.append("desc_under",product.desc_under)
+    let n = 1
+    images.forEach((image)=>{
+      formdata.append("product_image"+n.toString(),image)
+      n++
+    })
+    return this.http.post("http://localhost/markt_php/sellerproductedit.php",formdata)
+    .pipe(
+      retry(1)
+    )
+  }
+
   getbuyerbasketitems(buyerid:string,usertype:string){
     return this.http.get<CartItem[]>(
       `http://localhost/markt_php/get_cart_items.php?user_id=${buyerid}&user_type=${usertype}`)
@@ -190,4 +228,55 @@ export class ProductApiService {
       retry(1)
     )
   }
+
+  createproductquery(message:string,buyer_id:string,category:string[]){
+    let querydata = new FormData()
+    querydata.append("buyer_id",buyer_id)
+    querydata.append("message",message)
+    querydata.append("category",category.toString())
+    return this.http.post<boolean>("http://localhost/markt_php/create_product_query.php",querydata)
+    .pipe(
+      retry(1)
+    )
+  }
+
+  getqueriesthroughcategory(category:string[]){
+    let categories_concatd = ""
+    category.forEach((catg)=>{
+      categories_concatd += catg
+      categories_concatd += "+"
+    })
+    return this.http.get(
+      `http://localhost/markt_php/get_product_queries.php?type=category&categories=${categories_concatd}`)
+    .pipe(
+      retry(1)
+    )
+  }
+
+  getbuyerqueries(buyer_id:string){
+    return this.http.get<ProductQuery[]>(
+      `http://localhost/markt_php/get_product_queries.php?type=buyer&buyer_id=${buyer_id}`)
+    .pipe(
+      retry(1)
+    )
+  }
+
+  getsellerqueries(seller_id:string){
+    return this.http.get<ProductQuery[]>(
+      `http://localhost/markt_php/get_product_queries.php?type=seller&seller_id=${seller_id}`)
+    .pipe(
+      retry(1)
+    )
+  }
+
+  deleteproduct(seller_id:string,product_id:string){
+    let productdata = new FormData()
+    productdata.append("seller_id",seller_id)
+    productdata.append("product_id",product_id)
+    return this.http.post<boolean>("http://localhost/markt_php/delete_product.php",productdata)
+    .pipe(
+      retry(1)
+    )
+  }
+
 }

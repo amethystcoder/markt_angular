@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Output, OnInit, EventEmitter } from '@angular/core';
 import { UserstateService } from '../userstate.service';
 import { UserdataService } from '../userdata.service';
 
@@ -12,9 +12,12 @@ export class SidebarComponent implements OnInit{
   ngOnInit(): void {
     this.userstate.user_type_sub.subscribe((usertype)=>{
       this.user = usertype
-    })
+    }) 
     this.userstate.user_id_sub.subscribe((usertype)=>{
       this.userid = usertype
+    })
+    this.userstate.user_name_sub.subscribe((username)=>{
+      this.username = username
     })
     this.userstate.user_profile_image_sub.subscribe((userprofileimage)=>{
       this.profile_image = userprofileimage
@@ -40,14 +43,21 @@ export class SidebarComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private userdata:UserdataService){ }
 
+  @Output() showstateemitter = new EventEmitter<boolean>();
+
   userid = ""
   user = ""
+  username = ""
   profile_image = ""
 
   buyercartitemnum = 0
   buyerordernum = 0
 
   sellerunattendedordernum = 0
+
+  sendtosmscreenclosestate(){
+    this.showstateemitter.emit(false)
+  }
 
 
 

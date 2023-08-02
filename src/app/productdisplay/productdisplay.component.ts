@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
 import { Product, ProductApiService,CartItem } from '../product-api.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserdataService } from '../userdata.service';
 
 @Component({
   selector: 'app-productdisplay',
@@ -11,21 +12,31 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductdisplayComponent implements OnInit{
 
   ngOnInit(): void {
-    let productid = this.actvroute.snapshot.queryParamMap.get("0")
-    this.productservice.getproduct(productid).subscribe((product)=>{
-      this.producttodisplay = product
-      this.productservice.searchcategory(this.producttodisplay?.product_category)
-        .subscribe((data)=>{
-          this.likeproduct = data
+    this.actvroute.queryParamMap.subscribe((b)=>{
+      let id = b.get("0")
+      this.productservice.getproduct(id).subscribe((product)=>{
+        this.producttodisplay = product
+        this.producttodisplay.product_images.forEach((image)=>{
+          if (image == "") {
+            this.producttodisplay.product_images.splice(
+              this.producttodisplay.product_images.indexOf(image),1)
+          }
+        })
+        this.productservice.searchcategory(this.producttodisplay?.product_category)
+          .subscribe((data)=>{
+            this.likeproduct = data
+          })
         })
     })
     this.userstate.user_id_sub.subscribe((id)=>{
       this.userid = id
     })
   }
+  
 
   constructor(private userstate:UserstateService,
-    private productservice:ProductApiService,private actvroute:ActivatedRoute){}
+    private productservice:ProductApiService,private actvroute:ActivatedRoute,
+    private userdataservice:UserdataService){}
 
   //work on getting this info form the userstate service pls
   usertype = "buyer"
@@ -33,9 +44,12 @@ export class ProductdisplayComponent implements OnInit{
   userid = ""
 
   productaddedtocart = false
+  productaddedtofavs = false
 
   producttodisplay!: Product;
   likeproduct: Product[] = []
+
+  basketbuttonstatetext = "Add to Basket"
 
   qty = 1
 
@@ -86,7 +100,23 @@ export class ProductdisplayComponent implements OnInit{
     this.productservice.additemtocart(this.userid,this.usertype,newcartitem)
     .subscribe((data)=>{
       this.productaddedtocart = data
+      this.basketbuttonstatetext = "Added"
     })
+  }
+
+  togglefavs(){
+    if(!this.productaddedtofavs){
+      this.userdataservice.addasfavorite(this.userid,"product",this.producttodisplay?.product_id)
+      .subscribe((added)=>{
+        this.productaddedtofavs = added
+      })
+    }
+    else{
+      this.userdataservice.removefavorite(this.userid,"product",this.producttodisplay?.product_id)
+      .subscribe((removed)=>{
+        this.productaddedtofavs = !removed
+      })
+    }
   }
 
   onscroll(){
@@ -97,5 +127,9 @@ export class ProductdisplayComponent implements OnInit{
         })
         })
   }
+
+  previous(){
+    this.userstate.previouspage()
+   }
 
 }

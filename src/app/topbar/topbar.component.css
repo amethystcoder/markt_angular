@@ -17,6 +17,10 @@
     width: 50%;
     justify-content: space-evenly;
 }
+.logo-icon{
+    width: 40px;
+    height: 40px;
+}
 @media screen and (max-width:800px){
     #top-bar{
         display: none;
@@ -24,6 +28,7 @@
     #top-bar-small{
         display: flex;
         align-items: center;
+        padding-bottom: 10px;
     }
     .hamburger-cont{
         width: max-content;
@@ -55,5 +60,16 @@
         background-color: white;
         width: 70vw;
         z-index: 2;
+        box-shadow: rgba(0, 0, 0, 0.25) 113px 54px 500px;
+        animation: slide 0.5s ease forwards;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    hr{
+        margin-bottom: 20px;
+    }
+    .logout-link{
+        font-size:large;
+        margin-left: 15px;
     }
 }

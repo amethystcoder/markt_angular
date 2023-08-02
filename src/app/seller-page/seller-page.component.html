@@ -1,4 +1,12 @@
 <div class="content">
+    <div (click)="previous()">
+        <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 
+            22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 
+            20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 
+            11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
+            </svg>
+    </div>
     <div class="contains-main">
         <div class="main-details">
             <h1>{{sellertoview.shopname}}</h1>
@@ -33,7 +41,23 @@
             </div>
             <span class="bar">
                 <button class="button-active">Chat</button>
-                <button class="button-active">Favorite</button>
+                <button [class.button-active]="!selleraddedtofavs" [class.fav-add]="selleraddedtofavs" (click)="togglefavs()">
+                    Favorite
+                    <svg *ngIf="selleraddedtofavs" id="fav-svg" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_30_27)">
+                        <path d="M39.9993 70.3337L35.166 65.9337C17.9993 50.367 6.66602 40.1003 6.66602 
+                        27.5003C6.66602 17.2337 14.7327 9.16699 24.9993 9.16699C30.7993 9.16699 36.366 11.867 
+                        39.9993 16.1337C43.6327 11.867 49.1993 9.16699 54.9993 9.16699C65.266 9.16699 73.3327 
+                        17.2337 73.3327 27.5003C73.3327 40.1003 61.9993 50.367 44.8327 65.967L39.9993 70.3337Z" 
+                        fill="#ff4545"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_30_27">
+                        <rect width="80" height="80" fill="white"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                </button>
             </span>
         </div> 
         <div class="main-image">
@@ -68,17 +92,18 @@
                 <p>No comments yet</p>
                 <p>Bought something from this seller before? Tell us how the experience was.</p>
             </div>
-            <div>
-                <div *ngFor="let comment of seller_review.comments" class="comments">
-                    <h2>{{comment.commenter}}</h2>
-                    <p>{{comment.comment_body}}</p>
-                </div>
-            </div>
             <span>
                 <h2>Comment on the seller</h2>
-                <textarea name="" id="" cols="30" rows="10" [(ngModel)]="usercomment"></textarea>
+                <textarea name="" id="comment-box" cols="30" rows="10" [(ngModel)]="usercomment"></textarea>
                 <button class="button-active" (click)="submitrating()">Submit</button>
             </span>
+        </div>
+        <div>
+            <h1>Comments</h1>
+            <div *ngFor="let comment of seller_review.comments" class="comments">
+                <h2>{{comment.commenter}}</h2>
+                <p>{{comment.comment_body}}</p>
+            </div>
         </div>
     </div>
     <div id="prods">
@@ -92,26 +117,6 @@
                 <h3>{{item.product_name}}</h3>
                 <span class="bar">
                     <p>{{item.product_price}}</p>
-                    <svg *ngIf="!item.favorite" (click)="togglefav(item)" width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_30_17)">
-                        <path d="M41.9023 8.12793C37.5523 8.12793 33.3773 10.1529 30.6523 13.3529C27.9273 10.1529 23.7523 8.12793 19.4023 8.12793C11.7023 8.12793 5.65234 14.1779 5.65234 21.8779C5.65234 31.3279 14.1523 39.0279 27.0273 50.7279L30.6523 54.0029L34.2773 50.7029C47.1523 39.0279 55.6523 31.3279 55.6523 21.8779C55.6523 14.1779 49.6023 8.12793 41.9023 8.12793ZM30.9023 47.0029L30.6523 47.2529L30.4023 47.0029C18.5023 36.2279 10.6523 29.1029 10.6523 21.8779C10.6523 16.8779 14.4023 13.1279 19.4023 13.1279C23.2523 13.1279 27.0023 15.6029 28.3273 19.0279H33.0023C34.3023 15.6029 38.0523 13.1279 41.9023 13.1279C46.9023 13.1279 50.6523 16.8779 50.6523 21.8779C50.6523 29.1029 42.8023 36.2279 30.9023 47.0029Z" fill="black"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_30_17">
-                        <rect width="60" height="60" fill="white" transform="translate(0.652344 0.62793)"/>
-                        </clipPath>
-                        </defs>
-                    </svg>
-                    <svg *ngIf="item.favorite" (click)="togglefav(item)" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_30_27)">
-                        <path d="M39.9993 70.3337L35.166 65.9337C17.9993 50.367 6.66602 40.1003 6.66602 27.5003C6.66602 17.2337 14.7327 9.16699 24.9993 9.16699C30.7993 9.16699 36.366 11.867 39.9993 16.1337C43.6327 11.867 49.1993 9.16699 54.9993 9.16699C65.266 9.16699 73.3327 17.2337 73.3327 27.5003C73.3327 40.1003 61.9993 50.367 44.8327 65.967L39.9993 70.3337Z" fill="#E94C2A"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_30_27">
-                        <rect width="80" height="80" fill="white"/>
-                        </clipPath>
-                        </defs>
-                    </svg>
                 </span>
             </div>
         </div>

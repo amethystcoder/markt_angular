@@ -5,6 +5,7 @@
 .openchatbox{
     width: 300px;
     height: max-content;
+    resize: vertical;
 }
 .messages-top-bar{
     width: 100%;
@@ -96,7 +97,8 @@ label>svg{
     border: hidden;
     border-radius: 10px;
     display: block;
-    width: max-content;
+    width: 60%;
+    max-width: max-content;
 }
 .chatsent{
     border-bottom-right-radius: 0;

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from './product-api.service';
 import { BuyerOrders, Orders, UnacceptedOrders } from './order-api.service';
@@ -8,7 +9,7 @@ import { BuyerOrders, Orders, UnacceptedOrders } from './order-api.service';
 })
 export class UserstateService {
 
-  constructor() { }
+  constructor(private location:Location) { }
 
   user_type = new BehaviorSubject<string>("buyer")
   user_name = new BehaviorSubject<string>("")
@@ -39,6 +40,10 @@ export class UserstateService {
     this.user_name.next(user_name)
     this.user_type.next(user_type)
     this.user_profile_image.next(user_profile_image)
+  }
+
+  previouspage(){
+    this.location.back()
   }
 
 }

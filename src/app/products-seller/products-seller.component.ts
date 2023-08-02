@@ -26,6 +26,8 @@ export class ProductsSellerComponent implements OnInit{
   usertype = ""
   userid = ""
 
+  toedit!: Product|undefined;
+
   sellerproducts:Product[] = []
 
   newproductcomponentopen = false
@@ -34,7 +36,21 @@ export class ProductsSellerComponent implements OnInit{
     this.newproductcomponentopen = true
   }
 
+  edit_product(item:Product){
+    this.toedit = item
+    this.opennewproductcomponent()
+  }
+
+  delete_product(item:Product){
+    this.productservice.deleteproduct(this.userid,item.product_id).subscribe((deleted)=>{
+      if(deleted){
+        this.sellerproducts.splice(this.sellerproducts.indexOf(item),1)
+      }
+    })
+  }
+
   setnewproductstate(ev:boolean){
     this.newproductcomponentopen = ev
+    this.toedit = undefined
   }
 }

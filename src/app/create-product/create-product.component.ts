@@ -9,24 +9,14 @@ import { Product,ProductApiService,Category } from '../product-api.service';
 export class CreateProductComponent implements OnInit{
 
   ngOnInit(): void {
-    this.productservice.getcategories().subscribe((categories)=>{
-      this.allcategories = categories
-    })
-    this.productservice.getcategorynames().subscribe((category_names)=>{
-      this.maincategories = category_names
-    })
-  }
-
-  Submit(){
-    this.newproduct.seller_id = this.seller_id
-    this.category_list.forEach((category)=>{
-      this.newproduct.product_category += category+","
-    })
-    this.newproduct.tags = this.tag_list
-    this.productservice.createproduct(this.newproduct,this.tempproductimages)
-    .subscribe((Responsebody)=>{
-      this.removecomponent()
-    })
+    if(this.edit){
+      this.newproduct = this.edit
+      this.tag_list = this.edit.tags
+      this.category_list = this.newproduct.product_category.split(",")
+      this.newproduct.product_images.forEach((image)=>{
+        this.addtoimagesarray(image)
+      })
+    }
   }
 
   constructor(private productservice:ProductApiService){}
@@ -34,60 +24,40 @@ export class CreateProductComponent implements OnInit{
   @Input()
   seller_id:string = ""
 
+  @Input()
+  edit!: Product|undefined;
+
   @Output() open = new EventEmitter<boolean>()
 
   removecomponent(){
     this.open.emit(false)
+    this.edit = undefined
   }
 
   types = ["good","service"]
 
-  maincategories:string[] = []
-
-  allcategories:Category[] = []
+  category_list:Array<string> = []
 
   catgshow = false
 
-  category_list:Array<string> = []
-
   tag_list:Array<string> = []
-
-  temp_cat_list:Array<string> = []
-
-  temp_tag_list:Array<string> = []
 
   tempproductimages:File[] = []
 
   image_links:string[] = []
 
-  addcat(category:string){
-    this.temp_cat_list.push(category)
-  }
-
-  addtag(tag:string){
-    this.temp_tag_list.push(tag)
-  }
-
-  mergecatgs(){
-    if(this.catgtypeopened == "category"){
-      this.temp_cat_list.forEach((cat)=>{
+  mergecatgs(catgs:string[]){
+    if(this.catgtypeopened == "categories"){
+      catgs.forEach((cat)=>{
         this.category_list.push(cat)
       })
     }
     if(this.catgtypeopened == "tags"){
-      this.temp_tag_list.forEach((tag)=>{
+      catgs.forEach((tag)=>{
         this.tag_list.push(tag)
       })
     }
-    this.temp_cat_list = []
-    this.temp_tag_list = []
     this.catgshow = false
-  }
-
-  removecatgadd(){
-    this.catgshow = false
-    this.temp_cat_list = []
-    this.temp_tag_list = []
   }
 
   removefromcategories(items:string){
@@ -98,20 +68,12 @@ export class CreateProductComponent implements OnInit{
     this.tag_list.splice(this.tag_list.indexOf(items),1)
   }
 
-  catgtypeopened:string = ""
-
-  setcatgadd(val:string){
-    this.catgtypeopened = val
-    if(this.allcategories.length == 0 || this.maincategories.length == 0){
-      this.productservice.getcategorynames().subscribe((data)=>{
-        this.maincategories = data
-      })
-      this.productservice.getcategories().subscribe((data)=>{
-        this.allcategories = data
-      })
-    }
+  setcatgadd(type:string){
+    this.catgtypeopened = type
     this.catgshow = true
   }
+
+  catgtypeopened:string = ""
 
   newproduct:Product = {
     product_id:"", 
@@ -131,9 +93,38 @@ export class CreateProductComponent implements OnInit{
   }
 
   addtoimagesarray(ev:any){
-    this.tempproductimages.push(ev.target?.files[0])
-    let url = URL.createObjectURL(ev.target?.files[0])
-    this.image_links.push(url)
+    if(typeof ev == 'string'){
+      this.image_links.push("http://localhost/markt_php/uploads/"+ev+"small.jpg")
+    }
+    else{
+      this.tempproductimages.push(ev.target?.files[0])
+      let url = URL.createObjectURL(ev.target?.files[0])
+      this.image_links.push(url)
+    }
+  }
+
+  Submit(){
+    this.newproduct.seller_id = this.seller_id
+    this.category_list.forEach((category)=>{
+      this.newproduct.product_category += category+","
+    })
+    this.newproduct.tags = this.tag_list
+    this.productservice.createproduct(this.newproduct,this.tempproductimages)
+    .subscribe((Responsebody)=>{
+      this.removecomponent()
+    })
+  }
+
+  Edit(){
+    this.newproduct.seller_id = this.seller_id
+    this.category_list.forEach((category)=>{
+      this.newproduct.product_category += category+","
+    })
+    this.newproduct.tags = this.tag_list
+    this.productservice.editproduct(this.newproduct,this.tempproductimages)
+    .subscribe((Responsebody)=>{
+      this.removecomponent()
+    })
   }
 
 }

@@ -23,7 +23,6 @@ export class BasketComponent implements OnInit{
     })
     this.productapi.getbuyerbasketitems(this.userid,this.usertype)
     .subscribe((cartitems)=>{
-      console.log(cartitems)
       this.buyercart = cartitems
     })
   }
@@ -47,4 +46,8 @@ export class BasketComponent implements OnInit{
       this.router.navigate(["home"])
     })
   } 
+
+  previous(){
+   this.userstate.previouspage()
+  }
 }

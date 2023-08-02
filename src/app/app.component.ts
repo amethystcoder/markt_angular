@@ -32,6 +32,14 @@ export class AppComponent implements OnInit{
     ).subscribe((ev:any) =>{
       this.presentlocation = ev.url
     })
+    navigator.geolocation.getCurrentPosition((position)=>{
+      console.log("long")
+      console.log(position.coords.longitude.toString());
+      console.log("lat")
+      console.log(position.coords.latitude.toString());
+      this.userstate.longtitude.next(position.coords.longitude)
+      this.userstate.latitude.next(position.coords.latitude)
+    })
   }
 
   presentlocation = ""

@@ -156,6 +156,10 @@ button,.product{
         margin-left: 0;
     }
 }
+@keyframes slide {
+    from{transform: translate(-500px);}
+    to{transform: translate(0);}
+}
 /* @keyframes cutbackandxone {
     0%{width: 45px;}
     40%{width:0;}

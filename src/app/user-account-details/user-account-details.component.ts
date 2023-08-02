@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Buyer, Delivery, Seller, UserdataService } from '../userdata.service';
 import { UserstateService } from '../userstate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-account-details',
@@ -19,7 +20,11 @@ export class UserAccountDetailsComponent implements OnInit{
     })
   }
 
-  constructor(private userdata:UserdataService,private userstate:UserstateService){ }
+  constructor(private userdata:UserdataService,private userstate:UserstateService,private router:Router){ }
+
+  previous(){
+    this.userstate.previouspage()
+   }
 
   upload_profile_image(event:any){
     this.userdata.updateuserprofileimage(this.usertype,this.userid,event.target?.files[0]).subscribe((data)=>{
@@ -27,6 +32,13 @@ export class UserAccountDetailsComponent implements OnInit{
         alert("profile image successfully changed")
       }
     })
+  }
+
+  logoutuser(){
+    //TODO here we need to send a request to the server to stop the session
+    this.userstate.user_id.next("")
+    this.userstate.user_name.next("")
+    this.router.navigate(["userauth"])
   }
 
   usertype = ""
@@ -72,21 +84,18 @@ export class UserAccountDetailsComponent implements OnInit{
 
   changebuyerdet(){
     this.userdata.updatebuyerdata(this.userid,this.buyerplac).subscribe((data)=>{
-      console.log(data)
       this.switchmode()
     })
   }
 
   changesellerdet(){
     this.userdata.updatesellerdata(this.userid,this.sellerplac).subscribe((data)=>{
-      console.log(data)
       this.switchmode()
     })
   }
 
   changedeliverydet(){
     this.userdata.updatedeliverydata(this.userid,this.deliveryplac).subscribe((data)=>{ 
-      console.log(data)
       this.switchmode()
     })
   }

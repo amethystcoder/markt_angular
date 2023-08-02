@@ -27,13 +27,19 @@ export class SellerPageComponent implements OnInit{
     this.userstate.user_name_sub.subscribe((data)=>{
       this.username = data
     })
+    this.userstate.user_id_sub.subscribe((data)=>{
+      this.userid = data
+    })
     this.commentservice.getcommentsandrating(this.sellerid,"Seller").subscribe((data)=>{
       this.seller_review = data
     })
   }
 
+  userid = ""
   sellerid = ""
   username = ""
+
+  selleraddedtofavs = false
 
   sellertoview!: Seller
   sellerproducts:Product[] = []
@@ -49,6 +55,25 @@ export class SellerPageComponent implements OnInit{
   togglefav(item:Product){
     item.favorite = !item.favorite
   }
+
+  previous(){
+    this.userstate.previouspage()
+   }
+
+  togglefavs(){
+  if(!this.selleraddedtofavs){
+    this.userdata.addasfavorite(this.userid,"seller",this.sellerid)
+    .subscribe((added)=>{
+      this.selleraddedtofavs = added
+    })
+  }
+  else{
+    this.userdata.removefavorite(this.userid,"seller",this.sellerid)
+    .subscribe((removed)=>{
+      this.selleraddedtofavs = !removed
+    })
+  }
+}
 
   comment: Comment = {
     comment_body:"",
