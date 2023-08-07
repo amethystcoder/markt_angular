@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Product, ProductApiService } from '../product-api.service';
-import { OrderApiService, UnacceptedOrders } from '../order-api.service';
+import { BuyerOrders, OrderApiService, Orders, UnacceptedOrders } from '../order-api.service';
 import { UserstateService } from '../userstate.service';
+import { Chats } from '../chat-api.service';
 
 @Component({
   selector: 'app-home',
@@ -110,5 +111,15 @@ export class HomeComponent implements OnInit,OnDestroy{
     })
   }
 
-  opennewchat(){} 
+  opennewchat(order:BuyerOrders){
+    let newchat:Chats = {
+      messages:[],
+      user_id:order.seller_id,
+      user_name:order.seller_shopname,
+      user_profile_image:"",
+      user_type:"seller",
+    }
+
+    this.userstate.newchatuser.next(newchat)
+  } 
 }

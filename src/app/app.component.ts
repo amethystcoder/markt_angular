@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserstateService } from './userstate.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { Chats } from './chat-api.service';
 
 @Component({
   selector: 'app-root',
@@ -32,16 +33,20 @@ export class AppComponent implements OnInit{
     ).subscribe((ev:any) =>{
       this.presentlocation = ev.url
     })
-    navigator.geolocation.getCurrentPosition((position)=>{
+    this.userstate.newchatuser_sub.subscribe((newchat)=>{
+      this.newbasechat = newchat
+    })
+    /* navigator.geolocation.getCurrentPosition((position)=>{
       console.log("long")
       console.log(position.coords.longitude.toString());
       console.log("lat")
       console.log(position.coords.latitude.toString());
       this.userstate.longtitude.next(position.coords.longitude)
       this.userstate.latitude.next(position.coords.latitude)
-    })
+    }) */
   }
 
+  newbasechat!: Chats;
   presentlocation = ""
 
   antisidebars = ["/new","/userauth","/passwordretrieval"]
