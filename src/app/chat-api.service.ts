@@ -84,8 +84,7 @@ export class ChatApiService {
     if (!this.subject) {
       this.subject = new WebSocket("ws://localhost:8080")
       this.subject.onmessage = (message)=>{
-        this.messagesobservable.next(message.data)
-        console.log(message.data);
+        this.messagesobservable.next(JSON.parse(message.data))
       }
       this.subject.onerror = (err)=>{
         console.error(err);

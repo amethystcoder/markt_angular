@@ -11,6 +11,10 @@
     width: 100%;
     height: 10%;
 }
+.bar{
+    display:flex;
+    align-items: center;
+}
 .messages{
     display: flex;
     width: 100%;
@@ -18,9 +22,7 @@
     border-bottom: solid thin #e0e0e0;
 }
 .messages-container{
-    overflow-y: scroll;
     width: 100%;
-    height: 90%;
 }
 .image-container{
     width: 20%;
@@ -36,9 +38,18 @@
     width: 50px;
     height: 50px;
 }
-.selected-messages-container{
+.messanger-image-cont>p{
+    display: none;
+    font-size: xx-small;
+}
+.messanger-image-cont:hover>p{
+    display: contents;
+}
+.selected-messages-container,.messages-container{
     height: 50vh;
     overflow-y: scroll;
+}
+.selected-messages-container{
     padding: 8px;
 }
 #contains-message-inputs-wt-sent{
@@ -63,6 +74,19 @@
     max-height: max-content;
     width: 90%;
 }
+#sender-cont{
+    width: 18%;
+    height: 35px;
+    border: hidden;
+    border-radius: 10px;
+}
+#sender-cont:hover{
+    background-color: #f7a996;
+}
+#sender-cont>svg{
+    width: 100%;
+    height: 100%;
+}
 label{
     height: 30px;
 }
@@ -82,8 +106,9 @@ label>svg{
 #messanger-image-list{
     display: flex;
     gap: 10px;
-    width: max-content;
     height: max-content;
+    border-top: solid thick #E94C24;
+    overflow-x: scroll;
 }
 .message-details-container{
     width: 80%;

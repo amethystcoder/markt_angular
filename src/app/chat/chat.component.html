@@ -17,7 +17,16 @@
 </div>
 <div *ngIf="state == 'all'" class="openchatbox">
     <div class="messages-top-bar">
-        <h1>messages</h1>
+        <span class="bar">
+            <span (click)="cancelchats()">
+                <svg width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="20.8896" y1="21.7656" x2="2.93464" y2="3.81056" stroke="black" stroke-width="4" stroke-linecap="round"/>
+                    <line x1="2.93464" y1="21.7656" x2="20.8896" y2="3.81056" stroke="black" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    
+            </span>
+            <h1>messages</h1>
+        </span>
     </div>
     <div class="messages-container">
         <div *ngFor="let item of chats" class="messages" (click)="openchat(item)">
@@ -26,14 +35,14 @@
                 [alt]="item.user_name+'s profile image'" class="messanger-image">
             </div>
             <div class="message-details-container">
-                <h2>{{item.user_name}}</h2>
+                <h2>{{clip(item.user_name,true)}}</h2>
                 <p *ngIf="user_id == item.messages[item.messages.length-1].sent_from">
                     You:
-                    <b>{{item.messages[item.messages.length-1].message}}</b>
+                    <b>{{clip(item.messages[item.messages.length-1].message)}}</b>
                 </p>
                 <p *ngIf="user_id != item.messages[item.messages.length-1].sent_from">
-                    {{item.user_name}}:
-                    <b>{{item.messages[item.messages.length-1].message}}</b>
+                    {{clip(item.user_name,true)}}:
+                    <b>{{clip(item.messages[item.messages.length-1].message)}}</b>
                 </p>
             </div>
         </div>
@@ -41,8 +50,16 @@
 </div>
 <div *ngIf="state == 'selected'" class="openchatbox">
     <div class="messages-top-bar">
-        <span>
-            <span></span>
+        <span class="bar">
+            <span (click)="baktoallchats()">
+                <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 
+                    22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 
+                    12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 
+                    1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 
+                    10.5V13.5L26 13.5V10.5Z" fill="black"/>
+                    </svg>
+            </span>
             <h3>Chat with {{selectedchatdetails!.user_name}}</h3>
         </span>
     </div>
@@ -58,8 +75,11 @@
     <div id="inputs-and-lists-cont">
         <div id="messanger-image-list">
             <div *ngFor="let item of chats" class="message-heads" (click)="openchat(item)">
-                <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
+                <span class="messanger-image-cont">
+                    <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
                 [alt]="item.user_name+'s profile image'" class="messanger-image" [title]="item.user_name">
+                <p>{{clip(item.user_name,true)}}</p>
+                </span>
             </div>
         </div>
         <div id="contains-message-inputs-wt-sent">
@@ -84,7 +104,7 @@
                 </label>
                 <input type="file" name="message-file" id="message-file" accept=".jpg,.png,.webp" (change)="add_image($event)">
             </div>
-            <span (click)="send()">
+            <span (click)="send()" id="sender-cont">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" enable-background="new 0 0 16 16">
                 <path d="M0,9l4,1.5L6,16l2.861-3.82L14,14l2-14L0,9z M7.169,11.44l-0.916,2.485l-1.086-3.118l8.402-7.631L7.169,11.44z"/>
                </svg>

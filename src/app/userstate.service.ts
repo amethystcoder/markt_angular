@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from './product-api.service';
 import { BuyerOrders, Orders, UnacceptedOrders } from './order-api.service';
+import { Chats } from './chat-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserstateService {
   buyerorders = new BehaviorSubject<BuyerOrders[]>([])
   sellerpendingorders = new BehaviorSubject<UnacceptedOrders[]>([])
   selleracceptedorders = new BehaviorSubject<Orders[]>([])
-  //chatstate = new BehaviorSubject<string>("closed")
+  newchatuser = new Subject<Chats>()
 
   user_type_sub = this.user_type.asObservable()
   user_name_sub = this.user_name.asObservable()
@@ -33,7 +34,7 @@ export class UserstateService {
   buyerorders_sub = this.buyerorders.asObservable()
   sellerpendingorders_sub = this.sellerpendingorders.asObservable()
   selleracceptedorders_sub = this.selleracceptedorders.asObservable()
-  //chatstate_sub = this.chatstate.asObservable()
+  newchatuser_sub = this.newchatuser.asObservable()
 
   setuser(user_type:string,user_name:string,user_id:string,user_profile_image:string){
     this.user_id.next(user_id)

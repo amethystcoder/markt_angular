@@ -8,7 +8,7 @@ import { Observable,Subject } from 'rxjs';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit,OnDestroy{
+export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   constructor(private userstate:UserstateService,private chatservice:ChatApiService){
     
@@ -21,16 +21,20 @@ export class ChatComponent implements OnInit,OnDestroy{
     this.chatservice.getchats(this.user_id).subscribe((data)=>{
       this.chats = data
     })
-    this.chatservice.connectws()
-    this.chatservice.initializenewuser(this.user_id)
     this.chatservice.messagesobservable.subscribe((message)=>{
-      this.chats.push(message)
+      //Here we need to get the user that sent the message if the message is not from the logged in user
+      //and add the messages to the message of that user
+      this.chats.forEach((chat)=>{
+        if(chat.user_id == message.sent_to || chat.user_id == message.sent_from){
+          chat.messages.push(message)
+        }
+      })
     })
   }
 
-  ngOnDestroy(): void {
+  /* ngOnDestroy(): void {
     this.chatservice.closeconnection()
-  }
+  } */
 
   newmessage = ""
 
@@ -48,7 +52,17 @@ export class ChatComponent implements OnInit,OnDestroy{
 
   openallchats(){
     this.state = "all"
+    this.chatservice.connectws()
+    this.chatservice.initializenewuser(this.user_id)
     //this.userstate.chatstate.next("all")
+  }
+
+  cancelchats(){
+    this.state = "closed"
+  }
+
+  baktoallchats(){
+    this.state = "all"
   }
   
   closeallchats(){
@@ -74,8 +88,14 @@ export class ChatComponent implements OnInit,OnDestroy{
       status:"",
       send_date_and_time:Date.now().toString()
     }
-    console.log(this.selectedchatdetails!.user_id,);
     this.chatservice.sendmessage(message_to_send)
+    this.newmessage = ""
+  }
+
+  clip(message:string,name=false){
+    if(!name)
+      return message.slice(0,15)+"..."
+    return message.split(" ")[0].slice(0,10)
   }
 
   closechat(){}

@@ -81,12 +81,12 @@
                     </p>
                     <p *ngIf="order.accepted && !order.received_by_delivery">
                         <b>Status: </b>Not Collected(Still with seller)
-                    </p>
+                    </p>order
                     <p *ngIf="!order.accepted && order.seller_id"><b>Status: </b>Not yet accepted or declined</p>
                     <p *ngIf="!order.accepted && !order.seller_id"><b>Status: </b>Order declined by Seller</p>
                     <p>qty: {{order.product_quantity}}</p>
                     <span class="bar">
-                        <button class="button-active" (click)="opennewchat()">Chat with Seller</button>
+                        <button class="button-active" (click)="opennewchat(order)">Chat with Seller</button>
                         <button class="button-active" routerLink="/sellerview" [queryParams]="[order.seller_id]">Seller Info</button>
                     </span>
                 </div>
