@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Seller,UserdataService } from '../userdata.service';
 import { Product, ProductApiService } from '../product-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChatApiService,Comment, Review } from '../chat-api.service';
+import { ChatApiService,Chats,Comment, Review } from '../chat-api.service';
 import { UserstateService } from '../userstate.service';
 
 @Component({
@@ -74,6 +74,18 @@ export class SellerPageComponent implements OnInit{
     })
   }
 }
+
+opennewchat(seller:Seller){
+  let newchat:Chats = {
+    messages:[],
+    user_id:this.sellerid,
+    user_name:seller.shopname,
+    user_profile_image:"",
+    user_type:"seller",
+  }
+
+  this.userstate.newchatuser.next(newchat)
+} 
 
   comment: Comment = {
     comment_body:"",

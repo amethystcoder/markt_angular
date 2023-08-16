@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductApiService, ProductQuery } from '../product-api.service';
 import { UserstateService } from '../userstate.service';
+import { Chats } from '../chat-api.service';
 
 @Component({
   selector: 'app-buyer-query',
@@ -48,5 +49,17 @@ export class BuyerQueryComponent implements OnInit{
       return Math.round(timesinceindays) == 1? Math.round(timesinceindays).toString() + " day ago":Math.round(timesinceindays).toString() + " days ago"
     }
   }
+
+  opennewchat(query:ProductQuery){
+    let newchat:Chats = {
+      messages:[],
+      user_id:query.buyer_id,
+      user_name:query.buyer_name,
+      user_profile_image:"",
+      user_type:"buyer",
+    }
+
+    this.userstate.newchatuser.next(newchat)
+  } 
 
 }

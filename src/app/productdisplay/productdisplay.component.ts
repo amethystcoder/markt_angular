@@ -3,6 +3,7 @@ import { UserstateService } from '../userstate.service';
 import { Product, ProductApiService,CartItem } from '../product-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserdataService } from '../userdata.service';
+import { Chats } from '../chat-api.service';
 
 @Component({
   selector: 'app-productdisplay',
@@ -131,5 +132,17 @@ export class ProductdisplayComponent implements OnInit{
   previous(){
     this.userstate.previouspage()
    }
+
+   opennewchat(product:Product){
+    let newchat:Chats = {
+      messages:[],
+      user_id:product.seller_id,
+      user_name:product.seller_name,
+      user_profile_image:"",
+      user_type:"seller",
+    }
+
+    this.userstate.newchatuser.next(newchat)
+  } 
 
 }

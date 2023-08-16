@@ -89,9 +89,6 @@ export class ChatApiService {
       this.subject.onerror = (err)=>{
         console.error(err);
       }
-      this.subject.onopen = (ev)=>{
-        console.log(ev)
-      }
     }
   }
   

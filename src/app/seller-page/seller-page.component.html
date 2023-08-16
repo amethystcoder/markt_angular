@@ -40,7 +40,7 @@
                 <span></span>
             </div>
             <span class="bar">
-                <button class="button-active">Chat</button>
+                <button class="button-active" (click)="opennewchat(sellertoview)">Chat</button>
                 <button [class.button-active]="!selleraddedtofavs" [class.fav-add]="selleraddedtofavs" (click)="togglefavs()">
                     Favorite
                     <svg *ngIf="selleraddedtofavs" id="fav-svg" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">

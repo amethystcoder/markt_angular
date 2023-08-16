@@ -32,7 +32,7 @@
         <div *ngFor="let item of chats" class="messages" (click)="openchat(item)">
             <div class="image-container">
                 <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
-                [alt]="item.user_name+'s profile image'" class="messanger-image">
+                 class="messanger-image">
             </div>
             <div class="message-details-container">
                 <h2>{{clip(item.user_name,true)}}</h2>
@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="state == 'selected'" class="openchatbox">
+<div *ngIf="selectedchat_valid_and_already_available()" class="openchatbox">
     <div class="messages-top-bar">
         <span class="bar">
             <span (click)="baktoallchats()">
@@ -71,20 +71,71 @@
                 </span>
             </div>
         </div>
+        <div class="discount-box" *ngIf="user_type == 'seller' && discountopen">
+            <h2>Add a discount</h2>
+            <span>
+                <h6>Add discount percent</h6>
+                <span class="contains-percent-discounter bar">
+                    <input type="range" name="discountrange" id="discountrange" max="100" min="0" 
+                    [(ngModel)]="discount.discount_percent" (change)="setdiscountedprice('percent')">
+                    <h3>{{discount.discount_percent}}%</h3>
+                </span>
+                <h5>Or</h5>
+                <h6>Enter new discount price</h6>
+                <input type="text" [(ngModel)]="discount.discount_price" (input)="setdiscountedprice('price')">
+            </span>
+            <span>
+                <h3>Select Product</h3>
+                <div class="product-slide">
+                    <div *ngFor="let product of seller_products" (click)="selectproducttodiscount(product)">
+                        <img [src]="'http://localhost/markt_php/uploads/'+product.product_images[0]+'small.jpg'" 
+                            alt="" srcset="" class="product-image">
+                            <div class="product-details">
+                                <h3 [style.color]="producttodiscount && product.product_id == producttodiscount.product_id ? '#E94C24' : 'black'">
+                                    {{product.product_name}}</h3>
+                                <span class="bar">
+                                    <p [style.color]="producttodiscount && product.product_id == producttodiscount.product_id ? '#E94C24' : 'black'">
+                                        {{product.product_price}} > {{getdiscountedprice(product.product_price)}}</p>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+            </span>
+            <button class="button-active" (click)="senddiscount()">Send Discount</button>
+        </div>
     </div>
     <div id="inputs-and-lists-cont">
         <div id="messanger-image-list">
             <div *ngFor="let item of chats" class="message-heads" (click)="openchat(item)">
                 <span class="messanger-image-cont">
                     <img [src]="'http://localhost/markt_php/uploads/'+item.user_profile_image+'small.jpg'" 
-                [alt]="item.user_name+'s profile image'" class="messanger-image" [title]="item.user_name">
-                <p>{{clip(item.user_name,true)}}</p>
+                 class="messanger-image" [title]="item.user_name">
+                <!-- <p>{{clip(item.user_name,true)}}</p> -->
                 </span>
             </div>
         </div>
         <div id="contains-message-inputs-wt-sent">
             <div id="contains-message-inputs">
                 <input type="text" placeholder="write a message" id="message-input-box" [(ngModel)]="newmessage">
+                <span (click)="togglediscount()" class="discount-ico-cont" *ngIf="user_type == 'seller'">
+                    <svg id="discount-ico" width="61" height="62" viewBox="0 0 61 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M37.8697 26.456V30.0781H0.923651V26.456H37.8697ZM37.8697 34.2798V37.902H0.923651V34.2798H37.8697ZM34.6641 
+                        12.9091V50H28.6875L11.1925 24.7354H10.9027V50H4.16548V12.9091H10.1964L27.6371 38.1918H27.9812V12.9091H34.6641Z" 
+                        fill="#5A5555"/>
+                        <g style="mix-blend-mode:color-dodge">
+                        <path d="M44.5 6C44.5 4.61929 43.3807 3.5 42 3.5C40.6193 3.5 39.5 4.61929 39.5 6H44.5ZM40.2322 
+                        53.7678C41.2085 54.7441 42.7915 54.7441 43.7678 53.7678L59.6777 37.8579C60.654 36.8816 60.654 
+                        35.2986 59.6777 34.3223C58.7014 33.346 57.1184 33.346 56.1421 34.3223L42 48.4645L27.8579 
+                        34.3223C26.8816 33.346 25.2986 33.346 24.3223 34.3223C23.346 35.2986 23.346 36.8816 24.3223 
+                        37.8579L40.2322 53.7678ZM39.5 6V52H44.5V6H39.5Z" fill="#C0C0C0"/>
+                        </g>
+                        <path d="M44 8C44 6.89543 43.1046 6 42 6C40.8954 6 40 6.89543 40 8H44ZM40.5858 52.4142C41.3668 
+                        53.1953 42.6332 53.1953 43.4142 52.4142L56.1421 39.6863C56.9232 38.9052 56.9232 37.6389 56.1421 
+                        36.8579C55.3611 36.0768 54.0948 36.0768 53.3137 36.8579L42 48.1716L30.6863 36.8579C29.9052 
+                        36.0768 28.6389 36.0768 27.8579 36.8579C27.0768 37.6389 27.0768 38.9052 27.8579 39.6863L40.5858 
+                        52.4142ZM40 8V51H44V8H40Z" fill="#4E4E4E"/>
+                        </svg>
+                </span>
                 <label for="message-file">
                     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_916_8)">
