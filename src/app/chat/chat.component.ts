@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     this.userstate.user_id_sub.subscribe((id)=>{
       this.user_id = id
     })
+    this.selectedchatdetails = undefined
     this.userstate.user_type_sub.subscribe((type)=>{
       this.user_type = type
       if (type.toLowerCase() == "seller") {
@@ -132,11 +133,11 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     }
     if (type == "price") {
       if (this.producttodiscount) {
-        if(this.producttodiscount.product_price >= this.discount.discount_price){
-          this.discount.discount_percent = this.discount.discount_price / this.producttodiscount.product_price * 100
+        if (this.producttodiscount.product_price == 0) {
+          this.discount.discount_percent = this.discount.discount_price
         }
         else{
-          this.discount.discount_percent = 0
+          this.discount.discount_percent = (this.discount.discount_price / this.producttodiscount.product_price) * 100
         }
       }
     }

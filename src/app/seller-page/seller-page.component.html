@@ -7,73 +7,76 @@
             11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
             </svg>
     </div>
-    <div class="contains-main">
-        <div class="main-details">
-            <h1>{{sellertoview.shopname}}</h1>
-            <p><b>Location:</b>
-                {{sellertoview.house_number}}, {{sellertoview.street}}, {{sellertoview.city}}, 
-                {{sellertoview.state}}</p>
-            <div>
-                <h3>Rating</h3>
-                <div class="rating-container-s">
-                    <div class="back-ground">
-                        <div style="width: max-content">
-                            <span class="icon-star-dark fa fa-star"></span>
-                            <span class="icon-star-dark fa fa-star"></span>
-                            <span class="icon-star-dark fa fa-star"></span>
-                            <span class="icon-star-dark fa fa-star"></span>
-                            <span class="icon-star-dark fa fa-star"></span> 
+    <app-loader *ngIf="!sellertoview"></app-loader>
+    <div *ngIf="sellertoview">
+        <div class="contains-main">
+            <div class="main-details">
+                <h1>{{sellertoview.shopname}}</h1>
+                <p><b>Location:</b>
+                    {{sellertoview.house_number}}, {{sellertoview.street}}, {{sellertoview.city}}, 
+                    {{sellertoview.state}}</p>
+                <div>
+                    <h3>Rating</h3>
+                    <div class="rating-container-s">
+                        <div class="back-ground">
+                            <div style="width: max-content">
+                                <span class="icon-star-dark fa fa-star"></span>
+                                <span class="icon-star-dark fa fa-star"></span>
+                                <span class="icon-star-dark fa fa-star"></span>
+                                <span class="icon-star-dark fa fa-star"></span>
+                                <span class="icon-star-dark fa fa-star"></span> 
+                            </div>
+                        </div>
+                        <div class="crop"
+                        [style.width.px]="sellertoview.rating * 28.5">
+                            <div style="width: max-content">
+                                <span class="icon-star-on fa fa-star"></span>
+                                <span class="icon-star-on fa fa-star"></span>
+                                <span class="icon-star-on fa fa-star"></span>
+                                <span class="icon-star-on fa fa-star"></span>
+                                <span class="icon-star-on fa fa-star"></span> 
+                            </div>
                         </div>
                     </div>
-                    <div class="crop"
-                    [style.width.px]="sellertoview.rating * 28.5">
-                        <div style="width: max-content">
-                            <span class="icon-star-on fa fa-star"></span>
-                            <span class="icon-star-on fa fa-star"></span>
-                            <span class="icon-star-on fa fa-star"></span>
-                            <span class="icon-star-on fa fa-star"></span>
-                            <span class="icon-star-on fa fa-star"></span> 
-                        </div>
-                    </div>
+                    <h1>{{sellertoview.rating}}</h1> 
+                    <span></span>
                 </div>
-                <h1>{{sellertoview.rating}}</h1> 
-                <span></span>
+                <span class="bar">
+                    <button class="button-active" (click)="opennewchat(sellertoview)">Chat</button>
+                    <button [class.button-active]="!selleraddedtofavs" [class.fav-add]="selleraddedtofavs" (click)="togglefavs()">
+                        Favorite
+                        <svg *ngIf="selleraddedtofavs" id="fav-svg" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_30_27)">
+                            <path d="M39.9993 70.3337L35.166 65.9337C17.9993 50.367 6.66602 40.1003 6.66602 
+                            27.5003C6.66602 17.2337 14.7327 9.16699 24.9993 9.16699C30.7993 9.16699 36.366 11.867 
+                            39.9993 16.1337C43.6327 11.867 49.1993 9.16699 54.9993 9.16699C65.266 9.16699 73.3327 
+                            17.2337 73.3327 27.5003C73.3327 40.1003 61.9993 50.367 44.8327 65.967L39.9993 70.3337Z" 
+                            fill="#ff4545"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_30_27">
+                            <rect width="80" height="80" fill="white"/>
+                            </clipPath>
+                            </defs>
+                            </svg>
+                    </button>
+                </span>
+            </div> 
+            <div class="main-image">
+                <img [src]="'http://localhost/markt_php/uploads/'+sellertoview.profile_image+'small.jpg'"
+                 alt="seller image" srcset="" class="seller-profile-image">
             </div>
-            <span class="bar">
-                <button class="button-active" (click)="opennewchat(sellertoview)">Chat</button>
-                <button [class.button-active]="!selleraddedtofavs" [class.fav-add]="selleraddedtofavs" (click)="togglefavs()">
-                    Favorite
-                    <svg *ngIf="selleraddedtofavs" id="fav-svg" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_30_27)">
-                        <path d="M39.9993 70.3337L35.166 65.9337C17.9993 50.367 6.66602 40.1003 6.66602 
-                        27.5003C6.66602 17.2337 14.7327 9.16699 24.9993 9.16699C30.7993 9.16699 36.366 11.867 
-                        39.9993 16.1337C43.6327 11.867 49.1993 9.16699 54.9993 9.16699C65.266 9.16699 73.3327 
-                        17.2337 73.3327 27.5003C73.3327 40.1003 61.9993 50.367 44.8327 65.967L39.9993 70.3337Z" 
-                        fill="#ff4545"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_30_27">
-                        <rect width="80" height="80" fill="white"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
-                </button>
-            </span>
-        </div> 
-        <div class="main-image">
-            <img [src]="'http://localhost/markt_php/uploads/'+sellertoview.profile_image+'small.jpg'"
-             alt="seller image" srcset="" class="seller-profile-image">
+        </div>
+        <div id="desc">
+            <h1>Description</h1>
+            <p>{{sellertoview.description}}</p>
+        </div>
+        <div id="directions" *ngIf="sellertoview.directions.length > 0">
+            <h1>Directions</h1>
+            <p>{{sellertoview.directions}}</p>
         </div>
     </div>
-    <div id="desc">
-        <h1>Description</h1>
-        <p>{{sellertoview.description}}</p>
-    </div>
-    <div id="directions" *ngIf="sellertoview.directions.length > 0">
-        <h1>Directions</h1>
-        <p>{{sellertoview.directions}}</p>
-    </div>
-    <div>
+    <div *ngIf="seller_review">
         <h1>Rate Seller</h1>
         <p>Give us your experience with this seller. You can rate or comment</p>
         <span>
