@@ -147,7 +147,12 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     return Math.fround((this.discount.discount_percent / 100) * price)
   }
 
-  senddiscount(){}
+  senddiscount(){
+    let productdiscounttosend = {
+      type:"product_wt_discount",
+      
+    }
+  }
 
   openchat(item:Chats){
     this.selectedchatdetails = item

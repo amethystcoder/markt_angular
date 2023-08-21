@@ -37,7 +37,10 @@ export interface CartItem{
   product_name:string,
   product_type:string,
   product_price:number,
-  product_id:string
+  product_id:string,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 export interface ProductQuery{
@@ -215,6 +218,9 @@ export class ProductApiService {
     cartdata.append("user_type",usertype)
     cartdata.append("product_id",item.product_id)
     cartdata.append("quantity",item.quantity.toString())
+    cartdata.append("has_discount",(item.has_discount)? `1` : `0`)
+    cartdata.append("discount_price",item.discount_price.toString())
+    cartdata.append("discount_percent",item.discount_percent.toString())
     return this.http.post<boolean>("http://localhost/markt_php/add_to_cart.php",cartdata)
     .pipe(
       retry(1)

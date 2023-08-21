@@ -96,7 +96,10 @@ export class ProductdisplayComponent implements OnInit{
       product_name:"",
       product_type:this.producttodisplay?.product_type,
       product_price:this.producttodisplay?.product_price,
-      product_id:this.producttodisplay?.product_id
+      product_id:this.producttodisplay?.product_id,
+      has_discount:false, 
+      discount_price:0, 
+      discount_percent: 0
     }
     this.productservice.additemtocart(this.userid,this.usertype,newcartitem)
     .subscribe((data)=>{

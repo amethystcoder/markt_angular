@@ -13,7 +13,10 @@ export interface UnacceptedOrders{
   product_id:string,
   product_image:string,
   buyer_id:string,
-  buyer_name:string
+  buyer_name:string,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 export interface Orders{
@@ -26,7 +29,10 @@ export interface Orders{
   product_id:string,
   product_image:string,
   buyer_id:string,
-  buyer_name:string
+  buyer_name:string,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 export interface DeliveryOrders{
@@ -44,7 +50,10 @@ export interface DeliveryOrders{
   product_size:number,
   buyer_id:string,
   buyer_name:string,
-  seller_name:string
+  seller_name:string,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 export interface BuyerOrders{
@@ -63,14 +72,20 @@ export interface BuyerOrders{
   product_image:string,
   buyer_id:string,
   buyer_name:string
-  received_by_delivery:boolean
+  received_by_delivery:boolean,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 export interface SuccessfulOrder{
   seller_id:string,
   product_name:string,
   product_price:string,
-  product_quantity:string
+  product_quantity:string,
+  has_discount:boolean,
+  discount_price:number,
+  discount_percent:number
 }
 
 @Injectable({
