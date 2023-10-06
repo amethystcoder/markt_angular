@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgOptimizedImage } from '@angular/common';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +35,8 @@ import { ChatComponent } from './chat/chat.component';
 import { LoaderComponent } from './loader/loader.component';
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+
+const config: SocketIoConfig = {url:'', options:{}}
 
 @NgModule({
   declarations: [
@@ -71,6 +74,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
     HttpClientModule,
     FormsModule,
    InfiniteScrollModule,
+   SocketIoModule.forRoot(config),
    /*  
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

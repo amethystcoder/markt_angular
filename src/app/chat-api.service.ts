@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EMPTY, Observable, Subject, retry } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 export interface Comment{
   comment_body:string,
@@ -46,7 +47,7 @@ export interface Chat{
 })
 export class ChatApiService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private socket:Socket) { }
 
   rateandcomment(comment:Comment):Observable<Comment> {
     let commentsetdata = new FormData()
