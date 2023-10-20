@@ -179,7 +179,6 @@ export class ProductApiService {
     )
   }
 
-  //TODO: WORK HERE OOOOOOOOOO
   editproduct(product:Product,images:File[]){
     let formdata = new FormData()
     formdata.append("product_id",product.product_id)

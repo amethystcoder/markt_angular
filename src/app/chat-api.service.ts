@@ -78,7 +78,29 @@ export class ChatApiService {
     )
   }
 
-  subject!: WebSocket;
+  messagesobservable = this.socket.fromEvent<any>("message")
+
+  connectws(user_id:string){
+    this.socket.connect()
+    this.socket.emit("connect",JSON.stringify({user_id:user_id}))
+  }
+
+  sendmessage(message:Chat){
+    this.socket.emit("message",message)
+  }
+
+  closeconnection(){
+    this.socket.emit("disconnect")
+    this.socket.disconnect()
+  }
+
+  register(){}
+
+
+
+  //chats = this.socket.fromEvent<Chats[]>("")
+
+  /* subject!: WebSocket;
   messagesobservable:Subject<any> = new Subject<any>()
 
   connectws(){
@@ -112,7 +134,7 @@ export class ChatApiService {
 
   closeconnection(){
     this.subject.close()
-  }
+  } */
 
 
 }

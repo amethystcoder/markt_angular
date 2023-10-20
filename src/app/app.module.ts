@@ -36,7 +36,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
-const config: SocketIoConfig = {url:'', options:{}}
+const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
 
 @NgModule({
   declarations: [

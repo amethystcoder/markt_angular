@@ -1,7 +1,6 @@
 import { Component,Input, OnDestroy, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
 import { Chat, ChatApiService, Chats } from '../chat-api.service';
-import { Observable,Subject } from 'rxjs';
 import { Product, ProductApiService } from '../product-api.service';
 
 @Component({
@@ -79,10 +78,8 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   openallchats(){
     this.state = "all"
-    this.chatservice.connectws()
-    this.chatservice.subject.onopen = (ev)=>{
-      this.chatservice.initializenewuser(this.user_id)
-    }
+    this.chatservice.connectws(this.user_id)
+    this.chatservice
     //this.userstate.chatstate.next("all")
   }
 
