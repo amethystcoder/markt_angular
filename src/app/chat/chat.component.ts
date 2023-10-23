@@ -32,8 +32,6 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
       this.chats = data
     })
     this.chatservice.messagesobservable.subscribe((message)=>{
-      //Here we need to get the user that sent the message if the message is not from the logged in user
-      //and add the messages to the message of that user
       this.chats.forEach((chat)=>{
         if(chat.user_id == message.sent_to || chat.user_id == message.sent_from){
           chat.messages.push(message)
@@ -161,6 +159,15 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     this.file = event.target.files[0]
   }
 
+  check_unread_messages(){
+    let chats = this.selectedchatdetails?.messages
+    return chats!.filter((chat)=>{chat.status == "unread"})
+  }
+
+  sendread(){
+    this.chatservice.setmessageread(this.check_unread_messages(),this.selectedchatdetails!.user_id)
+  }
+
   send(){
     let message_to_send:Chat = {
       message:this.newmessage,
@@ -171,6 +178,10 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     }
     this.chatservice.sendmessage(message_to_send)
     this.newmessage = ""
+  }
+
+  set_istyping(){
+    this.chatservice.settyping(this.selectedchatdetails!.user_id)
   }
 
   clip(message:string,name=false){

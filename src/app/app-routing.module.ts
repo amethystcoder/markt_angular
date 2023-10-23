@@ -19,6 +19,7 @@ import { RetrievePasswordComponent } from './retrieve-password/retrieve-password
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 
 const routes: Routes = [
+  {path:"",redirectTo:"marketplace",pathMatch:"full"},
   {path:"new",component:SignupComponent},
   {path:"home",component:HomeComponent},
   {path:"marketplace",component:MarketplaceComponent},

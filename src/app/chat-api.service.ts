@@ -94,8 +94,15 @@ export class ChatApiService {
     this.socket.disconnect()
   }
 
-  register(){}
+  setmessageread(messages:any[],recipent:string){
+    this.socket.emit("read",{recipent:recipent,messages:messages})
+  }
 
+  settyping(recipent:string){
+    this.socket.emit("typing",JSON.stringify({recipent:recipent}))
+  }
+
+  register(){}
 
 
   //chats = this.socket.fromEvent<Chats[]>("")
