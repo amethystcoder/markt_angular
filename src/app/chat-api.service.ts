@@ -79,10 +79,11 @@ export class ChatApiService {
   }
 
   messagesobservable = this.socket.fromEvent<any>("message")
+  newreadmessagesobservable = this.socket.fromEvent<any>("read")
 
   connectws(user_id:string){
     this.socket.connect()
-    this.socket.emit("connect",JSON.stringify({user_id:user_id}))
+    this.socket.emit("join-chat",JSON.stringify({rid:user_id}))
   }
 
   sendmessage(message:Chat){

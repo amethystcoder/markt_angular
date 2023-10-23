@@ -38,6 +38,19 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
         }
       })
     })
+    this.chatservice.newreadmessagesobservable.subscribe((newmsgs)=>{
+      let messages_to_read:any
+      this.chats.forEach((chat)=>{
+        if(chat.user_id == newmsgs.recipent){
+          messages_to_read = chat
+        }
+      })
+      if(messages_to_read){
+        /* messages_to_read.messages.forEach(message => {
+          
+        }); */
+      }
+    })
   }
 
   /* ngOnDestroy(): void {
