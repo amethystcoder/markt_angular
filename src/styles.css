@@ -37,7 +37,7 @@ a{
     font-weight: normal;
 }
 .button-active,.nav-option{
-    background-color: #E94C24;
+    background-color: #e94c24;
     color: white;
 }
 .button-disable,button:disabled{

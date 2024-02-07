@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgOptimizedImage } from '@angular/common';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';

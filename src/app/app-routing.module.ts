@@ -21,7 +21,7 @@ import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 const routes: Routes = [
   {path:"",redirectTo:"marketplace",pathMatch:"full"},
   {path:"new",component:SignupComponent},
-  {path:"home",component:HomeComponent},
+  {path:"home",component:HomeComponent,canActivate:[()=>{}]},
   {path:"marketplace",component:MarketplaceComponent},
   {path:"display",component:ProductdisplayComponent},
   {path:"products/seller",component:ProductsSellerComponent},
