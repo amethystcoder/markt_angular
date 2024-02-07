@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductApiService, ProductQuery } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { ProductQuery } from "../products.model";
 import { UserstateService } from '../userstate.service';
-import { Chats } from '../chat-api.service';
+import { Chats } from '../chat.model';
 
 @Component({
   selector: 'app-buyer-query',

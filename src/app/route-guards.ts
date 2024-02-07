@@ -1,26 +1,20 @@
-class RouteGuards {
-    constructor() {
+import { Injectable, inject } from '@angular/core';
+import { UserstateService } from "./userstate.service";
+import { 
+        ActivatedRouteSnapshot, 
+        CanActivateFn, 
+        CanActivateChildFn, 
+        RouterStateSnapshot, 
+        CanMatchFn, 
+        Route, Router, UrlSegment } from '@angular/router';
+
         
-    }
-}
 
-import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn,CanActivateChildFn, RouterStateSnapshot } from '@angular/router';
-
-export const NameGuard: CanActivateFn = (
+export const LoginGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
     ) => {
-
-        return true;
-}
-
-export const NmeGuard: CanActivateChildFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-    ) => {
-
-        return true;
+        return true
 }
 
 import { CanDeactivateFn } from '@angular/router';
@@ -46,8 +40,6 @@ export const NaeGuard: CanDeactivateFn<CanComponentDeactivate> = (
             return false;
     }
 }
-
-import { CanMatchFn, Route, Router, UrlSegment } from '@angular/router';
 
 export const NamGuard: CanMatchFn = (
     route: Route,

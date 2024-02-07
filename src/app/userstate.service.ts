@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CartItem } from './product-api.service';
-import { BuyerOrders, Orders, UnacceptedOrders } from './order-api.service';
-import { Chats } from './chat-api.service';
+import { CartItem } from './products.model';
+import { BuyerOrders, Orders, UnacceptedOrders } from './orders.model';
+import { Chats } from './chat.model';
 
 @Injectable({
   providedIn: 'root'
