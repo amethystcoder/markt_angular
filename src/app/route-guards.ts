@@ -6,15 +6,24 @@ import {
         CanActivateChildFn, 
         RouterStateSnapshot, 
         CanMatchFn, 
-        Route, Router, UrlSegment } from '@angular/router';
-
+        Route, Router, UrlSegment 
+    } from '@angular/router';
+import { user_id_sub, user_name_sub, user_type_sub } from "./userstate.service";
         
 
 export const LoginGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
     ) => {
-        return true
+        let userId,userName,userType
+        user_id_sub.subscribe(id=>userId = (typeof id != "undefined" && id != ""))
+        user_name_sub.subscribe(name=>userName = (typeof name != "undefined" && name != ""))
+        user_type_sub.subscribe(type=>userType = (typeof type != "undefined" && type != ""))
+        if (!userId || !userName || !userType) {
+            new Router().navigate(["userauth"])
+            return false
+        } 
+        return userId && userName && userType
 }
 
 import { CanDeactivateFn } from '@angular/router';

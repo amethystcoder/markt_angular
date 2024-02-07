@@ -5,6 +5,30 @@ import { CartItem } from './products.model';
 import { BuyerOrders, Orders, UnacceptedOrders } from './orders.model';
 import { Chats } from './chat.model';
 
+  export let user_type = new BehaviorSubject<string>("buyer")
+  export let user_name = new BehaviorSubject<string>("")
+  export let user_id = new BehaviorSubject<string>("")
+  export let user_profile_image = new BehaviorSubject<string>("")
+  export let longtitude = new BehaviorSubject<number>(0)
+  export let latitude = new BehaviorSubject<number>(0)
+  export let cartitems = new BehaviorSubject<CartItem[]>([])
+  export let buyerorders = new BehaviorSubject<BuyerOrders[]>([])
+  export let sellerpendingorders = new BehaviorSubject<UnacceptedOrders[]>([])
+  export let selleracceptedorders = new BehaviorSubject<Orders[]>([])
+  export let newchatuser = new Subject<Chats>()
+
+  export let user_type_sub = user_type.asObservable()
+  export let user_name_sub = user_name.asObservable()
+  export let user_id_sub = user_id.asObservable()
+  export let user_profile_image_sub = user_profile_image.asObservable()
+  export let longtitude_sub = longtitude.asObservable()
+  export let latitude_sub = latitude.asObservable()
+  export let cartitems_sub = cartitems.asObservable()
+  export let buyerorders_sub = buyerorders.asObservable()
+  export let sellerpendingorders_sub = sellerpendingorders.asObservable()
+  export let selleracceptedorders_sub = selleracceptedorders.asObservable()
+  export let newchatuser_sub = newchatuser.asObservable()
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,35 +36,11 @@ export class UserstateService {
 
   constructor(private location:Location) { }
 
-  user_type = new BehaviorSubject<string>("buyer")
-  user_name = new BehaviorSubject<string>("")
-  user_id = new BehaviorSubject<string>("")
-  user_profile_image = new BehaviorSubject<string>("")
-  longtitude = new BehaviorSubject<number>(0)
-  latitude = new BehaviorSubject<number>(0)
-  cartitems = new BehaviorSubject<CartItem[]>([])
-  buyerorders = new BehaviorSubject<BuyerOrders[]>([])
-  sellerpendingorders = new BehaviorSubject<UnacceptedOrders[]>([])
-  selleracceptedorders = new BehaviorSubject<Orders[]>([])
-  newchatuser = new Subject<Chats>()
-
-  user_type_sub = this.user_type.asObservable()
-  user_name_sub = this.user_name.asObservable()
-  user_id_sub = this.user_id.asObservable()
-  user_profile_image_sub = this.user_profile_image.asObservable()
-  longtitude_sub = this.longtitude.asObservable()
-  latitude_sub = this.latitude.asObservable()
-  cartitems_sub = this.cartitems.asObservable()
-  buyerorders_sub = this.buyerorders.asObservable()
-  sellerpendingorders_sub = this.sellerpendingorders.asObservable()
-  selleracceptedorders_sub = this.selleracceptedorders.asObservable()
-  newchatuser_sub = this.newchatuser.asObservable()
-
-  setuser(user_type:string,user_name:string,user_id:string,user_profile_image:string){
-    this.user_id.next(user_id)
-    this.user_name.next(user_name)
-    this.user_type.next(user_type)
-    this.user_profile_image.next(user_profile_image)
+  setuser(userType:string,userName:string,userId:string,userProfileImage:string){
+    user_id.next(userId)
+    user_name.next(userName)
+    user_type.next(userType)
+    user_profile_image.next(userProfileImage)
   }
 
   previouspage(){
