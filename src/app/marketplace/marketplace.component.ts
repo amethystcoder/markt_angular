@@ -2,6 +2,25 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductApiService,Product } from '../product-api.service';
 import { UserstateService } from '../userstate.service';
 import { Search } from '../search/search.component';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-marketplace',
+  templateUrl: './marketplace.component.html',
+  styleUrls: ['./marketplace.component.css']
+})
+export class MarketplaceComponent {
+  isLoading: boolean = true; // Set it to true when you want to show the loader
+
+  // Example function to simulate data loading
+  loadData() {
+    this.isLoading = true;
+    // Your data loading logic here
+    setTimeout(() => {
+      this.isLoading = false; // Set it to false when data loading is complete
+    }, 2000); // Simulating a delay of 2 seconds
+  }
+}
 
 @Component({
   selector: 'app-marketplace',

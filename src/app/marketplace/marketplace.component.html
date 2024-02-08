@@ -1,12 +1,15 @@
+<app-loader [isLoading]="isLoading"></app-loader>
+<!-- Your marketplace app content goes here -->
+
 <div class="content">
     <app-search (search)="searchproduct($event)"></app-search>
     <h1 *ngIf="catgunder !=''">
         products under {{catgunder}}
     </h1>
     <div class="products-container">
-        <div *ngFor="let item of marketplaceproducts" class="product" 
+        <div *ngFor="let item of marketplaceproducts" class="product"
         routerLink="/display" [queryParams]="[item.product_id]">
-            <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'" 
+            <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'"
             alt="" srcset="" class="product-image">
             <div class="product-details">
                 <h3>{{item.product_name}}</h3>
@@ -17,10 +20,11 @@
         </div>
     </div>
     <div
-    infiniteScroll 
+    infiniteScroll
     [infiniteScrollDistance] = "2"
     [infiniteScrollThrottle] = "1000"
-    (scrolled)="onscroll()"> 
-    <app-loader></app-loader>
+    (scrolled)="onscroll()">
+    <a
+pp-loader></app-loader>
     </div>
 </div>
