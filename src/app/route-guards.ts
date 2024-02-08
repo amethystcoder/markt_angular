@@ -1,13 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { UserstateService } from "./userstate.service";
-import { 
-        ActivatedRouteSnapshot, 
-        CanActivateFn, 
-        CanActivateChildFn, 
-        RouterStateSnapshot, 
-        CanMatchFn, 
-        Route, Router, UrlSegment 
-    } from '@angular/router';
+import { ActivatedRouteSnapshot, 
+    CanActivateFn, 
+    CanActivateChildFn, 
+    RouterStateSnapshot, 
+    CanMatchFn, 
+    Route, Router, UrlSegment,CanDeactivateFn  } from '@angular/router';
 import { user_id_sub, user_name_sub, user_type_sub } from "./userstate.service";
         
 
@@ -25,8 +23,6 @@ export const LoginGuard: CanActivateFn = (
         } 
         return userId && userName && userType
 }
-
-import { CanDeactivateFn } from '@angular/router';
 import { Observable } from 'rxjs';
 
 // Consider using this interface for all CanDeactivate guards,
