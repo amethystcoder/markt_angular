@@ -13,7 +13,7 @@ export class CreateProductComponent implements OnInit{
       this.newproduct = this.edit
       this.tag_list = this.edit.tags
       this.category_list = this.newproduct.product_category.split(",")
-      this.newproduct.product_images.forEach((image)=>{
+      this.newproduct.product_images.forEach((image: ImageType) => {
         this.addtoimagesarray(image)
       })
     }
@@ -76,10 +76,10 @@ export class CreateProductComponent implements OnInit{
   catgtypeopened:string = ""
 
   newproduct:Product = {
-    product_id:"", 
+    product_id:"",
     product_name:"",
     product_type:"",
-    product_price:0, 
+    product_price:0,
     product_description:"",
     product_category:"",
     tags:[],
