@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   constructor(private userstate:UserstateService,private chatservice:ChatApiService,
     private sellerproductservice: ProductApiService){
-    
+
   }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
       })
       if(messages_to_read){
         /* messages_to_read.messages.forEach(message => {
-          
+
         }); */
       }
     })
@@ -71,7 +71,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   file!: File;
 
-  user_id = "" 
+  user_id = ""
 
   user_type = ""
 
@@ -81,7 +81,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   state = "closed"
 
-  chatsall = false 
+  chatsall = false
 
   discountopen = false
 
@@ -102,7 +102,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     this.state = "all"
     this.selectedchatdetails = undefined
   }
-  
+
   closeallchats(){
     this.state = "closed"
     //this.userstate.chatstate.next("closed")
@@ -158,7 +158,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
   senddiscount(){
     let productdiscounttosend = {
       type:"product_wt_discount",
-      
+
     }
   }
 
@@ -166,7 +166,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     this.selectedchatdetails = item
     this.state = "selected"
     //this.userstate.chatstate.next("selected")
-  } 
+  }
 
   add_image(event:any){
     this.file = event.target.files[0]
@@ -174,8 +174,12 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   check_unread_messages(){
     let chats = this.selectedchatdetails?.messages
-    return chats!.filter((chat)=>{chat.status == "unread"})
-  }
+    // Before
+    // return chats!.filter((chat)=>{chat.status == "unread"})
+
+    // After (specify type or ensure TypeScript can infer correctly)
+    return chats!.filter((chat: Chat) => chat.status == "unread")
+    }
 
   sendread(){
     this.chatservice.setmessageread(this.check_unread_messages(),this.selectedchatdetails!.user_id)
