@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Seller,UserdataService } from '../userdata.service';
-import { Product, ProductApiService } from '../product-api.service';
+import { UserdataService } from '../userdata.service';
+import { ProductApiService } from '../product-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { ChatApiService,Chats,Comment, Review } from '../chat-api.service';
+import { ChatApiService } from '../chat-api.service';
 import { UserstateService } from '../userstate.service';
+import { Seller } from '../userdata.model';
+import { Product } from '../products.model';
+import { Review, Comment, Chats } from '../chat.model';
 
 @Component({
   selector: 'app-seller-page',
@@ -24,12 +27,13 @@ export class SellerPageComponent implements OnInit{
     this.productservice.getsellerproducts(sellerid).subscribe((data)=>{
       this.sellerproducts = data
     })
-    this.userstate.user_name_sub.subscribe((data)=>{
+    //use store
+    /* this.userstate.user_name_sub.subscribe((data)=>{
       this.username = data
     })
     this.userstate.user_id_sub.subscribe((data)=>{
       this.userid = data
-    })
+    }) */
     this.commentservice.getcommentsandrating(this.sellerid,"Seller").subscribe((data)=>{
       this.seller_review = data
     })
@@ -83,8 +87,8 @@ opennewchat(seller:Seller){
     user_profile_image:"",
     user_type:"seller",
   }
-
-  this.userstate.newchatuser.next(newchat)
+  //use store
+  //this.userstate.newchatuser.next(newchat)
 } 
 
   comment: Comment = {

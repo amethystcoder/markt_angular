@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserstateService } from './userstate.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { Chats } from './chat-api.service';
+import { Chats } from './chat.model';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,8 @@ export class AppComponent implements OnInit{
   constructor(private userstate:UserstateService,private route:Router){ }
 
   ngOnInit(): void {
-    this.userstate.user_id_sub.subscribe((data)=>{
+    //use store
+    /* this.userstate.user_id_sub.subscribe((data)=>{
       this.userid = data
     })
     this.userstate.user_name_sub.subscribe((data)=>{
@@ -27,15 +28,16 @@ export class AppComponent implements OnInit{
     })
     this.userstate.user_type_sub.subscribe((data)=>{
       this.user_type = data
-    })
+    }) */
     this.route.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((ev:any) =>{
       this.presentlocation = ev.url
     })
-    this.userstate.newchatuser_sub.subscribe((newchat)=>{
+    //use store
+    /* this.userstate.newchatuser_sub.subscribe((newchat)=>{
       this.newbasechat = newchat
-    })
+    }) */
     /* navigator.geolocation.getCurrentPosition((position)=>{
       console.log("long")
       console.log(position.coords.longitude.toString());

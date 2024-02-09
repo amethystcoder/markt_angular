@@ -14,12 +14,13 @@ export class BuyerQueryComponent implements OnInit{
   constructor(private productapi:ProductApiService,private userstate:UserstateService){}
 
   ngOnInit(): void {
-    this.userstate.user_id_sub.subscribe((userid)=>{
+    //use store
+   /*  this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
       this.productapi.getsellerqueries(this.userid).subscribe((queries)=>{
         this.queries = queries
       })
-    })
+    }) */
   }
 
   userid = ""
@@ -59,8 +60,8 @@ export class BuyerQueryComponent implements OnInit{
       user_profile_image:"",
       user_type:"buyer",
     }
-
-    this.userstate.newchatuser.next(newchat)
+    //use store
+    //this.userstate.newchatuser.next(newchat)
   } 
 
 }

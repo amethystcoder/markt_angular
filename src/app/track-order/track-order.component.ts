@@ -10,12 +10,13 @@ import { UserstateService } from '../userstate.service';
 export class TrackOrderComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((type)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((type)=>{
       this.usertype = type
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
   }
 
   constructor(private userstate:UserstateService,private order_api:OrderApiService){}

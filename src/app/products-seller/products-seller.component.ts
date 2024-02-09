@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { Product,ProductApiService } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Product } from "../products.model";
 
 @Component({
   selector: 'app-products-seller',
@@ -10,12 +11,13 @@ import { Product,ProductApiService } from '../product-api.service';
 export class ProductsSellerComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.usertype = usertype
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
     this.productservice.getsellerproducts(this.userid).subscribe((products)=>{
       this.sellerproducts = products
     })

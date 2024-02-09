@@ -1,5 +1,6 @@
 import { Component,Input, OnInit,Output, EventEmitter } from '@angular/core';
-import { Product,ProductApiService,Category } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Product, Category } from "../products.model";
 
 @Component({
   selector: 'app-create-product',
@@ -13,7 +14,7 @@ export class CreateProductComponent implements OnInit{
       this.newproduct = this.edit
       this.tag_list = this.edit.tags
       this.category_list = this.newproduct.product_category.split(",")
-      this.newproduct.product_images.forEach((image: ImageType) => {
+      this.newproduct.product_images.forEach((image) => {
         this.addtoimagesarray(image)
       })
     }

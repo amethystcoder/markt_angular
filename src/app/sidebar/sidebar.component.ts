@@ -10,7 +10,8 @@ import { UserdataService } from '../userdata.service';
 export class SidebarComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.user = usertype
     }) 
     this.userstate.user_id_sub.subscribe((usertype)=>{
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit{
     })
     this.userstate.user_profile_image_sub.subscribe((userprofileimage)=>{
       this.profile_image = userprofileimage
-    })
+    }) */
     switch (this.user) {
       case "buyer":
         this.userdata.get_buyer_unchecked_items(this.userid).subscribe((unchecked_items)=>{

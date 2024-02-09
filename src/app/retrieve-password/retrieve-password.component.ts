@@ -10,9 +10,10 @@ import { UserstateService } from '../userstate.service';
 export class RetrievePasswordComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((user_type)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((user_type)=>{
       this.usertype = user_type
-    })
+    }) */
   }
 
   constructor(private userdata:UserdataService,private userstate:UserstateService){}

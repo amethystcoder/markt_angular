@@ -1,7 +1,9 @@
 import { Component,Input, OnDestroy, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { Chat, ChatApiService, Chats } from '../chat-api.service';
-import { Product, ProductApiService } from '../product-api.service';
+import { ChatApiService } from '../chat-api.service';
+import { Chat, Chats } from "../chat.model";
+import { ProductApiService } from '../product-api.service';
+import { Product } from "../products.model";
 
 @Component({
   selector: 'app-chat',
@@ -16,7 +18,8 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
   }
 
   ngOnInit(): void {
-    this.userstate.user_id_sub.subscribe((id)=>{
+    //use Store
+   /*  this.userstate.user_id_sub.subscribe((id)=>{
       this.user_id = id
     })
     this.selectedchatdetails = undefined
@@ -27,7 +30,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
           this.seller_products = products
         })
       }
-    })
+    }) */
     this.chatservice.getchats(this.user_id).subscribe((data)=>{
       this.chats = data
     })

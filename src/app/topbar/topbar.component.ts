@@ -12,9 +12,10 @@ export class TopbarComponent implements OnInit{
   constructor(private userstate:UserstateService,private router:Router) { }
 
   ngOnInit(): void {
-    this.userstate.user_name_sub.subscribe((username)=>{
+    //use store
+    /* this.userstate.user_name_sub.subscribe((username)=>{
       this.username = username
-    })
+    }) */
   }
 
   username:string = ""
@@ -26,8 +27,9 @@ export class TopbarComponent implements OnInit{
 
   logoutuser(){
     //TODO here we need to send a request to the server to stop the session
-    this.userstate.user_id.next("")
-    this.userstate.user_name.next("")
+    //use store
+    /* this.userstate.user_id.next("")
+    this.userstate.user_name.next("") */
     this.router.navigate(["userauth"])
   }
 

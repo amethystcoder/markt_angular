@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { DeliveryOrders, OrderApiService } from '../order-api.service';
+import { OrderApiService } from '../order-api.service';
+import { DeliveryOrders } from "../orders.model";
 
 @Component({
   selector: 'app-delivery-orders',
@@ -10,12 +11,13 @@ import { DeliveryOrders, OrderApiService } from '../order-api.service';
 export class DeliveryOrdersComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((type)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((type)=>{
       this.usertype = type
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
     this.order_api.getclosedeliveryorders(this.userid).subscribe((orders)=>{
       this.deliveryorders = orders
     })

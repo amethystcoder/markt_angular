@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { Category, ProductApiService } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Category } from "../products.model";
 
 @Component({
   selector: 'app-category-list',

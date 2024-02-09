@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { SignupandloginService,LoginDetails } from '../signupandlogin.service';
+import { SignupandloginService } from '../signupandlogin.service';
+import { LoginDetails } from "../signupandlogin.model";
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,10 +12,11 @@ import { Router } from '@angular/router';
 export class LoginUserComponent implements OnInit{
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.usertype = usertype
       this.namestate = usertype == "buyer" ? "Username" : usertype == "seller" ? "Shopname" : usertype == "delivery" ? "Deliveryname" : ""
-    })
+    }) */
   }
 
   constructor(private loginservice:SignupandloginService,private userstate:UserstateService
@@ -27,7 +29,8 @@ export class LoginUserComponent implements OnInit{
   warnerr:string|object = ""
 
   setuser(user:string){
-    switch(user){
+    //use store
+    /* switch(user){
       case "Buyer":
         this.userstate.user_type.next("buyer")
         break
@@ -39,7 +42,7 @@ export class LoginUserComponent implements OnInit{
         break
       default:
         break
-    }
+    } */
   }
 
   userlogindata:LoginDetails = {
@@ -60,9 +63,10 @@ export class LoginUserComponent implements OnInit{
       setTimeout(() => {
         this.warnerr = ""
       }, 3000)
-      this.userstate.user_id.next(data.user_id)
+      //use store
+      /* this.userstate.user_id.next(data.user_id)
       this.userstate.user_name.next(data.user)
-      this.userstate.user_profile_image.next(data.profile_image)
+      this.userstate.user_profile_image.next(data.profile_image) */
       if (data.message == "ok") {
         if(this.usertype == "seller" || this.usertype == "buyer"){
           this.router.navigate(["home"])

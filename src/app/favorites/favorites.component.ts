@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { Favorite, UserdataService } from '../userdata.service';
+import { UserdataService } from '../userdata.service';
+import { Favorite } from "../userdata.model";
 import { ProductApiService } from '../product-api.service';
 
 @Component({
@@ -14,12 +15,13 @@ export class FavoritesComponent implements OnInit{
     private productapi:ProductApiService){ }
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.usertype = usertype
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
     this.userdata.getbuyerfavorites(this.userid,this.usertype)
     .subscribe((favorites)=>{
       this.allfavorites = favorites

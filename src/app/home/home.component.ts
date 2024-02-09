@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
-import { Product, ProductApiService } from '../product-api.service';
-import { BuyerOrders, OrderApiService, Orders, UnacceptedOrders } from '../order-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Product } from "../products.model";
+import { OrderApiService } from '../order-api.service';
+import { BuyerOrders, Orders, UnacceptedOrders } from "../orders.model";
 import { UserstateService } from '../userstate.service';
-import { Chats } from '../chat-api.service';
+import { Chats } from "../chat.model";
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,8 @@ import { Chats } from '../chat-api.service';
 export class HomeComponent implements OnInit,OnDestroy{
 
   ngOnInit(){
-    this.userstate.user_id_sub.subscribe((user_id)=>{
+    //use store
+    /* this.userstate.user_id_sub.subscribe((user_id)=>{
       this.userid = user_id
     })
     this.userstate.user_type_sub.subscribe((user_type)=>{
@@ -34,7 +37,7 @@ export class HomeComponent implements OnInit,OnDestroy{
           })
           break
       }
-    })
+    }) */
     this.querychangeinterval = setInterval(()=>{
       if(this.inc == this.queryplaceholders.length - 1){
         this.inc = 0
@@ -119,7 +122,7 @@ export class HomeComponent implements OnInit,OnDestroy{
       user_profile_image:"",
       user_type:"seller",
     }
-
-    this.userstate.newchatuser.next(newchat)
+    //use store
+    //this.userstate.newchatuser.next(newchat)
   } 
 }

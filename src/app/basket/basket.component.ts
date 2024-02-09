@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { CartItem, ProductApiService } from '../product-api.service';
+import {  ProductApiService } from '../product-api.service';
+import { CartItem } from "../products.model";
 import { OrderApiService } from '../order-api.service';
 import { Router } from '@angular/router';
 
@@ -15,12 +16,14 @@ export class BasketComponent implements OnInit{
     private order_api:OrderApiService,private router:Router) { } 
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.usertype = usertype
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
+
     this.productapi.getbuyerbasketitems(this.userid,this.usertype)
     .subscribe((cartitems)=>{
       this.buyercart = cartitems
@@ -37,7 +40,8 @@ export class BasketComponent implements OnInit{
     .subscribe((result)=>{
       if(result)
         this.buyercart.splice(this.buyercart.indexOf(cartitem),1)
-        this.userstate.cartitems.next(this.buyercart)
+      //use store
+        //this.userstate.cartitems.next(this.buyercart)
     })
   }
 

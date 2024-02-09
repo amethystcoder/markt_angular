@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 import { SignupandloginService } from '../signupandlogin.service';
 import { ProductApiService } from '../product-api.service';
@@ -12,14 +12,15 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent {
 
-  public constructor(private signupservice:SignupandloginService,private productservice:ProductApiService
-    ,private userstate:UserstateService,private router:Router){
-      userstate.user_type.next("seller")
+  private signupservice = inject(SignupandloginService)
+  private userstate = inject(UserstateService)
+  private router = inject(Router)
+
+  //use store
+      /* userstate.user_type.next("seller")
       userstate.user_type_sub.subscribe((user_type)=>{
         this.usertype = user_type
-      })
-  }
-
+      }) */
   usertype = ""
 
   signuplevel = 0;
@@ -81,15 +82,17 @@ export class SignupComponent {
         this.states.user = "Buyer"
         this.states.userplaceholder = "Username"
         this.states.working_for_org_and_vehicle_type_add = false
-        this.userstate.user_type.next("buyer")
+        //use store
+        //this.userstate.user_type.next("buyer")
         break
       case "Seller":
         this.states.category_add_cont = true
         this.states.shop_desc_and_dir = true
         this.states.user = "Seller"
         this.states.userplaceholder = "Shopname"
-        this.states.working_for_org_and_vehicle_type_add = false 
-        this.userstate.user_type.next("seller")
+        this.states.working_for_org_and_vehicle_type_add = false
+        //use store 
+        //this.userstate.user_type.next("seller")
         break
       case "Delivery":
         this.states.category_add_cont = false
@@ -97,7 +100,8 @@ export class SignupComponent {
         this.states.user = "Delivery"
         this.states.userplaceholder = "Deliveryname"
         this.states.working_for_org_and_vehicle_type_add = true
-        this.userstate.user_type.next("delivery")
+        //use store
+        //this.userstate.user_type.next("delivery")
         break
       default:
         break

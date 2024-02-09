@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserstateService } from '../userstate.service';
-import { Product, ProductApiService,CartItem } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Product, CartItem } from "../products.model";
 import { ActivatedRoute } from '@angular/router';
 import { UserdataService } from '../userdata.service';
-import { Chats } from '../chat-api.service';
+import { Chats } from '../chat.model';
 
 @Component({
   selector: 'app-productdisplay',
@@ -29,9 +30,10 @@ export class ProductdisplayComponent implements OnInit{
           })
         })
     })
-    this.userstate.user_id_sub.subscribe((id)=>{
+    //use store
+    /* this.userstate.user_id_sub.subscribe((id)=>{
       this.userid = id
-    })
+    }) */
   }
   
 
@@ -145,7 +147,8 @@ export class ProductdisplayComponent implements OnInit{
       user_type:"seller",
     }
 
-    this.userstate.newchatuser.next(newchat)
+    //use store
+    //this.userstate.newchatuser.next(newchat)
   } 
 
 }

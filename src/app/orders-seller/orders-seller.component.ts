@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { OrderApiService, Orders, UnacceptedOrders } from '../order-api.service';
+import { OrderApiService } from '../order-api.service';
+import { Orders, UnacceptedOrders } from "../orders.model";
 import { UserstateService } from '../userstate.service';
 
 @Component({
@@ -12,12 +13,13 @@ export class OrdersSellerComponent implements OnInit{
   constructor(private userstate:UserstateService,private order_api:OrderApiService){ }
 
   ngOnInit(): void {
-    this.userstate.user_type_sub.subscribe((usertype)=>{
+    //use store
+    /* this.userstate.user_type_sub.subscribe((usertype)=>{
       this.usertype = usertype
     })
     this.userstate.user_id_sub.subscribe((userid)=>{
       this.userid = userid
-    })
+    }) */
     this.order_api.getpendingorders(this.userid).subscribe((orders)=>{
       this.pendingorders = orders
     })

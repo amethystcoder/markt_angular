@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ProductApiService,Product } from '../product-api.service';
+import { ProductApiService } from '../product-api.service';
+import { Product } from "../products.model";
 import { UserstateService } from '../userstate.service';
 import { Search } from '../search/search.component';
 

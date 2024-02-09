@@ -17,6 +17,7 @@ export let buyerorders = new BehaviorSubject<BuyerOrders[]>([])
 export let sellerpendingorders = new BehaviorSubject<UnacceptedOrders[]>([])
 export let selleracceptedorders = new BehaviorSubject<Orders[]>([])
 export let newchatuser = new Subject<Chats>()
+
 export let user_type_sub = user_type.asObservable()
 export let user_name_sub = user_name.asObservable()
 export let user_id_sub = user_id.asObservable()
