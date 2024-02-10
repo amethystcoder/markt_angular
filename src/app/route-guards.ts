@@ -8,6 +8,8 @@ import { ActivatedRouteSnapshot,
     Route, Router, UrlSegment,CanDeactivateFn  } from '@angular/router';
 import { signalstore } from "./userstate.service";
 import { Observable, single } from 'rxjs';
+
+
 export interface CanComponentDeactivate {
     canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
 }
