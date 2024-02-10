@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
 
@@ -11,13 +11,6 @@ import { Product } from "../products.model";
 export class ProductsSellerComponent implements OnInit{
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.usertype = usertype
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-    }) */
     this.productservice.getsellerproducts(this.userid).subscribe((products)=>{
       this.sellerproducts = products
     })
@@ -25,8 +18,10 @@ export class ProductsSellerComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private productservice:ProductApiService){}
 
-  usertype = ""
-  userid = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   toedit!: Product|undefined;
 

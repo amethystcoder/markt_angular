@@ -1,48 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
 import { SignupandloginService } from '../signupandlogin.service';
 import { LoginDetails } from "../signupandlogin.model";
 import { Router } from '@angular/router';
+import { signalstore } from "../userstate.service";
 
 @Component({
   selector: 'app-login-user',
   templateUrl: './login-user.component.html',
   styleUrls: ['./login-user.component.css']
 })
-export class LoginUserComponent implements OnInit{
+export class LoginUserComponent {
 
-  ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.usertype = usertype
-      this.namestate = usertype == "buyer" ? "Username" : usertype == "seller" ? "Shopname" : usertype == "delivery" ? "Deliveryname" : ""
-    }) */
-  }
+  store = inject(signalstore)
 
-  constructor(private loginservice:SignupandloginService,private userstate:UserstateService
-    ,private router:Router){}
+  constructor(private loginservice:SignupandloginService,private router:Router){}
 
-  usertype = ""
+  usertype = this.store.user_type()
 
-  namestate = ""
+  namestate = this.usertype == "buyer" ? "Username" : this.usertype == "seller" ? "Shopname" : this.usertype == "delivery" ? "Deliveryname" : ""
 
   warnerr:string|object = ""
 
   setuser(user:string){
-    //use store
-    /* switch(user){
-      case "Buyer":
-        this.userstate.user_type.next("buyer")
-        break
-      case "Seller":
-        this.userstate.user_type.next("seller")
-        break
-      case "Delivery":
-        this.userstate.user_type.next("delivery")
-        break
-      default:
-        break
-    } */
+    this.store.setusertype(user.toLowerCase())
+    this.usertype = user.toLowerCase()
   }
 
   userlogindata:LoginDetails = {
@@ -63,10 +44,7 @@ export class LoginUserComponent implements OnInit{
       setTimeout(() => {
         this.warnerr = ""
       }, 3000)
-      //use store
-      /* this.userstate.user_id.next(data.user_id)
-      this.userstate.user_name.next(data.user)
-      this.userstate.user_profile_image.next(data.profile_image) */
+      this.store.setuser(this.usertype,data.user,data.user_id,data.profile_image)
       if (data.message == "ok") {
         if(this.usertype == "seller" || this.usertype == "buyer"){
           this.router.navigate(["home"])

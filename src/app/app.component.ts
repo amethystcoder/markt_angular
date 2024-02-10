@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserstateService } from './userstate.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   username = ''
   userid = ''
 
-  constructor(private userstate:UserstateService,private route:Router){ }
+  constructor(private route:Router){ }
 
   ngOnInit(): void {
     //use store
@@ -47,6 +47,8 @@ export class AppComponent implements OnInit{
       this.userstate.latitude.next(position.coords.latitude)
     }) */
   }
+
+  private userstate = inject(UserstateService) 
 
   newbasechat!: Chats;
   presentlocation = ""

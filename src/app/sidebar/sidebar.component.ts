@@ -1,5 +1,5 @@
-import { Component,Output, OnInit, EventEmitter } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component,Output, OnInit, EventEmitter, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { UserdataService } from '../userdata.service';
 
 @Component({
@@ -10,19 +10,6 @@ import { UserdataService } from '../userdata.service';
 export class SidebarComponent implements OnInit{
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.user = usertype
-    }) 
-    this.userstate.user_id_sub.subscribe((usertype)=>{
-      this.userid = usertype
-    })
-    this.userstate.user_name_sub.subscribe((username)=>{
-      this.username = username
-    })
-    this.userstate.user_profile_image_sub.subscribe((userprofileimage)=>{
-      this.profile_image = userprofileimage
-    }) */
     switch (this.user) {
       case "buyer":
         this.userdata.get_buyer_unchecked_items(this.userid).subscribe((unchecked_items)=>{
@@ -46,10 +33,12 @@ export class SidebarComponent implements OnInit{
 
   @Output() showstateemitter = new EventEmitter<boolean>();
 
-  userid = ""
-  user = ""
-  username = ""
-  profile_image = ""
+  store = inject(signalstore)
+
+  user = this.store.user_type()
+  userid = this.store.user_id()
+  username = this.store.name()
+  profile_image = this.store.user_profile_image()
 
   buyercartitemnum = 0
   buyerordernum = 0
@@ -59,7 +48,5 @@ export class SidebarComponent implements OnInit{
   sendtosmscreenclosestate(){
     this.showstateemitter.emit(false)
   }
-
-
 
 }

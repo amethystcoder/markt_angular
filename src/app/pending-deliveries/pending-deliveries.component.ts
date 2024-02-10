@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { OrderApiService } from '../order-api.service';
 import { DeliveryOrders } from "../orders.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 
 @Component({
   selector: 'app-pending-deliveries',
@@ -11,13 +11,6 @@ import { UserstateService } from '../userstate.service';
 export class PendingDeliveriesComponent implements OnInit{
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((type)=>{
-      this.usertype = type
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-    }) */
     this.order_api.getdeliverypendingdeliveries(this.userid).subscribe((orders)=>{
       this.pendingdeliveries = orders
     })
@@ -25,8 +18,10 @@ export class PendingDeliveriesComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private order_api:OrderApiService){}
 
-  usertype = ""
-  userid = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   pendingdeliveries:DeliveryOrders[] = []
 

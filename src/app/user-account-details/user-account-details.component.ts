@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../userdata.service';
 import { Buyer, Seller, Delivery } from "../userdata.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,13 +12,7 @@ import { Router } from '@angular/router';
 export class UserAccountDetailsComponent implements OnInit{
 
   ngOnInit(): void {
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.usertype = usertype
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-      this.getdata()
-    }) */
+    this.getdata()
   }
 
   constructor(private userdata:UserdataService,private userstate:UserstateService,private router:Router){ }
@@ -37,14 +31,14 @@ export class UserAccountDetailsComponent implements OnInit{
 
   logoutuser(){
     //TODO here we need to send a request to the server to stop the session
-    //use store
-    /* this.userstate.user_id.next("")
-    this.userstate.user_name.next("") */
+    this.store.setuser(this.usertype,"","","")
     this.router.navigate(["userauth"])
   }
 
-  usertype = ""
-  userid = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   buyer:Buyer|undefined
   buyerplac:Buyer|undefined

@@ -4,8 +4,8 @@
             <div class="img-container"></div>
         </div>
         <div class="signup-child-two">
-            <h1>Sign up as {{states.user}}</h1>
-            <label for="username">{{states.userplaceholder}}</label>
+            <h1>Sign up as {{usertype}}</h1>
+            <label for="username">{{userplaceholder}}</label>
                 <input type="text" name="username" id="username" formControlName="username" class="inputs">
                 <label for="password">password</label>
                 <input type="password" name="password" id="password" formControlName="password" class="inputs">
@@ -46,7 +46,7 @@
                     <input type="file" name="profile-image-input" id="profile-image-input" 
                     accept=".jpeg,.jpg,.png,.webp" (change)="upload_profile_image($event)">
                 </div>
-                <div *ngIf="states.category_add_cont">
+                <div *ngIf="usertype == 'seller'">
                     <h3>What products or services does your business offer</h3>
                     <div class="categories-container">
                         <div class="categories-list">
@@ -66,7 +66,7 @@
                 <input type="tel" name="phone" id="phone_number" formControlName="phone_number" placeholder="phone number"
                 class="inputs">
                 <!--Come back to finish this one-->
-                <div *ngIf="states.working_for_org_and_vehicle_type_add">
+                <div *ngIf="usertype == 'delivery'">
                     <span>
                         <h4>What kind of vehicle do you use</h4>
                         <select name="vehicle-choice" id="vehicle-choice" class="inputs" formControlName="vehicle_type">
@@ -94,7 +94,7 @@
                         class="inputs" formControlName="org_name">
                     </span>
                 </div>
-                <div *ngIf="states.shop_desc_and_dir">
+                <div *ngIf="usertype == 'seller'">
                     <h3>Tell us what your shop is all about. For example, the type of products you sell, 
                         your opening and closing hours and so on.
                     </h3>
@@ -222,5 +222,5 @@
             <button class="button-active" (click)="displayvalues()">Finish</button>
         </div>
     </div>
-   <app-category-list *ngIf="states.catgshow" (lister)="mergecatgs($event)" [state]="'categories'"></app-category-list>
+   <app-category-list *ngIf="catgshow" (lister)="mergecatgs($event)" [state]="'categories'"></app-category-list>
 </div>

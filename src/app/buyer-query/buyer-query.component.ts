@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ProductApiService } from '../product-api.service';
 import { ProductQuery } from "../products.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Chats } from '../chat.model';
 
 @Component({
@@ -14,16 +14,14 @@ export class BuyerQueryComponent implements OnInit{
   constructor(private productapi:ProductApiService,private userstate:UserstateService){}
 
   ngOnInit(): void {
-    //use store
-   /*  this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-      this.productapi.getsellerqueries(this.userid).subscribe((queries)=>{
-        this.queries = queries
-      })
-    }) */
+    this.productapi.getsellerqueries(this.userid).subscribe((queries)=>{
+      this.queries = queries
+    })
   }
 
-  userid = ""
+  store = inject(signalstore)
+
+  userid = this.store.user_id()
   queries:ProductQuery[] = [] 
 
   settimesince(query:ProductQuery){
@@ -60,8 +58,7 @@ export class BuyerQueryComponent implements OnInit{
       user_profile_image:"",
       user_type:"buyer",
     }
-    //use store
-    //this.userstate.newchatuser.next(newchat)
+    this.store.updatepresentchat(newchat)
   } 
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { UserdataService } from '../userdata.service';
 import { Favorite } from "../userdata.model";
 import { ProductApiService } from '../product-api.service';
@@ -15,21 +15,16 @@ export class FavoritesComponent implements OnInit{
     private productapi:ProductApiService){ }
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.usertype = usertype
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-    }) */
     this.userdata.getbuyerfavorites(this.userid,this.usertype)
     .subscribe((favorites)=>{
       this.allfavorites = favorites
     })
   }
 
-  userid = ""
-  usertype = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   allfavorites:Favorite[] = []
 

@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { OrderApiService } from '../order-api.service';
 import { Orders, UnacceptedOrders } from "../orders.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 
 @Component({
   selector: 'app-orders-seller',
@@ -13,13 +13,6 @@ export class OrdersSellerComponent implements OnInit{
   constructor(private userstate:UserstateService,private order_api:OrderApiService){ }
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((usertype)=>{
-      this.usertype = usertype
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-    }) */
     this.order_api.getpendingorders(this.userid).subscribe((orders)=>{
       this.pendingorders = orders
     })
@@ -28,8 +21,10 @@ export class OrdersSellerComponent implements OnInit{
     })
   }
 
-  userid = ""
-  usertype = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   orderviewtype = "pending"
 

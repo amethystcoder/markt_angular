@@ -1,5 +1,5 @@
-import { Component,Input, OnDestroy, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component,Input, OnDestroy, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { ChatApiService } from '../chat-api.service';
 import { Chat, Chats } from "../chat.model";
 import { ProductApiService } from '../product-api.service';
@@ -10,27 +10,18 @@ import { Product } from "../products.model";
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit/* ,OnDestroy */{
+export class ChatComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private chatservice:ChatApiService,
-    private sellerproductservice: ProductApiService){
-
-  }
+    private sellerproductservice: ProductApiService){}
 
   ngOnInit(): void {
-    //use Store
-   /*  this.userstate.user_id_sub.subscribe((id)=>{
-      this.user_id = id
-    })
+    if (this.user_type.toLowerCase() == "seller") {
+      this.sellerproductservice.getsellerproducts(this.user_id).subscribe((products)=>{
+        this.seller_products = products
+      })
+    }
     this.selectedchatdetails = undefined
-    this.userstate.user_type_sub.subscribe((type)=>{
-      this.user_type = type
-      if (type.toLowerCase() == "seller") {
-        this.sellerproductservice.getsellerproducts(this.user_id).subscribe((products)=>{
-          this.seller_products = products
-        })
-      }
-    }) */
     this.chatservice.getchats(this.user_id).subscribe((data)=>{
       this.chats = data
     })
@@ -56,9 +47,7 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     })
   }
 
-  /* ngOnDestroy(): void {
-    this.chatservice.closeconnection()
-  } */
+  store = inject(signalstore)
 
   discount = {
     discount_percent:0,
@@ -74,9 +63,9 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   file!: File;
 
-  user_id = ""
+  user_id = this.store.user_id()
 
-  user_type = ""
+  user_type = this.store.user_type()
 
   @Input() selectedchatdetails:Chats | undefined
 
@@ -94,7 +83,6 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
     this.state = "all"
     this.chatservice.connectws(this.user_id)
     this.chatservice
-    //this.userstate.chatstate.next("all")
   }
 
   cancelchats(){
@@ -108,7 +96,6 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   closeallchats(){
     this.state = "closed"
-    //this.userstate.chatstate.next("closed")
   }
 
   selectedchat_valid_and_already_available(){
@@ -168,7 +155,6 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
   openchat(item:Chats){
     this.selectedchatdetails = item
     this.state = "selected"
-    //this.userstate.chatstate.next("selected")
   }
 
   add_image(event:any){
@@ -177,10 +163,6 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
 
   check_unread_messages(){
     let chats = this.selectedchatdetails?.messages
-    // Before
-    // return chats!.filter((chat)=>{chat.status == "unread"})
-
-    // After (specify type or ensure TypeScript can infer correctly)
     return chats!.filter((chat: Chat) => chat.status == "unread")
     }
 
@@ -211,6 +193,5 @@ export class ChatComponent implements OnInit/* ,OnDestroy */{
   }
 
   closechat(){}
-
 
 }

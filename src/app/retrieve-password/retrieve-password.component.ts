@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../userdata.service';
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 
 @Component({
   selector: 'app-retrieve-password',
@@ -9,12 +9,7 @@ import { UserstateService } from '../userstate.service';
 })
 export class RetrievePasswordComponent implements OnInit{
 
-  ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((user_type)=>{
-      this.usertype = user_type
-    }) */
-  }
+  ngOnInit(): void { }
 
   constructor(private userdata:UserdataService,private userstate:UserstateService){}
 
@@ -24,7 +19,9 @@ export class RetrievePasswordComponent implements OnInit{
   level = "getdetails"
   recoverytype = "email"
 
-  usertype = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
 
   retrievalcode:string = ""
   newpassword = ""

@@ -36,6 +36,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 
+import { signalstore } from './userstate.service'
+
 const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
 
 @NgModule({
@@ -83,7 +85,7 @@ const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequ
       registrationStrategy: 'registerWhenStable:30000'
     }) */
   ],
-  providers: [],
+  providers: [signalstore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

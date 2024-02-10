@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../userdata.service';
 import { ProductApiService } from '../product-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { ChatApiService } from '../chat-api.service';
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Seller } from '../userdata.model';
 import { Product } from '../products.model';
 import { Review, Comment, Chats } from '../chat.model';
@@ -27,21 +27,15 @@ export class SellerPageComponent implements OnInit{
     this.productservice.getsellerproducts(sellerid).subscribe((data)=>{
       this.sellerproducts = data
     })
-    //use store
-    /* this.userstate.user_name_sub.subscribe((data)=>{
-      this.username = data
-    })
-    this.userstate.user_id_sub.subscribe((data)=>{
-      this.userid = data
-    }) */
     this.commentservice.getcommentsandrating(this.sellerid,"Seller").subscribe((data)=>{
       this.seller_review = data
     })
   }
 
-  userid = ""
   sellerid = ""
-  username = ""
+  store = inject(signalstore)
+  userid = this.store.user_id()
+  username = this.store.name()
 
   selleraddedtofavs = false
 
@@ -87,8 +81,7 @@ opennewchat(seller:Seller){
     user_profile_image:"",
     user_type:"seller",
   }
-  //use store
-  //this.userstate.newchatuser.next(newchat)
+  this.store.updatepresentchat(newchat)
 } 
 
   comment: Comment = {

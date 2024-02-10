@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,9 @@ export class TopbarComponent implements OnInit{
     }) */
   }
 
-  username:string = ""
+  store = inject(signalstore)
+
+  username:string = this.store.name()
   sidebaropen = false
 
   togglesidebar(){

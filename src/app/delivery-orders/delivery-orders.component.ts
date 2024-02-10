@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { OrderApiService } from '../order-api.service';
 import { DeliveryOrders } from "../orders.model";
 
@@ -11,13 +11,6 @@ import { DeliveryOrders } from "../orders.model";
 export class DeliveryOrdersComponent implements OnInit{
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_type_sub.subscribe((type)=>{
-      this.usertype = type
-    })
-    this.userstate.user_id_sub.subscribe((userid)=>{
-      this.userid = userid
-    }) */
     this.order_api.getclosedeliveryorders(this.userid).subscribe((orders)=>{
       this.deliveryorders = orders
     })
@@ -25,8 +18,10 @@ export class DeliveryOrdersComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private order_api:OrderApiService){}
 
-  usertype = ""
-  userid = ""
+  store = inject(signalstore)
+
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   deliveryorders:DeliveryOrders[] = []
 

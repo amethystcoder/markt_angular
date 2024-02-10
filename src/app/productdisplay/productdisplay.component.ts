@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserstateService } from '../userstate.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { UserstateService, signalstore } from '../userstate.service';
 import { ProductApiService } from '../product-api.service';
 import { Product, CartItem } from "../products.model";
 import { ActivatedRoute } from '@angular/router';
@@ -30,10 +30,6 @@ export class ProductdisplayComponent implements OnInit{
           })
         })
     })
-    //use store
-    /* this.userstate.user_id_sub.subscribe((id)=>{
-      this.userid = id
-    }) */
   }
   
 
@@ -41,10 +37,10 @@ export class ProductdisplayComponent implements OnInit{
     private productservice:ProductApiService,private actvroute:ActivatedRoute,
     private userdataservice:UserdataService){}
 
-  //work on getting this info form the userstate service pls
-  usertype = "buyer"
+  store = inject(signalstore)
 
-  userid = ""
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
 
   productaddedtocart = false
   productaddedtofavs = false
@@ -146,9 +142,7 @@ export class ProductdisplayComponent implements OnInit{
       user_profile_image:"",
       user_type:"seller",
     }
-
-    //use store
-    //this.userstate.newchatuser.next(newchat)
+    this.store.updatepresentchat(newchat)
   } 
 
 }

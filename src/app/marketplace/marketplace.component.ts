@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Search } from '../search/search.component';
 
 @Component({
@@ -18,8 +18,8 @@ export class MarketplaceComponent implements OnInit{
 
   constructor(private userstate:UserstateService,private productservice:ProductApiService){ }
 
-  //work on getting this info form the userstate service pls
-  usertype = "buyer"
+  store = inject(signalstore)
+  usertype = this.store.user_type
 
   searchproduct(det:Search|null = null){
     if(det === null){

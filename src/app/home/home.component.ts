@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject} from '@angular/core';
 import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
 import { OrderApiService } from '../order-api.service';
 import { BuyerOrders, Orders, UnacceptedOrders } from "../orders.model";
-import { UserstateService } from '../userstate.service';
+import { UserstateService, signalstore } from '../userstate.service';
 import { Chats } from "../chat.model";
 
 @Component({
@@ -14,30 +14,23 @@ import { Chats } from "../chat.model";
 export class HomeComponent implements OnInit,OnDestroy{
 
   ngOnInit(){
-    //use store
-    /* this.userstate.user_id_sub.subscribe((user_id)=>{
-      this.userid = user_id
-    })
-    this.userstate.user_type_sub.subscribe((user_type)=>{
-      this.usertype = user_type
-      switch(user_type){
-        case "seller":
-          this.productapi.getsellerproducts(this.userid)
-          .subscribe((data)=>{
-            this.sellerproductlist = data
-          })
-          this.orderapi.getpendingorders(this.userid)
-                .subscribe((data)=>{
-                  this.sellerpendingorderlist = data
-                })
-          break
-        case "buyer":
-          this.orderapi.getbuyerorders(this.userid).subscribe((data)=>{
-            this.buyerorderlist = data
-          })
-          break
-      }
-    }) */
+    switch(this.usertype){
+      case "seller":
+        this.productapi.getsellerproducts(this.userid)
+        .subscribe((data)=>{
+          this.sellerproductlist = data
+        })
+        this.orderapi.getpendingorders(this.userid)
+              .subscribe((data)=>{
+                this.sellerpendingorderlist = data
+              })
+        break
+      case "buyer":
+        this.orderapi.getbuyerorders(this.userid).subscribe((data)=>{
+          this.buyerorderlist = data
+        })
+        break
+    }
     this.querychangeinterval = setInterval(()=>{
       if(this.inc == this.queryplaceholders.length - 1){
         this.inc = 0
@@ -56,10 +49,11 @@ export class HomeComponent implements OnInit,OnDestroy{
   constructor(
     private productapi:ProductApiService,private orderapi:OrderApiService,private userstate:UserstateService){}
 
-  usertype = ""
 
-  userid = ""
+  store = inject(signalstore)
 
+  usertype = this.store.user_type()
+  userid = this.store.user_id()
   querychangeinterval:any
 
   inc = 0
@@ -122,7 +116,6 @@ export class HomeComponent implements OnInit,OnDestroy{
       user_profile_image:"",
       user_type:"seller",
     }
-    //use store
-    //this.userstate.newchatuser.next(newchat)
+    this.store.updatepresentchat(newchat)
   } 
 }

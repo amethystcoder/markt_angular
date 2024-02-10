@@ -2,8 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 import { SignupandloginService } from '../signupandlogin.service';
 import { ProductApiService } from '../product-api.service';
-import { UserstateService } from '../userstate.service';
 import { Router } from '@angular/router';
+import { signalstore } from '../userstate.service'
 
 @Component({
   selector: 'app-signup',
@@ -13,35 +13,22 @@ import { Router } from '@angular/router';
 export class SignupComponent {
 
   private signupservice = inject(SignupandloginService)
-  private userstate = inject(UserstateService)
   private router = inject(Router)
+  private store = inject(signalstore)
 
-  //use store
-      /* userstate.user_type.next("seller")
-      userstate.user_type_sub.subscribe((user_type)=>{
-        this.usertype = user_type
-      }) */
-  usertype = ""
+  usertype = this.store.user_type()
 
   signuplevel = 0;
 
-  states = {
-    user:"Seller",
-    userplaceholder:"Shopname",
-    category_add_cont:true,
-    working_for_org_and_vehicle_type_add:false,
-    shop_desc_and_dir:true,
-    catgshow:false
-  }
+  userplaceholder = this.usertype == 'buyer' ? "Username" : this.usertype == 'seller' ? "Shopname" : this.usertype == 'delivery' ? "Deliveryname" : ""
+
+  catgshow = false
 
   file!: File | Blob;
 
   category_list:Array<string> = []
 
-  users = { buyer:false,seller:true,delivery:false}
-
   profile_img_file = ""
-
 
   signupform = new FormGroup({
     username : new FormControl(''),
@@ -75,37 +62,8 @@ export class SignupComponent {
   })
 
   public setuser(user:string){
-    switch(user){
-      case "Buyer":
-        this.states.category_add_cont = false
-        this.states.shop_desc_and_dir = false
-        this.states.user = "Buyer"
-        this.states.userplaceholder = "Username"
-        this.states.working_for_org_and_vehicle_type_add = false
-        //use store
-        //this.userstate.user_type.next("buyer")
-        break
-      case "Seller":
-        this.states.category_add_cont = true
-        this.states.shop_desc_and_dir = true
-        this.states.user = "Seller"
-        this.states.userplaceholder = "Shopname"
-        this.states.working_for_org_and_vehicle_type_add = false
-        //use store 
-        //this.userstate.user_type.next("seller")
-        break
-      case "Delivery":
-        this.states.category_add_cont = false
-        this.states.shop_desc_and_dir = false
-        this.states.user = "Delivery"
-        this.states.userplaceholder = "Deliveryname"
-        this.states.working_for_org_and_vehicle_type_add = true
-        //use store
-        //this.userstate.user_type.next("delivery")
-        break
-      default:
-        break
-    }
+    this.store.setusertype(user.toLowerCase())
+    this.usertype = user.toLowerCase()
   }
 
   upload_profile_image(event:any){
@@ -158,11 +116,11 @@ export class SignupComponent {
     catgs.forEach((cat)=>{
       this.category_list.push(cat)
     })
-    this.states.catgshow = false
+    this.catgshow = false
   }
 
   setcatgadd(){
-    this.states.catgshow = true
+    this.catgshow = true
   }
 
   uselocation(){
@@ -184,7 +142,7 @@ export class SignupComponent {
     .subscribe((data)=>{
       console.log(data)
       if(data.saved){
-        this.userstate.setuser(data.user_type,data.username,data.user_id,data.profile_image)
+        this.store.setuser(data.user_type,data.username,data.user_id,data.profile_image)
         if(data.user_type == "seller" || data.user_type == "buyer"){
           this.router.navigate(["home"])
         }
