@@ -14,23 +14,9 @@ import { Chats } from "../chat.model";
 export class HomeComponent implements OnInit,OnDestroy{
 
   ngOnInit(){
-    switch(this.usertype){
-      case "seller":
-        this.productapi.getsellerproducts(this.userid)
-        .subscribe((data)=>{
-          this.sellerproductlist = data
-        })
-        this.orderapi.getpendingorders(this.userid)
-              .subscribe((data)=>{
-                this.sellerpendingorderlist = data
-              })
-        break
-      case "buyer":
-        this.orderapi.getbuyerorders(this.userid).subscribe((data)=>{
-          this.buyerorderlist = data
-        })
-        break
-    }
+    this.orderapi.getbuyerorders(this.userid).subscribe((data)=>{
+      this.buyerorderlist = data
+    })
     this.querychangeinterval = setInterval(()=>{
       if(this.inc == this.queryplaceholders.length - 1){
         this.inc = 0
@@ -66,8 +52,6 @@ export class HomeComponent implements OnInit,OnDestroy{
   buyerquerycategory:string[] = []
   catgshow = false
 
-  sellerproductlist:Array<Product> = []
-  sellerpendingorderlist:Array<UnacceptedOrders> = []
   buyerorderlist:any = []
 
   removefromcategories(item:string){
@@ -83,20 +67,6 @@ export class HomeComponent implements OnInit,OnDestroy{
       this.buyerquerycategory.push(cat)
     })
     this.catgshow = !this.catgshow
-  }
-
-  acceptorder(orderid:string){
-    this.orderapi.acceptorder(orderid,this.userid,'seller')
-    .subscribe((data)=>{
-      //console.log(data)
-    })
-  }
-
-  declineorder(orderid:string){
-    this.orderapi.declineorder(orderid,this.userid,'seller')
-    .subscribe((data)=>{
-      //console.log(data)
-    }) 
   }
 
   submitquery(){

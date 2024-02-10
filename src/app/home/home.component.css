@@ -32,12 +32,6 @@
     display: flex;
     flex-wrap: wrap;
 }
-#orders-part{
-    height: 40%;
-}
-#products-part{
-    height: 60%;
-}
 #order-main-details{
     display: flex;
 }

@@ -1,0 +1,24 @@
+#top-bar,#seller-det,#orders-part,#products-part,.bar{
+    width: 100vw;
+}
+#top-bar,.bar,.user-set-cont{
+    display: flex;
+    align-items: center;
+    height: 20%;
+} 
+#orders-part{
+    height: 40%;
+}
+#products-part{
+    height: 60%;
+}
+#seller-det,#orders-container,#products-container{
+    height: 80%;
+}
+#orders-container,#products-container{
+    margin-left: 15px;
+}
+#products-container,.order-container{
+    display: flex;
+    flex-wrap: wrap;
+}

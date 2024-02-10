@@ -4,13 +4,17 @@ import { SignupandloginService } from '../signupandlogin.service';
 import { ProductApiService } from '../product-api.service';
 import { Router } from '@angular/router';
 import { signalstore } from '../userstate.service'
+import { CanComponentDeactivate } from '../route-guards';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements CanComponentDeactivate{
+  
+  canDeactivate!: () => boolean | Promise<boolean> | Observable<boolean>;
 
   private signupservice = inject(SignupandloginService)
   private router = inject(Router)
