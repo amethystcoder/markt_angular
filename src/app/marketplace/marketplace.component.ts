@@ -3,6 +3,7 @@ import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
 import { UserstateService, signalstore } from '../userstate.service';
 import { Search } from '../search/search.component';
+import { Observable, merge, tap } from 'rxjs';
 
 @Component({
   selector: 'app-marketplace',
@@ -23,50 +24,39 @@ export class MarketplaceComponent implements OnInit{
 
   searchproduct(det:Search|null = null){
     if(det === null){
-      this.productservice.getbuyerproducts()
-      .subscribe((products)=>{
-            this.marketplaceproducts = products
-        })
+      this.marketplaceproducts = this.productservice.getbuyerproducts()
     }
     if(det?.searchquery == "" && det?.searchcat == ""){
       this.catgunder = det?.searchcat
-      this.productservice.getbuyerproducts()
-      .subscribe((products)=>{
-            this.marketplaceproducts = products
-        })
+      this.marketplaceproducts = this.productservice.getbuyerproducts()
     }
     if(det?.searchquery != "" && det?.searchcat == ""){
       this.catgunder = det?.searchcat
-      this.productservice.searchproduct(det.searchquery)
-      .subscribe((products)=>{
-            this.marketplaceproducts = products
-        })
+      this.marketplaceproducts = this.productservice.searchproduct(det.searchquery)
     }
     if(det?.searchquery == "" && det?.searchcat != ""){
       this.catgunder = det?.searchcat
-      this.productservice.searchcategory(det.searchcat)
-      .subscribe((products)=>{
-            this.marketplaceproducts = products
-        })
+      this.marketplaceproducts = this.productservice.searchcategory(det.searchcat)
     }
     if(det?.searchquery != "" && det?.searchcat != ""){
       this.catgunder = det?.searchcat
-      this.productservice.searchproductwithcategory(det?.searchquery,det?.searchcat)
-      .subscribe((products)=>{
-            this.marketplaceproducts = products
-        })
+      this.marketplaceproducts = this.productservice.searchproductwithcategory(det?.searchquery,det?.searchcat)
     }
   }
 
   catgunder:string|undefined = ""
-  marketplaceproducts:Product[] = []
+  marketplaceproducts!: Observable<Product[]>;
 
   onscroll(): void{
+    /* merge(this.marketplaceproducts,this.productservice.getbuyerproducts())
+    .pipe() */
     this.productservice.getbuyerproducts()
       .subscribe((products)=>{
-        products.forEach((product)=>{
-          this.marketplaceproducts.push(product)
-        })
+        this.marketplaceproducts.pipe(
+          tap((productlist)=>{
+            productlist = [...productlist, ...products]
+          })
+        )
         })
   }
 

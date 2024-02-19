@@ -35,57 +35,52 @@ import { ChatComponent } from './chat/chat.component';
 import { LoaderComponent } from './loader/loader.component';
 import { BuyerQueryComponent } from './buyer-query/buyer-query.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { ProductCardComponent } from "./product-card/product-card.component";
 
 import { signalstore } from './userstate.service'
 
 const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignupComponent,
-    HomeComponent,
-    SidebarComponent,
-    MarketplaceComponent,
-    TopbarComponent,
-    SearchComponent,
-    ProductdisplayComponent,
-    ProductsSellerComponent,
-    CreateProductComponent,
-    SafePipe,
-    LoginUserComponent,
-    BasketComponent,
-    OrdersSellerComponent,
-    FavoritesComponent,
-    UserAccountDetailsComponent,
-    DeliveryOrdersComponent,
-    PendingDeliveriesComponent,
-    TrackOrderComponent,
-    SellerPageComponent,
-    RetrievePasswordComponent,
-    ChatComponent,
-    LoaderComponent,
-    BuyerQueryComponent,
-    CategoryListComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    FormsModule,
-   InfiniteScrollModule,
-   SocketIoModule.forRoot(config),
-   /*  
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }) */
-  ],
-  providers: [signalstore],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SignupComponent,
+        HomeComponent,
+        SidebarComponent,
+        MarketplaceComponent,
+        TopbarComponent,
+        SearchComponent,
+        ProductdisplayComponent,
+        ProductsSellerComponent,
+        CreateProductComponent,
+        SafePipe,
+        LoginUserComponent,
+        BasketComponent,
+        OrdersSellerComponent,
+        FavoritesComponent,
+        UserAccountDetailsComponent,
+        DeliveryOrdersComponent,
+        PendingDeliveriesComponent,
+        TrackOrderComponent,
+        SellerPageComponent,
+        RetrievePasswordComponent,
+        ChatComponent,
+        LoaderComponent,
+        BuyerQueryComponent,
+        CategoryListComponent,
+        ProductCardComponent
+    ],
+    providers: [signalstore],
+    bootstrap: [AppComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        FormsModule,
+        InfiniteScrollModule,
+        SocketIoModule.forRoot(config)
+    ]
 })
 export class AppModule { }

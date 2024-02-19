@@ -1,20 +1,26 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UserstateService } from '../userstate.service';
 import {  ProductApiService } from '../product-api.service';
 import { CartItem } from "../products.model";
 import { OrderApiService } from '../order-api.service';
 import { Router } from '@angular/router';
 import { signalstore } from "../userstate.service";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.css']
 })
-export class BasketComponent implements OnInit{
+export class BasketComponent implements OnInit,OnDestroy{
+  ngOnDestroy(): void {
+    this.basketItemsSub.unsubscribe()
+  }
+
+  basketItemsSub!: Subscription;
 
   ngOnInit(): void {
-    this.productapi.getbuyerbasketitems(this.userid,this.usertype)
+    this.basketItemsSub = this.productapi.getbuyerbasketitems(this.userid,this.usertype)
     .subscribe((cartitems)=>{
       this.buyercart = cartitems
     })

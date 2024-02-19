@@ -9,6 +9,7 @@ import { Chats } from "../chat.model";
 @Component({
   selector: 'app-seller-home',
   templateUrl: './seller-home.component.html',
+  standalone:true,
   styleUrls: ['./seller-home.component.css']
 })
 export class SellerHomeComponent implements OnInit,OnDestroy{

@@ -4,24 +4,14 @@
         products under {{catgunder}}
     </h1>
     <div class="products-container">
-        <div *ngFor="let item of marketplaceproducts" class="product"
-        routerLink="/display" [queryParams]="[item.product_id]">
-            <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'"
-            alt="" srcset="" class="product-image">
-            <div class="product-details">
-                <h3>{{item.product_name}}</h3>
-                <span class="bar">
-                    <p>{{item.product_price}}</p>
-                </span>
-            </div>
-        </div>
+        <div *ngFor="let item of marketplaceproducts | async" class="product">
+        <app-product-card [productData]="item"></app-product-card>
     </div>
-    <!-- <div
+    <div
     infiniteScroll
     [infiniteScrollDistance] = "2"
     [infiniteScrollThrottle] = "1000"
     (scrolled)="onscroll()">
-    <a
-pp-loader></app-loader>
-    </div> -->
+    <app-loader></app-loader>
+    </div>
 </div>

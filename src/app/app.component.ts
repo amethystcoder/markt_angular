@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UserstateService } from './userstate.service';
+import { UserstateService, signalstore } from './userstate.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Chats } from './chat.model';
@@ -11,24 +11,15 @@ import { Chats } from './chat.model';
   providers: [UserstateService]
 })
 export class AppComponent implements OnInit{
+  store = inject(signalstore)
   title = 'markt';
-  user_type = ''
-  username = ''
-  userid = ''
+  user_type = this.store.user_type()
+  username = this.store.name()
+  userid = this.store.user_id()
 
   constructor(private route:Router){ }
 
   ngOnInit(): void {
-    //use store
-    /* this.userstate.user_id_sub.subscribe((data)=>{
-      this.userid = data
-    })
-    this.userstate.user_name_sub.subscribe((data)=>{
-      this.username = data
-    })
-    this.userstate.user_type_sub.subscribe((data)=>{
-      this.user_type = data
-    }) */
     this.route.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((ev:any) =>{

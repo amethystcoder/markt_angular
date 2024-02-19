@@ -14,6 +14,9 @@ export interface CanComponentDeactivate {
     canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
 }
 
+@Injectable({
+    providedIn: "root"
+})
 export class routeGuards {
     LoginGuard: CanActivateFn = (
         route: ActivatedRouteSnapshot,

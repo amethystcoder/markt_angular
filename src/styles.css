@@ -85,25 +85,20 @@ a{
     display: none;
 }
 .main{
-    /* display: flex; */
-    /* overflow-y: hidden; */
-    /* overflow-x: hidden; */
-    display: grid;
-    grid-template-columns: 15% 85%;
+    display: flex; 
+    overflow-y: hidden; 
+    overflow-x: hidden; 
 }
 .content{
     width: 80vw;
 }
-.sidebar-container{
-    /* width: 20%; */
+.sidebar-container,#sidebar-slater{
+    width: 20%;
     height: 100%;
     background-color: white;
 }
-/* .sidebar-container{
+.sidebar-container{
     position: fixed;
-} */
-#sidebar-slater{
-    padding-left: 20vw;
 }
 .product-image{
     width: 100%;
@@ -162,7 +157,7 @@ button,.product{
     from{transform: translate(-500px);}
     to{transform: translate(0);}
 }
-/* @keyframes cutbackandxone {
+@keyframes cutbackandxone {
     0%{width: 45px;}
     40%{width:0;}
     50%{transform: rotate(45deg);}
@@ -173,12 +168,12 @@ button,.product{
     40%{width:0;}
     50%{transform: rotate(135deg);}
     100%{width: 45px;}
-} */
-/* @keyframes identifier {
+}
+@keyframes identifier {
     from{width: 0;}
     to{width:45px}
 }
 @keyframes identifier {
     from{width: 0;}
     to{width:45px}
-} */
+}

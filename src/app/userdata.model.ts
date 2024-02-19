@@ -1,50 +1,33 @@
-export interface Buyer{
-    username:string, 
-    email:string, 
-    profile_image:string, 
-    phone_number:string, 
-    house_number:number, 
-    street:string, 
-    city:string, 
-    state:string, 
-    country:string, 
-    postal_code:number,
-    payment:Payment[]
+export interface UserProfile{
+  email:string, 
+  profile_image:string, 
+  phone_number:string, 
+  house_number:number, 
+  street:string, 
+  city:string, 
+  state:string, 
+  country:string, 
+  postal_code:number,
+  payment:Payment[]
+}
+
+export interface Buyer extends UserProfile{
+    username:string
   }
   
-  export interface Seller{
+  export interface Seller extends UserProfile{
     shopname:string, 
-    email:string, 
-    profile_image:string, 
-    phone_number:string, 
     description:string, 
     category:string[], 
     rating:number, 
-    directions:string,
-    house_number:number, 
-    street:string, 
-    city:string, 
-    state:string, 
-    country:string, 
-    postal_code:number,
-    payment:Payment[]
+    directions:string
   }
   
-  export interface Delivery{
+  export interface Delivery extends UserProfile{
     deliveryname:string, 
-    email:string, 
-    profile_image:string, 
-    phone_number:string, 
     vehicle_type:string, 
     working_for_org:boolean,
     org_name:string,
-    house_number:number, 
-    street:string, 
-    city:string, 
-    state:string, 
-    country:string, 
-    postal_code:number,
-    payment:Payment[]
   }
   
   export interface Payment{
