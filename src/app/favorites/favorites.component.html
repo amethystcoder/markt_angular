@@ -9,7 +9,7 @@
     </div>
     <h1>Favorites</h1>
     <div id="al-fav-cont">
-        <app-loader *ngIf="!allfavorites.length"></app-loader>
+        <app-loader *ngIf="!allfavorites.length" [loadState]="'load1'"></app-loader>
         <div class="favorites-container" *ngIf="allfavorites.length">
             <div *ngFor="let fav of allfavorites" class="favorite">
                 <img [src]="'http://localhost/markt_php/uploads/'+fav.profile_image+'small.jpg'" alt="" class="favorite-image">

@@ -7,7 +7,7 @@
             11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
             </svg>
     </div> 
-    <app-loader *ngIf="!producttodisplay"></app-loader>
+    <app-loader *ngIf="!producttodisplay" [loadState]="'load1'"></app-loader>
     <div *ngIf="producttodisplay">
         <div class="main-det">
             <div class="first-section">
@@ -116,23 +116,15 @@
     <div class="oth-like">
         <h2>Products Like this</h2>
         <div class="products-container">
-            <div class="product" *ngFor="let product of likeproduct"
-            routerLink="/display" [queryParams]="[product.product_id]">
-                <img [src]="'http://localhost/markt_php/uploads/'+product.product_images[0]+'small.jpg'" 
-                alt="" srcset="" class="product-image" loading="lazy">
-                <div class="product-details">
-                    <h3>{{product.product_name}}</h3>
-                    <span class="bar">
-                        <p>{{product.product_price}}</p>
-                    </span>
-                </div></div>
+            <div class="product" *ngFor="let product of likeproduct">
+            <app-product-card [productData]="product"></app-product-card>
+            </div>
         </div>
         <div
         infiniteScroll 
         [infiniteScrollDistance] = "2"
         [infiniteScrollThrottle] = "1000"
-        (scrolled)="onscroll()"> 
-    </div>
+        (scrolled)="onscroll()"> </div>
     </div>
 </div>
 

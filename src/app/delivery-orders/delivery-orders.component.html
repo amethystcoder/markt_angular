@@ -4,7 +4,7 @@
         if you don't.
     </p>
     <a routerLink="/pendingorders/delivery">View pending deliveries</a>
-    <app-loader *ngIf="!deliveryorders.length"></app-loader>
+    <app-loader *ngIf="!deliveryorders.length" [loadState]="'load1'"></app-loader>
     <div *ngIf="deliveryorders.length">
         <div *ngFor="let delivorders of deliveryorders" class="order-container">
             <div class="order-cont-sec-one">

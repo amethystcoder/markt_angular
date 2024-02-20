@@ -8,7 +8,7 @@
             </svg>
     </div>
     <h1>Basket</h1>
-    <app-loader *ngIf="!buyercart.length"></app-loader>
+    <app-loader *ngIf="!buyercart.length" [loadState]="'load1'"></app-loader>
     <div id="basket-items" *ngIf="buyercart.length">
         <div *ngFor="let item of buyercart" class="basket-item">
             <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt="" 

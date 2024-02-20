@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
 import { OrderApiService } from '../order-api.service';
@@ -10,7 +11,8 @@ import { Chats } from "../chat.model";
   selector: 'app-seller-home',
   templateUrl: './seller-home.component.html',
   standalone:true,
-  styleUrls: ['./seller-home.component.css']
+  styleUrls: ['./seller-home.component.css'],
+  imports:[CommonModule]
 })
 export class SellerHomeComponent implements OnInit,OnDestroy{
   ngOnInit(): void {

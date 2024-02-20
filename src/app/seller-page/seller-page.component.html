@@ -7,7 +7,7 @@
             11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
             </svg>
     </div>
-    <app-loader *ngIf="!sellertoview"></app-loader>
+    <app-loader *ngIf="!sellertoview" [loadState]="'load1'"></app-loader>
     <div *ngIf="sellertoview">
         <div class="contains-main">
             <div class="main-details">
@@ -112,17 +112,9 @@
     <div id="prods">
         <h1>Products</h1>
         <div class="products-container">
-            <div *ngFor="let item of sellerproducts" class="product" 
-            routerLink="/display" [queryParams]="[item.product_id]">
-            <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'" 
-            alt="" srcset="" class="product-image">
-            <div class="product-details">
-                <h3>{{item.product_name}}</h3>
-                <span class="bar">
-                    <p>{{item.product_price}}</p>
-                </span>
+            <div *ngFor="let item of sellerproducts" class="product">
+                <app-product-card [productData]="item"></app-product-card>
             </div>
-        </div>
         </div>
     </div>
 </div>
