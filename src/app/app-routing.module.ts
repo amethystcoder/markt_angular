@@ -24,12 +24,12 @@ const routes: Routes = [
   {path:"",redirectTo:"marketplace",pathMatch:"full"},
   {path:"new",component:SignupComponent},
   {path:"home",
-    loadComponent: ()=> import("./home/home.component").then(comp => comp.HomeComponent),
+    component:HomeComponent,
     //canActivate:[()=>inject(routeGuards).LoginGuard],
     canMatch:[()=>inject(routeGuards).usermatch]
   },
   {path:"home",
-    loadComponent: ()=> import("./seller-home/seller-home.component").then(comp => comp.SellerHomeComponent),
+    component:SellerHomeComponent
     //canActivate:[()=>inject(routeGuards).LoginGuard]
   },
   {path:"marketplace",component:MarketplaceComponent},

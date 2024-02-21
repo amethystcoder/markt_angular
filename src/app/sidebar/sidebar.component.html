@@ -36,7 +36,7 @@
         <h2>Markt</h2>
     </span>
 </span>
-<div id="user-link-container">
+<div id="user-link-container" [class.buyerpng]="user == 'buyer'" [class.sellerpng]="user == 'seller'" routerLink="/account">
     <img [src]="'http://localhost/markt_php/uploads/'+profile_image+'small.jpg'" alt="" id="user-img-profile" routerLink="/account">
     <div class="user-det-container">
         <h2>{{username}}</h2> 

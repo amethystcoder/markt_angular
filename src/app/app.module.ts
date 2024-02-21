@@ -38,6 +38,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { ProductCardComponent } from "./product-card/product-card.component";
 
 import { signalstore } from './userstate.service'
+import { SellerHomeComponent } from './seller-home/seller-home.component';
 
 const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
 
@@ -68,7 +69,8 @@ const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequ
         LoaderComponent,
         BuyerQueryComponent,
         CategoryListComponent,
-        ProductCardComponent
+        ProductCardComponent,
+        SellerHomeComponent
     ],
     providers: [signalstore],
     bootstrap: [AppComponent],

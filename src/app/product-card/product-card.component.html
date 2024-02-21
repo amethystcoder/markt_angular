@@ -1,5 +1,5 @@
 <div class="card" style="width: 20rem; height: 30rem;">
-    <div class="bon card-title d-flex">
+    <div class="bon card-title d-flex" *ngIf="usertype == '' || !usertype">
          <a href="#" class="btn btn-pri percent">90%</a>
          <a href="#" class="btn btn-pri love"><i class="fa-regular fa-heart" style="color: #e94c2a;"></i></a>
     </div>
@@ -7,15 +7,20 @@
     <img [src]="'http://localhost/markt_php/uploads/'+productData.product_images[0]+'small.jpg'" >
 
     <div class="card-title  d-flex">
-         <a href="#" class="btn btn-sm btn-pri cartgo">{{productData.product_category}}</a>
+         <a href="#" class="btn btn-sm btn-pri cartgo">{{reducecategory(productData.product_category)}}</a>
          <h5 class="original">{{productData.product_price}}</h5>
     </div>
     
-    <p class="card-text">{{productData.product_name}}</p>
+    <p class="bold-title card-text">{{productData.product_name}}</p>
 
-    <div class="bon card-title d-flex">
+    <div class="bon card-title d-flex" *ngIf="usertype == '' || !usertype">
          <button href="#" class="btn btn-pri">Add to Cart</button>
-         <button href="#" class="btn btn-primary" routerLink="/display" 
+         <button href="#" class="mrkt-btn btn btn-primary" routerLink="/display" 
          [queryParams]="[productData.product_id]">View Product</button>
     </div>
+
+    <div class="bon card-title d-flex" *ngIf="usertype == 'seller'">
+     <button href="#" class="btn btn-pri" (click)="edit_product()">Edit</button>
+     <button href="#" class="mrkt-btn btn btn-primary" (click)="delete_product()">Delete</button>
+</div>
 </div>

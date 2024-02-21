@@ -6,6 +6,7 @@
 </div>
 <div class="product-search">
     <label for="search-input" id="search-label">Search a product</label>
+    <div class="sep"></div>
     <input type="text" name="search-input" id="search-input" [(ngModel)]="searchquery" 
-    placeholder="search product" (input)="searchproduct()">
+    [placeholder]="placeholder" (input)="searchproduct()">
 </div>

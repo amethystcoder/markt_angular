@@ -22,9 +22,14 @@ export class MarketplaceComponent implements OnInit{
   store = inject(signalstore)
   usertype = this.store.user_type
 
+  prod:Product[] = []
+
   searchproduct(det:Search|null = null){
     if(det === null){
       this.marketplaceproducts = this.productservice.getbuyerproducts()
+      this.marketplaceproducts.subscribe((products)=>{
+        this.prod = products
+      })
     }
     if(det?.searchquery == "" && det?.searchcat == ""){
       this.catgunder = det?.searchcat

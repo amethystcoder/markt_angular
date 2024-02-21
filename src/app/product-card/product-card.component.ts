@@ -9,4 +9,14 @@ import { Product } from '../products.model';
 export class ProductCardComponent {
   @Input({required:true})
   productData!: Product;
+
+  @Input()
+  usertype!: string;
+
+  reducecategory(categoryString:string){
+    return categoryString.slice(0,15)+"..."
+  }
+
+  delete_product(){}
+  edit_product(){}
 }

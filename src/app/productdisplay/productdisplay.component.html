@@ -116,9 +116,10 @@
     <div class="oth-like">
         <h2>Products Like this</h2>
         <div class="products-container">
-            <div class="product" *ngFor="let product of likeproduct">
-            <app-product-card [productData]="product"></app-product-card>
-            </div>
+
+            <app-product-card style="border: 1px solid rgba(0, 0, 0, 0.175);margin: 15px;border-radius:0.375rem;" *ngFor="let product of likeproduct" [productData]="product">
+
+            </app-product-card>
         </div>
         <div
         infiniteScroll 

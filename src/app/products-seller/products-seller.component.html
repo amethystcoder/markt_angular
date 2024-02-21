@@ -1,7 +1,13 @@
 <div class="content">
     <h1>Your Products</h1>
     <div class="products-container">
-        <div *ngFor="let item of sellerproducts" class="product">
+        <app-product-card [productData]="item" 
+        [usertype]="'seller'"
+        style="border: 1px solid rgba(0, 0, 0, 0.175);margin: 15px;border-radius:0.375rem;" 
+        *ngFor="let item of sellerproducts">
+
+        </app-product-card>
+        <!-- <div *ngFor="let item of sellerproducts" class="product">
             <img [src]="'http://localhost/markt_php/uploads/'+item.product_images[0]+'small.jpg'" 
             alt="" srcset="" class="product-image" loading="lazy">
             <div class="product-details">
@@ -14,7 +20,7 @@
                 <button class="button-active" (click)="edit_product(item)">Edit</button>
                 <button class="button-active" (click)="delete_product(item)">Delete</button>
             </div>
-        </div>
+        </div> -->
         <div id="product-create" (click)="opennewproductcomponent()">
             <h1>+</h1>
             <h3>Create a new Product</h3>
