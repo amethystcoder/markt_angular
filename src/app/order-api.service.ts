@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, map, retry } from 'rxjs/operators';
 import { UnacceptedOrders, Orders, BuyerOrders, DeliveryOrders, SuccessfulOrder } from './orders.model'
 
 @Injectable({
@@ -60,7 +60,8 @@ export class OrderApiService {
       `http://localhost/markt_php/get_buyer_orders.php?user_type=buyer&user_id=${buyer_id}`
       )
     .pipe(
-      retry(2)
+      retry(2),
+      map((orders)=>{})
     )
   }
 

@@ -38,7 +38,7 @@
         </span>
     </span>
     <span class="user-set-cont user-contrl-cont">
-        <h2>Logged in as {{username}}</h2>  
+        <h2>Logged in as {{username ? username : "Guest"}}</h2>  
         <a class="logout-link" (click)="logoutuser()">Logout</a>
     </span>
 </div>

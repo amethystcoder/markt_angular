@@ -42,4 +42,7 @@ export interface SuccessfulOrder{
   discount_price:number,
   discount_percent:number
 }
-  
+
+export interface BuyerOrdersEdt extends BuyerOrders{
+  optionOpen:boolean
+}

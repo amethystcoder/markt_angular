@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, inject} from '@angular/core';
 import { ProductApiService } from '../product-api.service';
 import { Product } from "../products.model";
 import { OrderApiService } from '../order-api.service';
-import { BuyerOrders, Orders, UnacceptedOrders } from "../orders.model";
+import { BuyerOrders, BuyerOrdersEdt, Orders, UnacceptedOrders } from "../orders.model";
 import { UserstateService, signalstore } from '../userstate.service';
 import { Chats } from "../chat.model";
 
@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit,OnDestroy{
 
   ngOnInit(){
     this.orderapi.getbuyerorders(this.userid).subscribe((data)=>{
+      console.log(data);
       this.buyerorderlist = data
     })
     this.querychangeinterval = setInterval(()=>{
@@ -52,7 +53,28 @@ export class HomeComponent implements OnInit,OnDestroy{
   buyerquerycategory:string[] = []
   catgshow = false
 
-  buyerorderlist:any = []
+  buyerorderlist:any = [
+    {
+        "order_id": "order-660db0d2ba8c87.79838493",
+        "seller_id": "seller-65d51f5b563fe0.90073258",
+        "seller_shopname": "amethyste",
+        "product_quantity": "1",
+        "order_date": "2024-04-03",
+        "declined": false,
+        "accepted": false,
+        "received_by_delivery": false,
+        "has_discount": "0",
+        "discount_percent": "0",
+        "discount_price": "0",
+        "delivery_name": "",
+        "delivery_id": "",
+        "product_name": null,
+        "product_price": null,
+        "product_id": null,
+        "product_image": "placeholder-image",
+        "optionOpen":false
+    }
+  ]
 
   removefromcategories(item:string){
     this.buyerquerycategory.splice(this.buyerquerycategory.indexOf(item),1)
@@ -78,6 +100,8 @@ export class HomeComponent implements OnInit,OnDestroy{
     })
   }
 
+  optionOpen = false
+
   opennewchat(order:BuyerOrders){
     let newchat:Chats = {
       messages:[],
@@ -88,4 +112,8 @@ export class HomeComponent implements OnInit,OnDestroy{
     }
     this.store.updatepresentchat(newchat)
   } 
+
+  toggleOptions(order:BuyerOrdersEdt){
+    this.optionOpen = !this.optionOpen
+  }
 }
