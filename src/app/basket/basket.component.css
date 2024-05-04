@@ -30,7 +30,29 @@
     width: 100%;
     display: flex;
     justify-content: center;
-}
-.checkout{
-    width: 40%;
+    flex-direction: column;
+    .head{
+      font-weight: 800;
+      text-shadow: #E94C24 1px 1px 10px;
+    }
+    h3{
+      font-size: 50px!important;
+      text-align: right;
+    }
+    .summaryItem{
+      border-bottom: #E94C24 1px solid;
+    }
+    .headding{
+      font-weight: 600;
+    }
+    .checkout{
+        width: 50%;
+        margin: 10px auto;
+        text-align: center;
+    }
+    h6{
+        font-size: 20px;
+        font-weight: 300;
+        letter-spacing: 5px;
+    }
 }
