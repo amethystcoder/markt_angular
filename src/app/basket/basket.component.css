@@ -56,3 +56,12 @@
         letter-spacing: 5px;
     }
 }
+.summary{
+  position:absolute;
+  background-color: #fff;
+  width: 50vw;
+  right: 20%;
+  top: 20%;
+  /* Display Block to show */
+  display: none;
+}
