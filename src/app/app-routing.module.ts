@@ -25,12 +25,7 @@ const routes: Routes = [
   {path:"new",component:SignupComponent},
   {path:"home",
     component:HomeComponent,
-    //canActivate:[()=>inject(routeGuards).LoginGuard],
-    canMatch:[()=>inject(routeGuards).usermatch]
-  },
-  {path:"home",
-    component:SellerHomeComponent
-    //canActivate:[()=>inject(routeGuards).LoginGuard]
+    canActivate:[()=>inject(routeGuards).LoginGuard],
   },
   {path:"marketplace",component:MarketplaceComponent},
   {path:"display",component:ProductdisplayComponent},

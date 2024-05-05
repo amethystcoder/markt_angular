@@ -42,9 +42,14 @@ export class routeGuards {
         }
     }
     
-    usermatch: CanMatchFn = (route: Route,segments: UrlSegment[]) => {
+    buyermatch: CanMatchFn = (route: Route,segments: UrlSegment[]) => {
         let signal = inject(signalstore)
         return signal.user_type().toLowerCase() == "buyer";
+    }
+
+    sellermatch: CanMatchFn = (route: Route,segments: UrlSegment[]) => {
+        let signal = inject(signalstore)
+        return signal.user_type().toLowerCase() == "seller";
     }
     
 }

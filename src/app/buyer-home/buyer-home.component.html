@@ -1,0 +1,69 @@
+<div class="content">
+    <div id="buyer-det" *ngIf="usertype == 'buyer'">
+        <div class="product-query-container">
+            <div>
+                <h1 id="in-header-text">Looking for something in particular?</h1>
+                <p>Type in the kind of product you are looking for or a description of the product 
+                    and have sellers respond to your requests.</p>
+            </div>
+            <div>
+                <textarea name="query-text" id="query-text" cols="30" rows="10" 
+                [placeholder]="'e.g '+queryplaceholder" [(ngModel)]="query">
+                </textarea>
+                <span>
+                    <p id="und-p-text">Add a category you think the product would be in</p>
+                    <div id="query-catg-cont" *ngIf="buyerquerycategory.length">
+                        <div *ngFor="let item of buyerquerycategory" class="button-active">
+                            <span style="margin-right: 5px;">{{item}}</span> 
+                            <span (click)="removefromcategories(item)">x</span>
+                        </div>
+                    </div>
+                    <button class="inv-button-active" (click)="opencatgories()">add +</button>
+                </span>
+                <button class="submit-button inv-button-active" (click)="submitquery()">Submit</button>
+            </div>
+        </div>
+        <h2>One or more of your recent orders are already on their way</h2>
+        <div class="order-container">
+            <div *ngFor="let order of buyerorderlist" class="buyer-order-cont">
+                <div [style]="" class="buyer-order-img">
+                    <!-- 'http://localhost/markt_php/uploads/'+order.product_image+'small.jpg' -->
+                </div>
+                <div class="buyer-order-det">
+                    <h3>{{order.product_name}}</h3>
+                    <p *ngIf="order.accepted && order.received_by_delivery">
+                        <b>Status: </b>
+                    </p>
+                    <p *ngIf="order.accepted && !order.received_by_delivery">
+                        <b>Status: </b>Not Collected(Still with seller)
+                    </p>order
+                    <p *ngIf="!order.accepted && order.seller_id"><b>Status: </b>Not yet accepted or declined</p>
+                    <p *ngIf="!order.accepted && !order.seller_id"><b>Status: </b>Order declined by Seller</p>
+                    <p>qty: {{order.product_quantity}}</p>
+                    <span class="bar">
+                        <!-- <button class="button-active" (click)="opennewchat(order)">Chat with Seller</button>
+                        <button class="button-active" routerLink="/sellerview" [queryParams]="[order.seller_id]">Seller Info</button> -->
+                        <button class="button-active opt-button" (click)="toggleOptions(order)">
+                            <span class="tit-opt">Options</span>
+                            <span class="icon-opt">
+                                <svg width="25" height="26" viewBox="0 0 25 26" 
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <line _ngcontent-ng-c534351606="" x1="10.8896" y1="21.7656" x2="2.93464" y2="3.81056" stroke="black" stroke-width="4" stroke-linecap="round"></line>
+                                <line _ngcontent-ng-c534351606="" x1="10.8896" y1="21.7656" x2="20.8896" y2="3.81056" stroke="black" stroke-width="4" stroke-linecap="round"></line>
+                            </svg>
+                            </span>
+                        </button>
+                        <div class="options" *ngIf="order.optionOpen">
+                            <div class="option pbt">chat seller</div>
+                            <div class="option pbt">track delivery</div>
+                            <div class="option pbt">modify order</div>
+                            <div class="option">cancel order</div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <h4>Buy more products or services in the <a routerLink="/marketplace"> Marketplace</a></h4>
+    </div>
+</div>
+<app-category-list *ngIf="catgshow" (lister)="mergecatgs($event)" [state]="'categories'"></app-category-list>
