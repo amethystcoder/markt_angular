@@ -1,8 +1,8 @@
 {
   "name": "markt",
   "short_name": "markt",
-  "theme_color": "#E94C24",
-  "background_color": "#ffffff",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

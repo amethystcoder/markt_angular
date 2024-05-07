@@ -22,7 +22,7 @@ export interface UserState {
 const initialState:UserState = {
   user_id:"",
   name:"",
-  user_type:"buyer",
+  user_type:"seller",
   user_profile_image:"",
   latitude:0.0,
   longtitude:0.0,

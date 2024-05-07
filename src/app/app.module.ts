@@ -40,6 +40,7 @@ import { ProductCardComponent } from "./product-card/product-card.component";
 import { signalstore } from './userstate.service'
 import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { BuyerHomeComponent } from './buyer-home/buyer-home.component';
+//import { ServiceWorkerModule } from '@angular/service-worker';
 
 const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
 
@@ -84,7 +85,13 @@ const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequ
         HttpClientModule,
         FormsModule,
         InfiniteScrollModule,
-        SocketIoModule.forRoot(config)
+        SocketIoModule.forRoot(config)/* ,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: !isDevMode(),
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        }) */
     ]
 })
 export class AppModule { }

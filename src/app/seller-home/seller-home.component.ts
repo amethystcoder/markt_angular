@@ -6,6 +6,7 @@ import { OrderApiService } from '../order-api.service';
 import { BuyerOrders, Orders, UnacceptedOrders } from "../orders.model";
 import { UserstateService, signalstore } from '../userstate.service';
 import { Chats } from "../chat.model";
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-seller-home',
@@ -20,6 +21,15 @@ export class SellerHomeComponent implements OnInit,OnDestroy{
     this.orderapi.getpendingorders(this.userid).subscribe((data)=>{
         this.sellerpendingorderlist = data
     })
+    this.chart = new Chart('canvas',{
+      type:'bar',
+      data:{
+        labels: ['red', 'blue','yellow','green'],
+        datasets: [
+          {label:'no of votes',data:[2,4,6,2,35,7,5,77],borderWidth:1}
+        ]
+      }
+    })
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
@@ -33,6 +43,8 @@ export class SellerHomeComponent implements OnInit,OnDestroy{
 
   sellerproductlist:Array<Product> = []
   sellerpendingorderlist:Array<UnacceptedOrders> = []
+
+  chart:any = []
 
   usertype = this.store.user_type()
   userid = this.store.user_id()

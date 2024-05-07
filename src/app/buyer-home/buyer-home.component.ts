@@ -115,5 +115,6 @@ export class BuyerHomeComponent implements OnInit,OnDestroy{
 
   toggleOptions(order:BuyerOrdersEdt){
     this.optionOpen = !this.optionOpen
+    console.log(this.optionOpen)
   }
 }

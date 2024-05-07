@@ -60,8 +60,7 @@ export class OrderApiService {
       `http://localhost/markt_php/get_buyer_orders.php?user_type=buyer&user_id=${buyer_id}`
       )
     .pipe(
-      retry(2),
-      map((orders)=>{})
+      retry(2)
     )
   }
 
