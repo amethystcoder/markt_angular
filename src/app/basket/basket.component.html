@@ -1,17 +1,17 @@
 <div class="content">
     <div (click)="previous()">
         <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853 
-            22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 
-            20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 
+            <path d="M0.939341 10.9393C0.353554 11.5251 0.353554 12.4749 0.939341 13.0607L10.4853
+            22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066
+            20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611
             11.0711 0.807611 10.4853 1.3934L0.939341 10.9393ZM26 10.5L2 10.5V13.5L26 13.5V10.5Z" fill="#000000"/>
             </svg>
     </div>
     <h1>Basket</h1>
-    <app-loader *ngIf="!buyercart.length" [loadState]="'load1'"></app-loader>
+    <!-- <app-loader *ngIf="!buyercart.length" [loadState]="'load1'"></app-loader> -->
     <div id="basket-items" *ngIf="buyercart.length">
         <div *ngFor="let item of buyercart" class="basket-item">
-            <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt="" 
+            <img [src]="'http://localhost/markt_php/uploads/'+item.product_image+'small.jpg'" alt=""
             class="cart-item-image">
             <h3>{{item.product_name}}</h3>
             <span class="det-bar">
@@ -23,7 +23,35 @@
         </div>
     </div>
     <div class="checkout-cont">
+        <div class="summary">
+            <div class="head">
+                <h3>Summary</h3>
+                <div class="dot"></div>
+            </div>
+            <div class="summaryBody">
+                <div class="d-flex justify-content-between align-items-center summaryItem">
+                    <h4 class="text-capitalize headding">Number of Items</h4>
+                    <h6 class="items">20</h6>
+                </div>
+                <div class="d-flex justify-content-between align-items-center summaryItem">
+                    <h4 class="text-capitalize headding">Subtotal</h4>
+                    <h6 class="subtotal">40,000</h6>
+                </div>
+                <div class="d-flex justify-content-between align-items-center summaryItem">
+                    <h4 class="text-capitalize headding">Commission (tax)</h4>
+                    <h6 class="subtotal">400</h6>
+                </div>
+                <div class="d-flex justify-content-between align-items-center summaryItem">
+                    <h4 class="text-capitalize headding">Shipping/Delivery Fee</h4>
+                    <h6 class="shipping">2,000</h6>
+                </div>
+                <div class="d-flex justify-content-between align-items-center summaryItem">
+                    <h4 class="text-capitalize headding">Total</h4>
+                    <h6 class="shipping">500,000</h6>
+                </div>
+            </div>
+        </div>
         <button class="checkout button-active" (click)="checkout()">Checkout</button>
     </div>
-</div> 
+</div>
 
