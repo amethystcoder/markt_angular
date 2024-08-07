@@ -10,6 +10,8 @@ import { User, LoginDetails, LoginResult, SignupResult } from './signupandlogin.
 export class SignupandloginService {
 
   constructor(private http:HttpClient) { }
+
+  url = "http://localhost:5000"
   
   createnewuser(user:any,file:Blob|string,usertype:string){
     let formdata = new FormData()
@@ -44,17 +46,18 @@ export class SignupandloginService {
     }
     formdata.append("vehicle_type",user.vehicle_type)
     formdata.append("working_for_org",user.working_for_org)
-    return this.http.post<SignupResult>("http://localhost/markt_php/signup.php",formdata).pipe(
+    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,formdata).pipe(
       retry(2)
     )
   }
 
   loginexistinguser(user:LoginDetails){
     let logindata = new FormData()
+    //will change this later... it just means that the user can login with either username, email or phone number
     logindata.append("usernameoremailorphonenumber",user.username)
     logindata.append("user_type",user.usertype)
     logindata.append("password",user.password)
-    return this.http.post<LoginResult>("http://localhost/markt_php/login.php",logindata)
+    return this.http.post<LoginResult>(`${this.url}/auth/login`,logindata)
     .pipe(
       retry(2)
     )

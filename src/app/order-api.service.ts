@@ -11,9 +11,11 @@ export class OrderApiService {
 
   constructor(private http:HttpClient) { }
 
+  url = "http://localhost:5000"
+
   getpendingorders(sellerid:string){
     return this.http.get<Array<UnacceptedOrders>>(
-      `http://localhost/markt_php/get_non_accepted_orders.php?user_type=seller&user_id=${sellerid}`
+      `${this.url}/orders/sellers/pending/${sellerid}`
       )
     .pipe(
       retry(2)
@@ -22,7 +24,7 @@ export class OrderApiService {
 
   getacceptedorders(sellerid:string){
     return this.http.get<Array<Orders>>(
-      `http://localhost/markt_php/get_accepted_orders.php?user_type=seller&user_id=${sellerid}`
+      `${this.url}/orders/sellers/accepted/${sellerid}`
       )
     .pipe(
       retry(2)
@@ -34,8 +36,8 @@ export class OrderApiService {
     formdata.append('order_id',orderid)
     formdata.append('user_id',user_id)
     formdata.append('user_type',user_type)
-    return this.http.post(
-      "http://localhost/markt_php/accept_order.php",
+    return this.http.put(
+      `${this.url}/orders/sellers/update/accept/${orderid}`,
       formdata
     ).pipe(
       retry(2)
@@ -47,8 +49,8 @@ export class OrderApiService {
     formdata.append('order_id',orderid)
     formdata.append('user_id',user_id)
     formdata.append('user_type',user_type)
-    return this.http.post<boolean>(
-      "http://localhost/markt_php/decline_order.php",
+    return this.http.put<boolean>(
+      `${this.url}/orders/sellers/update/decline`,
       formdata
     ).pipe(
       retry(2)
@@ -57,14 +59,14 @@ export class OrderApiService {
 
   getbuyerorders(buyer_id:string){
     return this.http.get<BuyerOrders[]>(
-      `http://localhost/markt_php/get_buyer_orders.php?user_type=buyer&user_id=${buyer_id}`
+      `${this.url}/orders/buyers/${buyer_id}`
       )
     .pipe(
       retry(2)
     )
   }
 
-  getclosedeliveryorders(deliveryid:string,longtitude:number|undefined = undefined,latitude:number|undefined = undefined){
+  /* getclosedeliveryorders(deliveryid:string,longtitude:number|undefined = undefined,latitude:number|undefined = undefined){
     if(longtitude && latitude)
     return this.http.get<DeliveryOrders[]>(
       `http://localhost/markt_php/get_delivery_orders.php?
@@ -81,9 +83,9 @@ export class OrderApiService {
     .pipe(
       retry(2)
     )
-  }
+  } */
 
-  handleorder(deliveryid:string,orderid:string){
+  /* handleorder(deliveryid:string,orderid:string){
     let handlerdata = new FormData()
     handlerdata.append("user_id",deliveryid)
     handlerdata.append("user_type","delivery")
@@ -104,7 +106,7 @@ export class OrderApiService {
       retry(2),
       catchError(this.handleerror)
     )
-  }
+  } */
 
   private handleerror(err:HttpErrorResponse){
     if(err.status == 0){}
@@ -117,7 +119,7 @@ export class OrderApiService {
     neworderdata.append("user_id",user_id)
     neworderdata.append("user_type",user_type)
     return this.http.post<SuccessfulOrder[]>(
-      "http://localhost/markt_php/create_new_orders.php",
+      `${this.url}/orders/new`,
       neworderdata
     ).pipe(
       retry(2)

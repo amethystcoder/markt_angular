@@ -12,22 +12,24 @@ export class ProductApiService {
 
   constructor(private http:HttpClient) { }
 
+  url = "http://localhost:5000"
+
   getcategorynames(){
-    return this.http.get<Array<string>>("http://localhost/markt_php/categories_add.php?type=main_names")
+    return this.http.get<Array<string>>(`${this.url}/products/categories/categorynames`)
     .pipe(
       retry(1)
     )
   }
 
   getcategories(){
-    return this.http.get<Array<Category>>("http://localhost/markt_php/categories_add.php?type=all")
+    return this.http.get<Array<Category>>(`${this.url}/products/categories/all`)
     .pipe(
       retry(1)
     )
   }
 
   getsellerproducts(seller:string|null){
-    let produrl = `http://localhost/markt_php/get_products.php?type=seller_products&seller_id=${seller}`
+    let produrl = `${this.url}/products/seller/${seller}`
     return this.http.get<Array<Product>>(produrl)
     .pipe(
       retry(1),
@@ -42,7 +44,7 @@ export class ProductApiService {
   }
 
   getbuyerproducts(){
-    return this.http.get<Product[]>("http://localhost/markt_php/get_products.php?type=getrandom&amount=12")
+    return this.http.get<Product[]>(`${this.url}/products/random/20`)
     .pipe(
       retry(1),
       map((product)=>{
@@ -55,8 +57,7 @@ export class ProductApiService {
   }
 
   searchproduct(name:string){
-    return this.http.get<Product[]>(`http://localhost/markt_php/get_products.php?type=search&
-                                                              product_name=${name}&start_idx=0`)
+    return this.http.get<Product[]>(`${this.url}/products/search/${name}`)
     .pipe(
       retry(1),
       map((product)=>{
@@ -69,8 +70,7 @@ export class ProductApiService {
   }
 
   searchcategory(name:string|undefined){
-    return this.http.get<Product[]>(`http://localhost/markt_php/get_products.php?type=category&
-                                                          product_category=${name}&start_idx=0`)
+    return this.http.get<Product[]>(`${this.url}/products/category/search/${name}`)
     .pipe(
       retry(1),
       map((product)=>{
@@ -82,10 +82,10 @@ export class ProductApiService {
     )
   }
 
+  //the route for this does not exist so i am using this one in its stead
+  //the route is supposed to search for a product with a particular name that is also in a particular category
   searchproductwithcategory(name:string|undefined,category:string|undefined){
-    return this.http.get<Product[]>(`http://localhost/markt_php/get_products.php?type=category&
-                                                          product_name=${name}&product_category=${category}&
-                                                          start_idx=0`)
+    return this.http.get<Product[]>(`${this.url}/products/category/search/${name}`)
     .pipe(
       retry(1),
       map((product)=>{
@@ -98,7 +98,7 @@ export class ProductApiService {
   }
 
   getproduct(product_id:string|null){
-    return this.http.get<Product>(`http://localhost/markt_php/get_products.php?type=single&product_id=${product_id}`)
+    return this.http.get<Product>(`${this.url}/products/${product_id}`)
     .pipe(
       retry(1)
     )
@@ -121,7 +121,7 @@ export class ProductApiService {
       formdata.append("product_image"+n.toString(),image)
       n++
     })
-    return this.http.post("http://localhost/markt_php/sellerproductset.php",formdata)
+    return this.http.post(`${this.url}/products/new`,formdata)
     .pipe(
       retry(1)
     )
@@ -145,7 +145,7 @@ export class ProductApiService {
       formdata.append("product_image"+n.toString(),image)
       n++
     })
-    return this.http.post("http://localhost/markt_php/sellerproductedit.php",formdata)
+    return this.http.put(`${this.url}/products/${product.product_id}`,formdata)
     .pipe(
       retry(1)
     )
@@ -153,7 +153,7 @@ export class ProductApiService {
 
   getbuyerbasketitems(buyerid:string,usertype:string){
     return this.http.get<CartItem[]>(
-      `http://localhost/markt_php/get_cart_items.php?user_id=${buyerid}&user_type=${usertype}`)
+      `${this.url}/cart/${buyerid}`)
     .pipe(
       retry(1)
     )
@@ -168,15 +168,16 @@ export class ProductApiService {
     cartdata.append("has_discount",(item.has_discount)? `1` : `0`)
     cartdata.append("discount_price",item.discount_price.toString())
     cartdata.append("discount_percent",item.discount_percent.toString())
-    return this.http.post<boolean>("http://localhost/markt_php/add_to_cart.php",cartdata)
+    return this.http.post<boolean>(`${this.url}/cart/`,cartdata)
     .pipe(
       retry(1)
     )
   }
 
+  //we need to make sure only the owner i.e buyer can remove items from cart
   removeitemfromcart(buyerid:string,cart_id:string){
-    return this.http.get(
-      `http://localhost/markt_php/remove_from_cart.php?user_id=${buyerid}&cart_id=${cart_id}`)
+    return this.http.delete(
+      `${this.url}/cart/${cart_id}`)
     .pipe(
       retry(1)
     )
@@ -187,7 +188,7 @@ export class ProductApiService {
     querydata.append("buyer_id",buyer_id)
     querydata.append("message",message)
     querydata.append("category",category.toString())
-    return this.http.post<boolean>("http://localhost/markt_php/create_product_query.php",querydata)
+    return this.http.post<boolean>(`${this.url}/product_request/new`,querydata)
     .pipe(
       retry(1)
     )
@@ -200,7 +201,7 @@ export class ProductApiService {
       categories_concatd += "+"
     })
     return this.http.get(
-      `http://localhost/markt_php/get_product_queries.php?type=category&categories=${categories_concatd}`)
+      `${this.url}/product_request/category/${categories_concatd}`)
     .pipe(
       retry(1)
     )
@@ -208,7 +209,7 @@ export class ProductApiService {
 
   getbuyerqueries(buyer_id:string){
     return this.http.get<ProductQuery[]>(
-      `http://localhost/markt_php/get_product_queries.php?type=buyer&buyer_id=${buyer_id}`)
+      `${this.url}/product_request/${buyer_id}`)
     .pipe(
       retry(1)
     )
@@ -216,17 +217,18 @@ export class ProductApiService {
 
   getsellerqueries(seller_id:string){
     return this.http.get<ProductQuery[]>(
-      `http://localhost/markt_php/get_product_queries.php?type=seller&seller_id=${seller_id}`)
+      `${this.url}/product_request/${seller_id}`)
     .pipe(
       retry(1)
     )
   }
 
+  //need to make sure it is the owner of the product i.e the seller that is the one deleting the product
   deleteproduct(seller_id:string,product_id:string){
     let productdata = new FormData()
     productdata.append("seller_id",seller_id)
     productdata.append("product_id",product_id)
-    return this.http.post<boolean>("http://localhost/markt_php/delete_product.php",productdata)
+    return this.http.delete<boolean>(`${this.url}/products/${product_id}`)
     .pipe(
       retry(1)
     )

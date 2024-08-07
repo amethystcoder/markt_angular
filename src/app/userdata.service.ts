@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, tap } from 'rxjs/operators';
 import { Favorite, Buyer, BuyerUncheckedItems, Seller, SellerUncheckedItems, Delivery } from "./userdata.model";
 
 @Injectable({
@@ -11,21 +11,24 @@ export class UserdataService {
 
   constructor(private http:HttpClient) { }
 
+  url = "http://localhost:5000"
+
+  //we need to know the usertype... we can't have a seller adding to favorites now can we?
   getbuyerfavorites(buyerid:string,usertype:string){
     return this.http.get<Favorite[]>(
-      `http://localhost/markt_php/get_favorites.php?user_type=${usertype}&user_id=${buyerid}`)
+      `${this.url}/favorites/${buyerid}`)
       .pipe(
         retry(2)
       )
   }
 
-  addasfavorite(buyerid:string,favoritetype:string,favoriteid:string){
+  addasfavorite(buyerid:string,favoritetype:string,favoriteid:string) : Observable<boolean>{
     let favoriteformdata = new FormData()
     favoriteformdata.append("user_id",buyerid)
     favoriteformdata.append("favorite_type",favoritetype)
     favoriteformdata.append("favorite_id",favoriteid)
     favoriteformdata.append("control_type","add")
-    return this.http.post<boolean>("http://localhost/markt_php/control_favorites.php",favoriteformdata)
+    return this.http.post<boolean>(`${this.url}/favorites/new`,favoriteformdata)
     .pipe(
       retry(2)
     )
@@ -37,37 +40,40 @@ export class UserdataService {
     favoriteformdata.append("favorite_type",favoritetype)
     favoriteformdata.append("favorite_id",favoriteid)
     favoriteformdata.append("control_type","remove")
-    return this.http.post<boolean>("http://localhost/markt_php/control_favorites.php",favoriteformdata)
+    return this.http.delete<boolean>(`${this.url}/favorites/${favoriteid}`)
     .pipe(
       retry(2)
     )
   }
 
+  //needs to be discussed
   getbuyerdata(buyerid:string|null){
     return this.http.get<Buyer>(
-      `http://localhost/markt_php/get_user_data.php?user_id=${buyerid}&user_type=buyer`)
+      `${this.url}/user/${buyerid}`)
       .pipe(
         retry(2)
       )
   }
 
+  //needs to be discussed
   getsellerdata(sellerid:string|null){
     return this.http.get<Seller>(
-      `http://localhost/markt_php/get_user_data.php?user_id=${sellerid}&user_type=seller`)
+      `${this.url}/user/${sellerid}`)
       .pipe(
         retry(2)
       )
   }
 
-  getdeliverydata(deliveryid:string|null){
+  /* getdeliverydata(deliveryid:string|null){
     return this.http.get<Delivery>(
       `http://localhost/markt_php/get_user_data.php?user_id=${deliveryid}&user_type=delivery`)
     .pipe(
       retry(2)
     )
-  }
+  } */
 
-  get_buyer_unchecked_items(buyerid:string){
+  //I do not know what these are for so until i check the php code
+  /* get_buyer_unchecked_items(buyerid:string){
     return this.http.get<BuyerUncheckedItems>(
       `http://localhost/markt_php/get_unchecked_items.php?user_id=${buyerid}&user_type=buyer`)
     .pipe(
@@ -81,14 +87,14 @@ export class UserdataService {
     .pipe(
       retry(2)
     )
-  }
+  } */
 
   updatebuyerdata(buyerid:string,buyer:Buyer|undefined){
     let buyerdata = new FormData()
     buyerdata.append("user_id",buyerid)
     buyerdata.append("user_type","buyer")
     buyerdata.append("buyer_data",JSON.stringify(buyer))
-    return this.http.post("http://localhost/markt_php/update_user_data.php",buyerdata)
+    return this.http.put(`${this.url}/user/${buyerid}`,buyerdata)
     .pipe(
       retry(2)
     )
@@ -99,13 +105,13 @@ export class UserdataService {
     sellerdata.append("user_id",sellerid)
     sellerdata.append("user_type","seller")
     sellerdata.append("seller_data",JSON.stringify(seller))
-    return this.http.post("http://localhost/markt_php/update_user_data.php",sellerdata)
+    return this.http.put(`${this.url}/user/${sellerid}`,sellerdata)
     .pipe(
       retry(2)
     )
   }
 
-  updatedeliverydata(deliveryid:string,delivery:Delivery|undefined){
+  /* updatedeliverydata(deliveryid:string,delivery:Delivery|undefined){
     let deliverydata = new FormData()
     deliverydata.append("user_id",deliveryid)
     deliverydata.append("user_type","delivery")
@@ -114,14 +120,14 @@ export class UserdataService {
     .pipe(
       retry(2)
     )
-  }
+  } */
 
   updateuserprofileimage(user_type:string,user_id:string,profile_image:File){
     let userdata = new FormData()
     userdata.append("user_type",user_type)
     userdata.append("user_id",user_id)
     userdata.append("profile_image",profile_image)
-    return this.http.post<Boolean>("http://localhost/markt_php/update_user_profile_image.php",userdata)
+    return this.http.patch<Boolean>(`${this.url}/user/update-profile-picture`,userdata)
     .pipe(
       retry(2)
     )
@@ -131,7 +137,7 @@ export class UserdataService {
     let userresetdata = new FormData()
     userresetdata.append("user_type",user_type)
     userresetdata.append("email",email)
-    return this.http.post("http://localhost/markt_php/forgot_password.php",userresetdata)
+    return this.http.post(`${this.url}/psw_ret/create`,userresetdata)
     .pipe(
       retry(2)
     )
@@ -141,7 +147,7 @@ export class UserdataService {
     let userresetdata = new FormData()
     userresetdata.append("user_type",user_type)
     userresetdata.append("phone",phone)
-    return this.http.post("http://localhost/markt_php/forgot_password.php",userresetdata)
+    return this.http.post(`${this.url}/psw_ret/create`,userresetdata)
     .pipe(
       retry(2)
     )
@@ -153,7 +159,7 @@ export class UserdataService {
     passwordchangedata.append("password",new_password)
     passwordchangedata.append("email",email)
     passwordchangedata.append("retrieval_code",retrieval_code)
-    return this.http.post<boolean>("http://localhost/markt_php/retrieve_and_reset_password.php",passwordchangedata)
+    return this.http.post<boolean>(`${this.url}/psw_ret/check`,passwordchangedata)
     .pipe(
       retry(2)
     )
@@ -165,7 +171,7 @@ export class UserdataService {
     passwordchangedata.append("password",new_password)
     passwordchangedata.append("phone_number",phonenumber)
     passwordchangedata.append("retrieval_code",retrieval_code)
-    return this.http.post<boolean>("http://localhost/markt_php/retrieve_and_reset_password.php",passwordchangedata)
+    return this.http.post<boolean>(`${this.url}/psw_ret/check`,passwordchangedata)
     .pipe(
       retry(2)
     )

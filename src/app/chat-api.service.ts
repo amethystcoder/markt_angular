@@ -9,6 +9,8 @@ import { Chat, Chats, Comment, RetrievedComment, Review } from './chat.model';
 })
 export class ChatApiService {
 
+  url = "http://localhost:5000"
+
   constructor(private http:HttpClient,private socket:Socket) { }
 
   rateandcomment(comment:Comment):Observable<Comment> {
@@ -19,15 +21,14 @@ export class ChatApiService {
     commentsetdata.append("commenter",comment.commenter)
     commentsetdata.append("comment_title",comment.comment_title)
     commentsetdata.append("rating",comment.rating.toString())
-    return this.http.post<Comment>("http://localhost/markt_php/comment_set.php",commentsetdata)
+    return this.http.post<Comment>(`${this.url}/comments/rate_and_comment`,commentsetdata)
     .pipe(
       retry(2)
     )
   }
 
   getcommentsandrating(commentplaceid: string,comment_place: string):Observable<Review>{
-    return this.http.get<Review>(`http://localhost/markt_php/comments_get.php?
-          comment_place_id=${commentplaceid}&comment_place=${comment_place}`)
+    return this.http.get<Review>(`${this.url}/comments/${commentplaceid}`)
           .pipe(
             retry(2)
           )
