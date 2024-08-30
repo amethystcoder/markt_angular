@@ -13,10 +13,10 @@ export class CategoryListComponent implements OnInit{
 
   ngOnInit(): void {
     this.productservice.getcategorynames().subscribe((data)=>{
-      this.maincategories = data
+      this.maincategories = data.categories
     })
     this.productservice.getcategories().subscribe((data)=>{
-      this.allcategories = data
+      this.allcategories = data.categories
     })
   }
 

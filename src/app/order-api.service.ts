@@ -66,7 +66,8 @@ export class OrderApiService {
     )
   }
 
-  /* getclosedeliveryorders(deliveryid:string,longtitude:number|undefined = undefined,latitude:number|undefined = undefined){
+  /************************************************************************************************************** */
+  getclosedeliveryorders(deliveryid:string,longtitude:number|undefined = undefined,latitude:number|undefined = undefined){
     if(longtitude && latitude)
     return this.http.get<DeliveryOrders[]>(
       `http://localhost/markt_php/get_delivery_orders.php?
@@ -83,9 +84,9 @@ export class OrderApiService {
     .pipe(
       retry(2)
     )
-  } */
+  }
 
-  /* handleorder(deliveryid:string,orderid:string){
+  handleorder(deliveryid:string,orderid:string){
     let handlerdata = new FormData()
     handlerdata.append("user_id",deliveryid)
     handlerdata.append("user_type","delivery")
@@ -106,7 +107,9 @@ export class OrderApiService {
       retry(2),
       catchError(this.handleerror)
     )
-  } */
+  }
+
+  /************************************************************************************************************** */
 
   private handleerror(err:HttpErrorResponse){
     if(err.status == 0){}

@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.productapi.getcategorynames()
     .subscribe((categories)=>{
-      this.categories = categories
+      this.categories = categories.categories
     })
   }
 

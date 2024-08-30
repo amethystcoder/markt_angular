@@ -7,6 +7,10 @@ export interface Category{
           },
             ]
   }
+
+  export interface Catg{
+    categories: Array<any>
+  }
   
   export interface Product{
     product_id:string, 

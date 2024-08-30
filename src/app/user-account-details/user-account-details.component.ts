@@ -65,12 +65,6 @@ export class UserAccountDetailsComponent implements OnInit{
           this.sellerplac = data
         })
         break
-      case "delivery":
-        this.userdata.getdeliverydata(this.userid).subscribe((data)=>{
-          this.delivery = data
-          this.deliveryplac = data
-        })
-        break
     }
   }
 
@@ -86,12 +80,6 @@ export class UserAccountDetailsComponent implements OnInit{
 
   changesellerdet(){
     this.userdata.updatesellerdata(this.userid,this.sellerplac).subscribe((data)=>{
-      this.switchmode()
-    })
-  }
-
-  changedeliverydet(){
-    this.userdata.updatedeliverydata(this.userid,this.deliveryplac).subscribe((data)=>{ 
       this.switchmode()
     })
   }

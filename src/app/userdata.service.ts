@@ -64,16 +64,17 @@ export class UserdataService {
       )
   }
 
-  /* getdeliverydata(deliveryid:string|null){
+  /************************************************************************************************************** */
+  getdeliverydata(deliveryid:string|null){
     return this.http.get<Delivery>(
       `http://localhost/markt_php/get_user_data.php?user_id=${deliveryid}&user_type=delivery`)
     .pipe(
       retry(2)
     )
-  } */
+  }
 
   //I do not know what these are for so until i check the php code
-  /* get_buyer_unchecked_items(buyerid:string){
+  get_buyer_unchecked_items(buyerid:string){
     return this.http.get<BuyerUncheckedItems>(
       `http://localhost/markt_php/get_unchecked_items.php?user_id=${buyerid}&user_type=buyer`)
     .pipe(
@@ -87,7 +88,9 @@ export class UserdataService {
     .pipe(
       retry(2)
     )
-  } */
+  }
+
+  /************************************************************************************************************** */
 
   updatebuyerdata(buyerid:string,buyer:Buyer|undefined){
     let buyerdata = new FormData()

@@ -23,7 +23,7 @@ export class LoginUserComponent {
 
   setuser(user:string){
     this.store.setusertype(user.toLowerCase())
-    this.usertype = user.toLowerCase()
+    this.usertype = user.toLowerCase();
   }
 
   userlogindata:LoginDetails = {
@@ -40,20 +40,16 @@ export class LoginUserComponent {
     this.userlogindata.usertype = this.usertype
     this.loginservice.loginexistinguser(this.userlogindata)
     .subscribe((data)=>{
-      this.warnerr = data.message
-      setTimeout(() => {
-        this.warnerr = ""
-      }, 3000)
-      this.store.setuser(this.usertype,data.user,data.user_id,data.profile_image)
-      if (data.message == "ok") {
-        if(this.usertype == "seller" || this.usertype == "buyer"){
+      console.log(data)
+      if (data.status >= 400) {
+        this.warnerr = data.error.message
+        setTimeout(() => {
+          this.warnerr = ""
+        }, 3000)
+      }
+      if (data.code == 200) {
+        //this.store.setuser(this.usertype,data.user,data.user_id,data.profile_image)
           this.router.navigate(["home"])
-        }
-        else{
-          if(this.usertype == "delivery"){
-            this.router.navigate(["orders/delivery"])
-          }
-        }
       }
     })
   }

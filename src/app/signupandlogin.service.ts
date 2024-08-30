@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, tap, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User, LoginDetails, LoginResult, SignupResult } from './signupandlogin.model';
 
@@ -14,39 +14,29 @@ export class SignupandloginService {
   url = "http://localhost:5000"
   
   createnewuser(user:any,file:Blob|string,usertype:string){
-    let formdata = new FormData()
-    formdata.append("profile_image",file)
-    formdata.append("user_type",usertype)
-    formdata.append("password",user.password)
-    formdata.append("city",user.city)
-    formdata.append("category",user.category)
-    formdata.append("description",user.description)
-    formdata.append("directions",user.directions)
-    formdata.append("country",user.country)
-    formdata.append("email",user.email)
-    formdata.append("house_number",user.house_number)
-    formdata.append("latitude",user.latitude)
-    formdata.append("longtitude",user.longtitude)
-    formdata.append("org_name",user.org_name)
-    formdata.append("payment_details",JSON.stringify(user.payment_details))
-    formdata.append("phone_number",user.phone_number)
-    formdata.append("postal_code",user.postal_code)
-    formdata.append("state",user.state)
-    formdata.append("street",user.street)
-    switch(usertype){
-      case "buyer":
-        formdata.append("username",user.username)
-        break
-      case "seller":
-        formdata.append("shopname",user.username)
-        break
-      case "delivery":
-        formdata.append("deliveryname",user.username)
-        break
+    const userdata = {
+      profile_picture:file,
+      username:user.username,
+      password:user.password,
+      category:user.category,
+      description:user.description,
+      directions:user.directions,
+      email:user.email,
+      phone_number:user.phone_number,
+      shipping_address:"",
+      address:{
+        house_number:user.house_number,
+        latitude:user.latitude || 0,
+        longtitude:user.longtitude || 0,
+        postal_code:user.postal_code || 0,
+        state:user.state,
+        street:user.street,
+        country:user.country,
+        city:user.city
+      }
+      //payment_details:JSON.stringify(user.payment_details),
     }
-    formdata.append("vehicle_type",user.vehicle_type)
-    formdata.append("working_for_org",user.working_for_org)
-    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,formdata).pipe(
+    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,userdata).pipe(
       retry(2)
     )
   }
@@ -54,12 +44,19 @@ export class SignupandloginService {
   loginexistinguser(user:LoginDetails){
     let logindata = new FormData()
     //will change this later... it just means that the user can login with either username, email or phone number
-    logindata.append("usernameoremailorphonenumber",user.username)
-    logindata.append("user_type",user.usertype)
-    logindata.append("password",user.password)
-    return this.http.post<LoginResult>(`${this.url}/auth/login`,logindata)
+    let parsedUser = {
+      email:user.username,
+      account_type:user.usertype,
+      password:user.password,
+      username:"le_user"
+    }
+    return this.http.post<any>(`${this.url}/auth/login`,parsedUser)
     .pipe(
-      retry(2)
+      retry(2),
+      tap((val)=>console.log(val)),
+      catchError((err,caught)=>{
+        return of(err)
+      })
     )
   }
 } 
