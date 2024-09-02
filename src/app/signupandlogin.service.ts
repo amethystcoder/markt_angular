@@ -41,6 +41,17 @@ export class SignupandloginService {
     )
   }
 
+  checkForExistingUsername(username:string){
+    return this.http.get<number>(`${this.url}/auth/existingUser/${username}`)
+    .pipe(
+      retry(2),
+      tap((val)=>console.log(val)),
+      catchError((err,caught)=>{
+        return of(err)
+      })
+    )
+  }
+
   loginexistinguser(user:LoginDetails){
     let logindata = new FormData()
     //will change this later... it just means that the user can login with either username, email or phone number

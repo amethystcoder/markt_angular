@@ -24,6 +24,10 @@ export class SignupComponent implements CanComponentDeactivate{
 
   signuplevel = 0;
 
+  existingusername: any
+
+  username = "@"
+
   userplaceholder = this.usertype == 'buyer' ? "Username" : this.usertype == 'seller' ? "Shopname" : this.usertype == 'delivery' ? "Deliveryname" : ""
 
   catgshow = false
@@ -95,6 +99,16 @@ export class SignupComponent implements CanComponentDeactivate{
 
   isslidablelarge(num:number){
     return num === this.signuplevel
+  }
+
+  checkExistingUsername(event:any){
+    if(this.username == "" || this.username.startsWith("@")) this.username = `@${this.username}`
+    this.signupservice.checkForExistingUsername(event.target.value).subscribe((data)=>{
+      if (data == 0) {
+        this.existingusername = data
+        console.log("correct")
+      }
+    })
   }
 
   passwordsame(){

@@ -16,7 +16,7 @@
                 <div id="oth-choices"> 
                     <div class="user-choice" [class.set]="usertype == 'buyer'" (click)="setuser('Buyer')">Buyer</div>
                     <div class="user-choice" [class.set]="usertype == 'seller'" (click)="setuser('Seller')">Seller</div>
-                    <div class="user-choice" [class.set]="usertype == 'delivery'" (click)="setuser('Delivery')">Delivery</div> 
+                    <!-- <div class="user-choice" [class.set]="usertype == 'delivery'" (click)="setuser('Delivery')">Delivery</div>  -->
                 </div>
                 <button [disabled]="!passwordsame()" 
                 class="button-active" (click)="incsignuplevel()">Continue</button>
@@ -45,6 +45,10 @@
                     </label>
                     <input type="file" name="profile-image-input" id="profile-image-input" 
                     accept=".jpeg,.jpg,.png,.webp" (change)="upload_profile_image($event)">
+                    <label for="mainusername">how would you like people to reach you on the app</label>
+                    <input type="text" name="mainusername" id="mainusername" value="@" [(ngModel)]="username"
+                    [class.usernameExistsRed]="existingusername && existingusername > 0" [class.usernameFreeGreen]="existingusername && existingusername <= 0" 
+                    formControlName="mainusername" class="inputs" (change)="checkExistingUsername($event)">
                 </div>
                 <div *ngIf="usertype == 'seller'">
                     <h3>What products or services does your business offer</h3>
@@ -66,7 +70,7 @@
                 <input type="tel" name="phone" id="phone_number" formControlName="phone_number" placeholder="phone number"
                 class="inputs">
                 <!--Come back to finish this one-->
-                <div *ngIf="usertype == 'delivery'">
+                <!-- <div *ngIf="usertype == 'delivery'">
                     <span>
                         <h4>What kind of vehicle do you use</h4>
                         <select name="vehicle-choice" id="vehicle-choice" class="inputs" formControlName="vehicle_type">
@@ -93,7 +97,7 @@
                         <input type="text" *ngIf="workingfororgdelivery == 'org'" name="org-name" id="org-name" placeholder="organization name" 
                         class="inputs" formControlName="org_name">
                     </span>
-                </div>
+                </div> -->
                 <div *ngIf="usertype == 'seller'">
                     <h3>Tell us what your shop is all about. For example, the type of products you sell, 
                         your opening and closing hours and so on.

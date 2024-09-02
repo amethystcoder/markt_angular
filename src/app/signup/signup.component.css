@@ -28,6 +28,14 @@
     color: #E94C24;
     border: #E94C24 solid thin;
 }
+.usernameExistsRed{
+    color: red;
+    border: red solid thin; 
+}
+.usernameFreeGreen{
+    color: green;
+    border: green solid thin;
+}
 .bar{
     display: flex;
     align-items: center;
