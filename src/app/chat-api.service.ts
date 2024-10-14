@@ -11,7 +11,10 @@ export class ChatApiService {
 
   url = "http://localhost:5000"
 
-  constructor(private http:HttpClient,private socket:Socket) { }
+  constructor(private http:HttpClient,private socket:Socket) { 
+    this.messagesobservable = this.socket.fromEvent<any>("message")
+    this.newreadmessagesobservable = this.socket.fromEvent<any>("read")
+  }
 
   rateandcomment(comment:Comment):Observable<Comment> {
     let commentsetdata = new FormData()
@@ -41,29 +44,29 @@ export class ChatApiService {
     )
   }
 
-  messagesobservable = this.socket.fromEvent<any>("message")
-  newreadmessagesobservable = this.socket.fromEvent<any>("read")
+  messagesobservable;
+  newreadmessagesobservable;
 
   connectws(user_id:string){
-    this.socket.connect()
-    this.socket.emit("join-chat",JSON.stringify({rid:user_id}))
+    //this.socket.connect()
+    //this.socket.emit("join-chat",JSON.stringify({rid:user_id}))
   }
 
   sendmessage(message:Chat){
-    this.socket.emit("message",message)
+    //this.socket.emit("message",message)
   }
 
   closeconnection(){
-    this.socket.emit("disconnect")
-    this.socket.disconnect()
+    //this.socket.emit("disconnect")
+    //this.socket.disconnect()
   }
 
   setmessageread(messages:any[],recipent:string){
-    this.socket.emit("read",{recipent:recipent,messages:messages})
+    //this.socket.emit("read",{recipent:recipent,messages:messages})
   }
 
   settyping(recipent:string){
-    this.socket.emit("typing",JSON.stringify({recipent:recipent}))
+    //this.socket.emit("typing",JSON.stringify({recipent:recipent}))
   }
 
   register(){}
