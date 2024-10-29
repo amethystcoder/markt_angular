@@ -40,6 +40,8 @@ export class SignupandloginService {
     return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,
     {
       ...userdata,...typeOfUsername
+    },{
+      observe:'response'
     }).pipe(
       retry(2)
     )
@@ -47,6 +49,17 @@ export class SignupandloginService {
 
   checkForExistingUsername(username:string){
     return this.http.get<number>(`${this.url}/auth/existingUser/${username}`)
+    .pipe(
+      retry(2),
+      tap((val)=>console.log(val)),
+      catchError((err,caught)=>{
+        return of(err)
+      })
+    )
+  }
+
+  logout(){
+    return this.http.get(`${this.url}/logout`,{observe:'response'})
     .pipe(
       retry(2),
       tap((val)=>console.log(val)),
@@ -65,7 +78,7 @@ export class SignupandloginService {
       password:user.password,
       username:"le_user"
     }
-    return this.http.post<any>(`${this.url}/auth/login`,parsedUser)
+    return this.http.post<any>(`${this.url}/auth/login`,parsedUser,{observe:'response'})
     .pipe(
       retry(2),
       tap((val)=>console.log(val)),

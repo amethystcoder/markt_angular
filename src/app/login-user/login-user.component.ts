@@ -47,7 +47,8 @@ export class LoginUserComponent {
           this.warnerr = ""
         }, 3000)
       }
-      if (data.code == 200) {
+      console.log(data.status)
+      if (data.status < 300) {
         //this.store.setuser(this.usertype,data.user,data.user_id,data.profile_image)
           this.router.navigate(["home"])
       }

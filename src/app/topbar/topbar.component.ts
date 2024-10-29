@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UserstateService, signalstore } from '../userstate.service';
 import { Router } from '@angular/router';
+import { SignupandloginService } from '../signupandlogin.service'
 
 @Component({
   selector: 'app-topbar',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class TopbarComponent implements OnInit{
 
-  constructor(private userstate:UserstateService,private router:Router) { }
+  constructor(private userstate:UserstateService,private router:Router,private authservice:SignupandloginService) { }
 
   ngOnInit(): void {
     //use store
@@ -32,7 +33,13 @@ export class TopbarComponent implements OnInit{
     //use store
     /* this.userstate.user_id.next("")
     this.userstate.user_name.next("") */
-    this.router.navigate(["userauth"])
+    this.authservice.logout().subscribe((data)=>{
+      console.log(data)
+      if (data.status < 300) {
+        this.router.navigate(["userauth"])
+        this.store.clearStore()
+      }
+    })
   }
 
   setclosestate(state:boolean){

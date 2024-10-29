@@ -159,17 +159,18 @@ export class SignupComponent implements CanComponentDeactivate{
     console.log(this.signupform.value)
     this.signupservice.createnewuser(this.signupform.value,this.file,this.usertype)
     .subscribe((data)=>{
-      console.log(data)
-      if(data.saved){
-        this.store.setuser(data.user_type,data.username,data.user_id,data.profile_image)
+      if(data.status < 300){
+        this.router.navigate(["home"])
+        console.log(data.body)
+        /* this.store.setuser(data.user_type,data.username,data.user_id,data.profile_image)
         if(data.user_type == "seller" || data.user_type == "buyer"){
           this.router.navigate(["home"])
-        }
-        else{
+        } */
+       /*  else{
           if(data.user_type == "delivery"){
             this.router.navigate(["orders/delivery"])
           }
-        }
+        } */
       }
     })
   }
