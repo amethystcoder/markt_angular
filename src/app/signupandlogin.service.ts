@@ -12,6 +12,7 @@ export class SignupandloginService {
   constructor(private http:HttpClient) { }
 
   url = "http://localhost:5000"
+
   
   createnewuser(user:any,file:Blob|string,usertype:string){
     const userdata = {
@@ -23,7 +24,6 @@ export class SignupandloginService {
       directions:user.directions,
       email:user.email,
       phone_number:user.phone_number,
-      shipping_address:"",
       address:{
         house_number:user.house_number,
         latitude:user.latitude || 0,
@@ -36,7 +36,11 @@ export class SignupandloginService {
       }
       //payment_details:JSON.stringify(user.payment_details),
     }
-    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,userdata).pipe(
+    const typeOfUsername = usertype == "buyer" ? {buyername:user.buyerOrShopName,shipping_address:""} : usertype == "seller" ? {shop_name:user.buyerOrShopName} : {}
+    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,
+    {
+      ...userdata,...typeOfUsername
+    }).pipe(
       retry(2)
     )
   }

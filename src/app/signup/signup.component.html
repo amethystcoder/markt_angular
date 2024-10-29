@@ -6,7 +6,7 @@
         <div class="signup-child-two">
             <h1>Sign up as {{usertype}}</h1>
             <label for="username">{{userplaceholder}}</label>
-                <input type="text" name="username" id="username" formControlName="username" class="inputs">
+                <input type="text" name="username" id="username" formControlName="buyerOrShopName" class="inputs">
                 <label for="password">password</label>
                 <input type="password" name="password" id="password" formControlName="password" class="inputs">
                 <label for="re_entered_password">Re-enter password</label>
@@ -48,7 +48,7 @@
                     <label for="mainusername">how would you like people to reach you on the app</label>
                     <input type="text" name="mainusername" id="mainusername" value="@" [(ngModel)]="username"
                     [class.usernameExistsRed]="existingusername && existingusername > 0" [class.usernameFreeGreen]="existingusername && existingusername <= 0" 
-                    formControlName="mainusername" class="inputs" (change)="checkExistingUsername($event)">
+                    formControlName="username" class="inputs" (change)="checkExistingUsername($event)">
                 </div>
                 <div *ngIf="usertype == 'seller'">
                     <h3>What products or services does your business offer</h3>
