@@ -59,7 +59,7 @@ export class SignupandloginService {
   }
 
   logout(){
-    return this.http.get(`${this.url}/logout`,{observe:'response'})
+    return this.http.get(`${this.url}/auth/logout`,{observe:'response'})
     .pipe(
       retry(2),
       tap((val)=>console.log(val)),

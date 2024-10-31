@@ -35,7 +35,7 @@ export class TopbarComponent implements OnInit{
     this.userstate.user_name.next("") */
     this.authservice.logout().subscribe((data)=>{
       console.log(data)
-      if (data.status < 300) {
+      if (data.status) {
         this.router.navigate(["userauth"])
         this.store.clearStore()
       }
