@@ -12,6 +12,7 @@ export class SignupandloginService {
   constructor(private http:HttpClient) { }
 
   url = "http://localhost:5000"
+
   
   createnewuser(user:any,file:Blob|string,usertype:string){
     const userdata = {
@@ -23,7 +24,6 @@ export class SignupandloginService {
       directions:user.directions,
       email:user.email,
       phone_number:user.phone_number,
-      shipping_address:"",
       address:{
         house_number:user.house_number,
         latitude:user.latitude || 0,
@@ -36,13 +36,30 @@ export class SignupandloginService {
       }
       //payment_details:JSON.stringify(user.payment_details),
     }
-    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,userdata).pipe(
+    const typeOfUsername = usertype == "buyer" ? {buyername:user.buyerOrShopName,shipping_address:""} : usertype == "seller" ? {shop_name:user.buyerOrShopName} : {}
+    return this.http.post<SignupResult>(`${this.url}/auth/register/${usertype}`,
+    {
+      ...userdata,...typeOfUsername
+    },{
+      observe:'response'
+    }).pipe(
       retry(2)
     )
   }
 
   checkForExistingUsername(username:string){
     return this.http.get<number>(`${this.url}/auth/existingUser/${username}`)
+    .pipe(
+      retry(2),
+      tap((val)=>console.log(val)),
+      catchError((err,caught)=>{
+        return of(err)
+      })
+    )
+  }
+
+  logout(){
+    return this.http.get(`${this.url}/auth/logout`,{observe:'response'})
     .pipe(
       retry(2),
       tap((val)=>console.log(val)),
@@ -61,7 +78,7 @@ export class SignupandloginService {
       password:user.password,
       username:"le_user"
     }
-    return this.http.post<any>(`${this.url}/auth/login`,parsedUser)
+    return this.http.post<any>(`${this.url}/auth/login`,parsedUser,{observe:'response'})
     .pipe(
       retry(2),
       tap((val)=>console.log(val)),

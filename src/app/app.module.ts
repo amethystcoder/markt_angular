@@ -42,7 +42,7 @@ import { SellerHomeComponent } from './seller-home/seller-home.component';
 import { BuyerHomeComponent } from './buyer-home/buyer-home.component';
 //import { ServiceWorkerModule } from '@angular/service-worker';
 
-const config: SocketIoConfig = {url:'', options:{reconnection:true,timestampRequests:true}}
+const config: SocketIoConfig = {url:'http://localhost:5000/', options:{reconnection:true,timestampRequests:true}}
 
 @NgModule({
     declarations: [

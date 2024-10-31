@@ -39,6 +39,7 @@ export class SignupComponent implements CanComponentDeactivate{
   profile_img_file = ""
 
   signupform = new FormGroup({
+    buyerOrShopName: new FormControl(''),
     username : new FormControl(''),
     password : new FormControl(''),
     re_entered_password : new FormControl(''),
@@ -50,7 +51,7 @@ export class SignupComponent implements CanComponentDeactivate{
     city: new FormControl(''),
     street: new FormControl(''),
     country: new FormControl(''),
-    house_number: new FormControl(''),
+    house_number: new FormControl(0),
     vehicle_type: new FormControl(''),
     working_for_org: new FormControl(''),
     org_name: new FormControl(''),
@@ -112,7 +113,7 @@ export class SignupComponent implements CanComponentDeactivate{
   }
 
   passwordsame(){
-    let usernameset = this.signupform.controls.username.value != ""
+    let usernameset = this.signupform.controls.buyerOrShopName.value != ""
     let eqpasswords = this.signupform.controls.password.value == this.signupform.controls.re_entered_password.value
     let nonepmtypasswords = this.signupform.controls.password.value != "" && this.signupform.controls.re_entered_password.value != ""
     return eqpasswords && nonepmtypasswords && usernameset
@@ -158,17 +159,18 @@ export class SignupComponent implements CanComponentDeactivate{
     console.log(this.signupform.value)
     this.signupservice.createnewuser(this.signupform.value,this.file,this.usertype)
     .subscribe((data)=>{
-      console.log(data)
-      if(data.saved){
-        this.store.setuser(data.user_type,data.username,data.user_id,data.profile_image)
+      if(data.status < 300){
+        this.router.navigate(["home"])
+        console.log(data.body)
+        /* this.store.setuser(data.user_type,data.username,data.user_id,data.profile_image)
         if(data.user_type == "seller" || data.user_type == "buyer"){
           this.router.navigate(["home"])
-        }
-        else{
+        } */
+       /*  else{
           if(data.user_type == "delivery"){
             this.router.navigate(["orders/delivery"])
           }
-        }
+        } */
       }
     })
   }

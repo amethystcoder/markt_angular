@@ -52,6 +52,20 @@ export const signalstore = signalStore(
     },
     updatepresentchat(newchat:Chats){
       patchState(store,{newchatuser:newchat})
+    },
+    clearStore(){
+      patchState(store,{
+        user_id:"",
+        name:"",
+        user_profile_image:"",
+        latitude:0.0,
+        longtitude:0.0,
+        cartitems:[],
+        buyerorders:[],
+        selleracceptedorders:[],
+        sellerpendingorders:[],
+        newchatuser:undefined
+      })
     }
   })
   ),
