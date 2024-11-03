@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, retry } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, retry, tap } from 'rxjs/operators';
 import { CartItem, Category, Product, ProductQuery, Catg } from './products.model';
 
 @Injectable({
@@ -106,16 +106,16 @@ export class ProductApiService {
 
   createproduct(product:Product,images:File[]){
     let formdata = new FormData()
-    formdata.append("product_name",product.product_name)
-    formdata.append("product_type",product.product_type)
-    formdata.append("product_price",product.product_price.toString())
-    formdata.append("product_description",product.product_description)
-    formdata.append("product_category",product.product_category)
-    formdata.append("tags",product.tags.toString())
-    formdata.append("product_quantity",product.product_quantity.toString())
-    formdata.append("estimated_size",product.estimated_size.toString())
+    formdata.append("name",product.product_name)
+    //formdata.append("product_type",product.product_type)
+    formdata.append("price",product.product_price.toString())
+    formdata.append("description",product.product_description)
+    formdata.append("category",product.product_category)
+    //formdata.append("tags",product.tags.toString())
+    formdata.append("stock_quantity",product.product_quantity.toString())
+    //formdata.append("estimated_size",product.estimated_size.toString())
     formdata.append("seller_id",product.seller_id)
-    formdata.append("desc_under",product.desc_under)
+    //formdata.append("desc_under",product.desc_under)
     let n = 1
     images.forEach((image)=>{
       formdata.append("product_image"+n.toString(),image)
@@ -123,7 +123,11 @@ export class ProductApiService {
     })
     return this.http.post(`${this.url}/products/new`,formdata)
     .pipe(
-      retry(1)
+      retry(1),
+      tap((val)=>console.log(val)),
+      catchError((err,caught)=>{
+        return of(err)
+      })
     )
   }
 
