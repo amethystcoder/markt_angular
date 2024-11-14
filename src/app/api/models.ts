@@ -1,4 +1,4 @@
-// ** Instead of importing each model individually, you can import them from the this models file
+// ** Instead of importing each model individually, you can import them from this models file
 
 export { Address } from './models/address.model';
 export { Buyer } from './models/buyer.model';
