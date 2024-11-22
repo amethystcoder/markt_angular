@@ -26,3 +26,4 @@ export { UserLogin } from './models/user.model';
 export { UserLoginResponse } from './models/user.model';
 export { UserProfile } from './models/user.model';
 export { UserProfileUpdate } from './models/user.model';
+export { ClassicResponse } from './models/responses.model'
