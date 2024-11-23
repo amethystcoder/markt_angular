@@ -4,29 +4,27 @@ import { EMPTY, Observable, catchError, retry, tap } from 'rxjs';
 import { ApiStore } from '../apiSpecificData';
 import {
   ClassicResponse,
-  UserLoginResponse,
   BuyerRegister,
   SellerRegister,
+  User,
+  BuyerResponse,
+  SellerResponse,
 } from '../../api/models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  constructor() {}
-
-  http = inject(HttpClient);
+export class UserService {
+  private http = inject(HttpClient);
 
   registerBuyer(
     registerData: BuyerRegister
-  ): Observable<HttpResponse<ClassicResponse>> {
+  ): Observable<HttpResponse<BuyerResponse>> {
     return this.http
-      .post<ClassicResponse>(
+      .post<BuyerResponse>(
         ApiStore.mergeEndpoint('auth', 'register', 'buyer'),
         registerData,
-        {
-          observe: 'response',
-        }
+        { observe: 'response' }
       )
       .pipe(
         tap((data) => console.log(data)),
@@ -40,14 +38,12 @@ export class AuthService {
 
   registerSeller(
     registerData: SellerRegister
-  ): Observable<HttpResponse<ClassicResponse>> {
+  ): Observable<HttpResponse<SellerResponse>> {
     return this.http
-      .post<ClassicResponse>(
+      .post<SellerResponse>(
         ApiStore.mergeEndpoint('auth', 'register', 'seller'),
         registerData,
-        {
-          observe: 'response',
-        }
+        { observe: 'response' }
       )
       .pipe(
         tap((data) => console.log(data)),
@@ -58,4 +54,15 @@ export class AuthService {
         })
       );
   }
+
+  //   getUser(username: string): Observable<User> {
+  //     return this.http.get<User>(ApiStore.mergeEndpoint('user', username)).pipe(
+  //       tap((data) => console.log(data)),
+  //       retry(3),
+  //       catchError((err) => {
+  //         console.error(err);
+  //         return EMPTY;
+  //       })
+  //     );
+  //   }
 }

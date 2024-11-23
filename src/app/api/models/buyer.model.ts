@@ -11,3 +11,11 @@ export interface BuyerUpdate {
   shipping_address?: string;
   username?: string;
 }
+
+export interface BuyerDetails {
+  buyername: string;
+  id: number;
+  profile_picture: string;
+  shipping_address: string;
+  user_status: string;
+}

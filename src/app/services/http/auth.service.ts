@@ -7,7 +7,7 @@ import { ClassicResponse, UserLogin, UserLoginResponse } from '../../api/models'
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   constructor() { }
 
