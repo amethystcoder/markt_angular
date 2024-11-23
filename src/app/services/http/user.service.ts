@@ -3,10 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { EMPTY, Observable, catchError, retry, tap } from 'rxjs';
 import { ApiStore } from '../apiSpecificData';
 import {
-  ClassicResponse,
   BuyerRegister,
   SellerRegister,
-  User,
   BuyerResponse,
   SellerResponse,
 } from '../../api/models';
