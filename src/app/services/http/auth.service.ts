@@ -2,12 +2,12 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { EMPTY, Observable, catchError, retry, tap } from 'rxjs';
 import { ApiStore } from "../apiSpecificData";
-import { UserLogin, UserLoginResponse } from '../../api/models';
+import { ClassicResponse, UserLogin, UserLoginResponse } from '../../api/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   constructor() { }
 
@@ -38,4 +38,18 @@ export class AuthServiceService {
       })
     )
   }
+
+  switchRole():Observable<HttpResponse<ClassicResponse>>{
+    return this.http.post<ClassicResponse>(ApiStore.mergeEndpoint("auth","switch-role"),{},{
+      observe:"response"
+    }).pipe(
+      tap((data)=>console.log(data)),
+      retry(3),
+      catchError(err => {
+        console.error(err);
+        return EMPTY;
+      })
+    )
+  }
+
 }

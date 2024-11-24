@@ -26,3 +26,8 @@ export { UserLogin } from './models/user.model';
 export { UserLoginResponse } from './models/user.model';
 export { UserProfile } from './models/user.model';
 export { UserProfileUpdate } from './models/user.model';
+export { ClassicResponse } from './models/responses.model';
+export { SellerResponse } from './models/responses.model';
+export { BuyerResponse } from './models/responses.model';
+export { BuyerDetails } from './models/buyer.model';
+export { SellerDetails } from './models/seller.model';

@@ -45,3 +45,10 @@ export interface UserProfileUpdate {
 export interface UpdateProfilePicture {
   profile_picture: File;
 }
+
+export interface UserDetails {
+  email: string;
+  id: number;
+  phone_number: string;
+  username: string;
+}
