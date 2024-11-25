@@ -8,6 +8,6 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl } from "@angular/platform-browse
 export class SanitizePipe implements PipeTransform {
     sanitizer = inject(DomSanitizer)
     transform(value: string, ...args: any[]): any {
-        this.sanitizer.sanitize(SecurityContext.RESOURCE_URL,value)
+        this.sanitizer.sanitize(SecurityContext.HTML,value)
     }
 }
