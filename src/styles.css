@@ -248,6 +248,26 @@ blockquote {
   margin-top: 0.25rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-32 {
+  margin-top: 8rem;
+}
+
 .mr-1 {
   margin-right: 0.25rem;
 }
@@ -300,12 +320,36 @@ blockquote {
   padding-top: 0.25rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
+.pt-16 {
+  padding-top: 4rem;
+}
+
+.pt-32 {
+  padding-top: 8rem;
+}
+
 .pr-1 {
   padding-right: 0.25rem;
 }
 
 .pb-1 {
   padding-bottom: 0.25rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
 }
 
 .pl-1 {
@@ -462,6 +506,10 @@ blockquote {
 
 .bg-white {
   background-color: #fff;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
 }
 
 .bg-black {
