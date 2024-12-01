@@ -1,6 +1,6 @@
 {
-  "name": "markt-fix",
-  "short_name": "markt-fix",
+  "name": "markt",
+  "short_name": "markt",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
