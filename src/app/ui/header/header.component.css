@@ -1,3 +1,36 @@
 .app-nav {
   height: 2.375em;
 }
+
+.container {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+  font-size: 0.9em;
+}
+
+input {
+  background-color: #f5f5f5;
+  width: 243px;
+  padding: 10px 12px 10px 20px;
+  font-size: 0.85em;
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.input-wrapper img {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+a {
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
