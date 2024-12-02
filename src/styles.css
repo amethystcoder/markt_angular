@@ -276,6 +276,22 @@ blockquote {
   margin-bottom: 0.25rem;
 }
 
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
 .ml-1 {
   margin-left: 0.25rem;
 }
@@ -522,6 +538,10 @@ blockquote {
 
 .text-gray-500 {
   color: #6b7280;
+}
+
+.text-gray-200 {
+  color: #bcc4d1;
 }
 
 .text-red-500 {

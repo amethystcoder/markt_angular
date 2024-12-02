@@ -27,6 +27,7 @@
 
 .footer-main-content {
   align-items: flex-start;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.336);
 }
 
 footer {
@@ -35,4 +36,13 @@ footer {
 
 .col-5 {
   flex-basis: 15%;
+}
+
+a {
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--primary-color);
 }
