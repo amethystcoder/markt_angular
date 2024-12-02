@@ -28,3 +28,11 @@
 .footer-main-content {
   align-items: flex-start;
 }
+
+footer {
+  padding-inline: 2em;
+}
+
+.col-5 {
+  flex-basis: 15%;
+}
