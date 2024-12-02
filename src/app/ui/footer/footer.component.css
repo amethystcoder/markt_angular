@@ -46,3 +46,7 @@ a {
 a:hover {
   color: var(--primary-color);
 }
+
+ul li {
+  cursor: pointer;
+}
