@@ -1,0 +1,91 @@
+<section class="signup-container pt-8 flex gap-32 items-center pb-16">
+  <div class="img-wrapper">
+    <img src="/assets/auth-side-image.svg" alt="Cart Image" />
+  </div>
+
+  <div class="form-wrapper flex flex-col text-left">
+    <h1 class="font-medium mb-1">Create an account</h1>
+    <p>Enter your details below</p>
+
+    <form #form="ngForm" (ngSubmit)="onCreateAccount()">
+      <div class="pt-8">
+        <input
+          type="text"
+          name="name"
+          required
+          ngModel
+          #name="ngModel"
+          placeholder="Name"
+          class="input-field"
+        />
+        @if( name.invalid && name.dirty){
+        <div class="error-message">
+          @if(name.errors?.['required']){
+          <div>Name is required</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="pt-8">
+        <input
+          type="text"
+          name="emailOrPhone"
+          required
+          placeholder="Email or Phone Number"
+          pattern="(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[0-9]{10})"
+          ngModel
+          #emailOrPhone="ngModel"
+          class="input-field"
+        />
+
+        @if( emailOrPhone.invalid && emailOrPhone.dirty){
+        <div class="error-message">
+          @if(emailOrPhone.errors?.['required']){
+          <div>Email or Phone Number is required</div>
+          } @if(emailOrPhone.errors?.['pattern']){
+          <div>Please enter a valid email or phone number</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="pt-8">
+        <input
+          type="password"
+          required
+          placeholder="Password"
+          ngModel
+          name="password"
+          class="input-field"
+          #password="ngModel"
+        />
+        @if(password.invalid && password.dirty){
+        <div class="error-message">
+          @if(password.errors?.['required']){
+          <div>Password is required</div>
+          }
+        </div>
+        }
+      </div>
+      <div class="flex flex-col">
+        <button
+          type="submit"
+          class="create-account-btn mt-8 text-center w-full bg-primary text-white p-4 rounded cursor-pointer"
+          [disabled]="form.invalid"
+        >
+          Create Account
+        </button>
+        <button
+          class="google-btn mt-4 text-center w-full bg-white p-4 rounded cursor-pointer flex items-center justify-center gap-4"
+        >
+          <img src="/assets/google-icon.svg" alt="Google icon" />
+          <span> Sign up with Google </span>
+        </button>
+
+        <p class="pl-10 mt-8">
+          Already have an account?
+          <a href="" class="underline font-medium">Log in</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+.app-nav {
+  height: 2.375em;
+}
+
+.container {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+  font-size: 0.9em;
+}
+
+.input-field {
+  background-color: #f5f5f5;
+  width: 243px;
+  padding: 10px 12px 10px 20px;
+  font-size: 0.85em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-field:hover {
+  transform: scale(1.06);
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+  transition: border 0.3s ease;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+a {
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-color);
+}

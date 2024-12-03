@@ -1,0 +1,12 @@
+header {
+  height: 3em;
+  font-size: 0.85em;
+}
+
+a {
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-color);
+}

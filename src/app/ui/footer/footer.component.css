@@ -1,0 +1,52 @@
+.input-field {
+  width: 180px;
+  padding: 10px 12px 10px 20px;
+  font-size: 0.85em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.534);
+}
+
+.input-field:hover {
+  transform: scale(1.06);
+}
+
+.input-wrapper {
+  position: relative;
+  display: inline-block;
+  transition: border 0.3s ease;
+}
+
+.send-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.footer-main-content {
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.336);
+}
+
+footer {
+  padding-inline: 2em;
+}
+
+.col-5 {
+  flex-basis: 15%;
+}
+
+a {
+  transition: color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+ul li {
+  cursor: pointer;
+}
