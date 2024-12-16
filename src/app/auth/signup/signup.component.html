@@ -7,7 +7,7 @@
     <h1 class="font-medium mb-1">Create an account</h1>
     <p>Enter your details below</p>
 
-    <form #form="ngForm" (ngSubmit)="onCreateAccount()">
+    <form #form="ngForm" (ngSubmit)="onCreateAccount(form)">
       <div class="pt-8">
         <input
           type="text"

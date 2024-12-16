@@ -12,7 +12,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class RegistrationService {
   constructor() {}
 
   http = inject(HttpClient);

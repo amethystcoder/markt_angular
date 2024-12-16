@@ -6,5 +6,6 @@ export { FavoritesService } from './http/favorites.service';
 export { NetworkAwarePreloadStrategy } from './networkPreloader.service';
 export { OrderService } from './http/order.service';
 export { ProductService } from './http/product.service';
+export { RegistrationService } from './http/registration.service';
 export { SellerService } from './http/seller.service';
 export { UserService } from './http/user.service';
