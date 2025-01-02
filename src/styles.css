@@ -108,6 +108,10 @@ blockquote {
   height: 100%;
 }
 
+.h-80 {
+  height: 80dvh;
+}
+
 .h-auto {
   height: auto;
 }

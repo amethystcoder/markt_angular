@@ -2,8 +2,26 @@
   flex-basis: 50%;
 }
 
+.signup-container {
+  justify-content: space-between;
+  align-items: center;
+}
+
 .form-wrapper {
-  flex-basis: 40%;
+  flex-basis: 50%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+form > div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 h1 {
@@ -24,23 +42,59 @@ h1 {
   transform: scale(1.02);
 }
 
-button {
-  width: 23.125em;
+.buttons {
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  padding: 0.5em 1em;
 }
 
-.create-account-btn {
+.next-btn {
   background-color: var(--primary-color);
   color: white;
 }
 
-.create-account-btn:hover {
+.next-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .google-btn {
   border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.location-btn {
+  border: 2px solid var(--primary-color);
+  padding: 0.5em 1em;
+  color: #fb923c;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.create-account-btn {
+  padding: 0.5em 1em;
+  color: white;
+  background-color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.location-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+.create-account-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover {
+  background-color: #fb923c71;
+  transform: scale(1.01);
 }
 
 .google-btn:hover {

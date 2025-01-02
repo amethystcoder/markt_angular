@@ -1,133 +1,260 @@
-<section class="signup-container pt-8 flex gap-32 items-center pb-16">
-  <div class="img-wrapper">
-    <img src="/assets/auth-side-image.svg" alt="Cart Image" />
+<section class="signup-container pt-8 flex items-center gap-32">
+  <!-- Left Side: Image Section -->
+  <div class="image-section w-1-2 flex justify-center items-center">
+    <img
+      *ngIf="currentStep === 1"
+      src="/assets/auth-side-image.svg"
+      alt="Welcome cart image"
+      class="h-80"
+    />
+    <img
+      *ngIf="currentStep === 2"
+      src="/assets/auth-side-image.svg"
+      alt="Personal Information"
+      class="h-80"
+    />
+    <img
+      *ngIf="currentStep === 3"
+      src="/assets/auth-side-image.svg"
+      alt="Location"
+      class="h-80"
+    />
+    <img
+      *ngIf="currentStep === 4"
+      src="/assets/auth-side-image.svg"
+      alt="Payment Details"
+      class="h-80"
+    />
   </div>
 
-  <div class="form-wrapper flex flex-col text-left">
-    <h1 class="font-medium">Create an account</h1>
-    <!-- <p>Enter your details below</p> -->
+  <!-- Right Side: Form Section -->
+  <div class="form-wrapper flex flex-col w-1-2 justify-center">
+    <h1 class="font-medium text-2xl mb-4">Create an account</h1>
 
     <form [formGroup]="signupForm" (ngSubmit)="onCreateAccount()">
-      <!-- Account Type Selection -->
-      <div class="account-type pt-4">
-        <div class="flex gap-8 mt-2">
-          <label class="flex items-center">
-            <input
-              type="radio"
-              name="accountType"
-              value="buyer"
-              required
-              class="radio-input"
-              formControlName="accountType"
-              checked
-            />
-            <span class="ml-2">Buyer Account</span>
-          </label>
-          <label class="flex items-center">
-            <input
-              type="radio"
-              name="accountType"
-              value="seller"
-              required
-              class="radio-input"
-              formControlName="accountType"
-            />
-
-            <span class="ml-2">Seller Account</span>
-          </label>
+      <!-- Step 1: Welcome Page -->
+      <div *ngIf="currentStep === 1" class="step">
+        <div class="account-type flex justify-center pt-4">
+          <div class="flex gap-8 mt-2">
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="accountType"
+                value="buyer"
+                formControlName="accountType"
+                class="radio-input"
+              />
+              <span class="ml-2">Buyer Account</span>
+            </label>
+            <label class="flex items-center">
+              <input
+                type="radio"
+                name="accountType"
+                value="seller"
+                formControlName="accountType"
+                class="radio-input"
+              />
+              <span class="ml-2">Seller Account</span>
+            </label>
+          </div>
         </div>
-        @if( accountType.invalid && accountType.touched){
-        <div class="error-message text-red-500 text-sm mt-2">
-          Please select an account type.
-        </div>
-        }
-      </div>
 
-      <!-- Name Input -->
-      <div class="pt-8">
-        <input
-          type="text"
-          name="name"
-          required
-          placeholder="{{
-            accountType.value === 'seller' ? 'Seller Name' : 'Buyer Name'
-          }}"
-          class="input-field"
-          formControlName="name"
-        />
-        @if(name.invalid && (name.dirty || name.touched)){
-        <div class="error-message">
-          @if(name.hasError('required')){
-          <div>Name is required</div>
-          } @if(name.hasError('minlength')){
-          <div>Name must be at least 3 characters.</div>
+        <div>
+          <input
+            type="text"
+            placeholder="{{
+              accountType.value === 'buyer' ? 'Buyer Name' : 'Seller Name'
+            }}"
+            formControlName="name"
+            class="input-field mt-4"
+          />
+          @if(name.invalid && (name.dirty || name.touched)){
+          <div class="error-message">
+            @if(name.hasError('required')){
+            <div>Name is required</div>
+            } @if(name.hasError('minlength')){
+            <div>Name must be at least 3 characters.</div>
+            }
+          </div>
           }
         </div>
-        }
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            class="input-field mt-4"
+          />
+          @if(password.invalid && (password.dirty || password.touched)){
+          <div class="error-message">
+            @if(password.hasError('required')){
+            <div>Password is required</div>
+            } @if(password.hasError('minlength')){
+            <div>Minimum password length is 6.</div>
+            }
+          </div>
+          }
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Re-enter Password"
+            formControlName="confirmPassword"
+            class="input-field mt-4"
+          />
+          @if(signupForm.hasError('passwordsMismatch') && (confirmPassword.dirty
+          || confirmPassword.touched)){
+          <div class="error-message">
+            @if(confirmPassword.hasError('required')){
+            <div>You must re-enter your password.</div>
+            } @if(signupForm.hasError('passwordsMismatch')){
+            <div>Must be the same as the password you entered above.</div>
+            }
+          </div>
+          }
+        </div>
       </div>
 
-      <!-- Password Input -->
-      <div class="pt-8">
-        <input
-          type="password"
-          required
-          placeholder="Password"
-          name="password"
-          class="input-field"
-          formControlName="password"
-        />
-        @if(password.invalid && (password.dirty || password.touched)){
-        <div class="error-message">
-          @if(password.hasError('required')){
-          <div>Password is required</div>
-          } @if(password.hasError('minlength')){
-          <div>Minimum password length is 6.</div>
-          }
+      <!-- Step 2: Personal Information -->
+      <div *ngIf="currentStep === 2" class="step">
+        <div>
+          <input
+            type="text"
+            placeholder="@username"
+            formControlName="username"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Phone Number"
+            formControlName="phone"
+            class="input-field mt-4"
+          />
+        </div>
+        @if(accountType.value==='seller'){
+        <div>
+          <input
+            type="text"
+            placeholder="Directions to the shop"
+            formControlName="shopDirections"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Shop Category"
+            formControlName="shopCategory"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <textarea
+            placeholder="Shop Description"
+            formControlName="shopDescription"
+            class="input-field mt-4"
+          ></textarea>
         </div>
         }
       </div>
-      <!--Confirm Password Input -->
-      <div class="pt-8">
-        <input
-          type="password"
-          required
-          placeholder="Confirm Password"
-          name="confirmPassword"
-          class="input-field"
-          formControlName="confirmPassword"
-        />
-        @if(signupForm.hasError('passwordsMismatch') && (confirmPassword.dirty
-        || confirmPassword.touched)){
-        <div class="error-message">
-          @if(confirmPassword.hasError('required')){
-          <div>You must re-enter your password.</div>
-          } @if(signupForm.hasError('passwordsMismatch')){
-          <div>Must be the same as the password you entered above.</div>
-          }
+
+      <!-- Step 3: Location -->
+      <div *ngIf="currentStep === 3" class="step">
+        <div>
+          <input
+            type="text"
+            placeholder="House Number"
+            formControlName="houseNumber"
+            class="input-field mt-4"
+          />
         </div>
-        }
+        <div>
+          <input
+            type="text"
+            placeholder="Street"
+            formControlName="street"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="City"
+            formControlName="city"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <button
+            type="button"
+            class="location-btn mt-8 rounded cursor-pointer"
+            (click)="useCurrentLocation()"
+          >
+            Use Current Location
+          </button>
+        </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="flex flex-col">
-        <button
-          type="submit"
-          class="create-account-btn mt-8 text-center w-full bg-primary text-white p-4 rounded cursor-pointer"
-          [disabled]="signupForm.invalid"
-        >
-          Create Account
-        </button>
-        <button
-          class="google-btn mt-4 text-center w-full bg-white p-4 rounded cursor-pointer flex items-center justify-center gap-4"
-        >
-          <img src="/assets/google-icon.svg" alt="Google icon" />
-          <span> Sign up with Google </span>
-        </button>
+      <!-- Step 4: Payment Details -->
+      <div *ngIf="currentStep === 4" class="step">
+        <div>
+          <input
+            type="text"
+            placeholder="Card Number"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Card Expiry"
+            class="input-field mt-4"
+          />
+        </div>
+        <div>
+          <input type="text" placeholder="CVV" class="input-field mt-4" />
+        </div>
+      </div>
 
-        <p class="pl-10 mt-8">
-          Already have an account?
-          <a href="" class="underline font-medium">Log in</a>
-        </p>
+      <!-- Navigation Buttons -->
+      <div class="mt-8 flex step-btn-grp">
+        <div class="gap-8 flex items-center justify-center">
+          <button
+            type="button"
+            class="back-btn buttons rounded text-center p-2 cursor-pointer"
+            (click)="previousStep()"
+            *ngIf="currentStep > 1"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            class="next-btn buttons text-center bg-primary text-white rounded cursor-pointer"
+            (click)="nextStep()"
+            *ngIf="currentStep < 4"
+          >
+            Next
+          </button>
+        </div>
+        <div>
+          <button
+            type="submit"
+            class="btn-primary create-account-btn rounded mt-4"
+            *ngIf="currentStep === 4"
+          >
+            Create Account
+          </button>
+        </div>
       </div>
     </form>
   </div>
