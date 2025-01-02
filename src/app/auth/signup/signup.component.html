@@ -4,73 +4,116 @@
   </div>
 
   <div class="form-wrapper flex flex-col text-left">
-    <h1 class="font-medium mb-1">Create an account</h1>
-    <p>Enter your details below</p>
+    <h1 class="font-medium">Create an account</h1>
+    <!-- <p>Enter your details below</p> -->
 
-    <form #form="ngForm" (ngSubmit)="onCreateAccount()">
+    <form [formGroup]="signupForm" (ngSubmit)="onCreateAccount()">
+      <!-- Account Type Selection -->
+      <div class="account-type pt-4">
+        <div class="flex gap-8 mt-2">
+          <label class="flex items-center">
+            <input
+              type="radio"
+              name="accountType"
+              value="buyer"
+              required
+              class="radio-input"
+              formControlName="accountType"
+              checked
+            />
+            <span class="ml-2">Buyer Account</span>
+          </label>
+          <label class="flex items-center">
+            <input
+              type="radio"
+              name="accountType"
+              value="seller"
+              required
+              class="radio-input"
+              formControlName="accountType"
+            />
+
+            <span class="ml-2">Seller Account</span>
+          </label>
+        </div>
+        @if( accountType.invalid && accountType.touched){
+        <div class="error-message text-red-500 text-sm mt-2">
+          Please select an account type.
+        </div>
+        }
+      </div>
+
+      <!-- Name Input -->
       <div class="pt-8">
         <input
           type="text"
           name="name"
           required
-          ngModel
-          #name="ngModel"
-          placeholder="Name"
+          placeholder="{{
+            accountType.value === 'seller' ? 'Seller Name' : 'Buyer Name'
+          }}"
           class="input-field"
+          formControlName="name"
         />
-        @if( name.invalid && name.dirty){
+        @if(name.invalid && (name.dirty || name.touched)){
         <div class="error-message">
-          @if(name.errors?.['required']){
+          @if(name.hasError('required')){
           <div>Name is required</div>
+          } @if(name.hasError('minlength')){
+          <div>Name must be at least 3 characters.</div>
           }
         </div>
         }
       </div>
-      <div class="pt-8">
-        <input
-          type="text"
-          name="emailOrPhone"
-          required
-          placeholder="Email or Phone Number"
-          pattern="(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|[0-9]{10})"
-          ngModel
-          #emailOrPhone="ngModel"
-          class="input-field"
-        />
 
-        @if( emailOrPhone.invalid && emailOrPhone.dirty){
-        <div class="error-message">
-          @if(emailOrPhone.errors?.['required']){
-          <div>Email or Phone Number is required</div>
-          } @if(emailOrPhone.errors?.['pattern']){
-          <div>Please enter a valid email or phone number</div>
-          }
-        </div>
-        }
-      </div>
+      <!-- Password Input -->
       <div class="pt-8">
         <input
           type="password"
           required
           placeholder="Password"
-          ngModel
           name="password"
           class="input-field"
-          #password="ngModel"
+          formControlName="password"
         />
-        @if(password.invalid && password.dirty){
+        @if(password.invalid && (password.dirty || password.touched)){
         <div class="error-message">
-          @if(password.errors?.['required']){
+          @if(password.hasError('required')){
           <div>Password is required</div>
+          } @if(password.hasError('minlength')){
+          <div>Minimum password length is 6.</div>
           }
         </div>
         }
       </div>
+      <!--Confirm Password Input -->
+      <div class="pt-8">
+        <input
+          type="password"
+          required
+          placeholder="Confirm Password"
+          name="confirmPassword"
+          class="input-field"
+          formControlName="confirmPassword"
+        />
+        @if(signupForm.hasError('passwordsMismatch') && (confirmPassword.dirty
+        || confirmPassword.touched)){
+        <div class="error-message">
+          @if(confirmPassword.hasError('required')){
+          <div>You must re-enter your password.</div>
+          } @if(signupForm.hasError('passwordsMismatch')){
+          <div>Must be the same as the password you entered above.</div>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Buttons -->
       <div class="flex flex-col">
         <button
           type="submit"
           class="create-account-btn mt-8 text-center w-full bg-primary text-white p-4 rounded cursor-pointer"
-          [disabled]="form.invalid"
+          [disabled]="signupForm.invalid"
         >
           Create Account
         </button>

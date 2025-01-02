@@ -68,6 +68,26 @@ a:hover {
   border-color: red;
 }
 
-.input-field.ng-valid.ng-touched {
-  border-color: green;
+.radio-input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.radio-input:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.radio-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.5);
+}
+
+.radio-input:hover {
+  border-color: #fb923c;
 }

@@ -1,0 +1,27 @@
+<div>
+  <h2>Chat Room {{ roomId }}</h2>
+  @for(message of messages; track message){
+  <div>
+    <!-- Regular messages -->
+    @if(!message.product){
+    <p>{{ message.user }}: {{ message.msg }}</p>
+    }
+
+    <!-- Product messages -->
+    @if(message.product){
+    <div class="product-message">
+      <h4>{{ message.product.name }}</h4>
+      <p>{{ message.product.description }}</p>
+      <p>Price: {{ message.product.price }}</p>
+      <img [src]="message.product.image_url" alt="Product Image" />
+    </div>
+    }
+  </div>
+  }
+</div>
+
+<!-- The input for sending messages -->
+<div>
+  <input [(ngModel)]="newMessage" placeholder="Type a message..." />
+  <button (click)="sendMessage()">Send</button>
+</div>

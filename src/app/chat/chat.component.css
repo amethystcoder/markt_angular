@@ -1,0 +1,93 @@
+div {
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding: 10px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+p {
+  padding: 10px;
+  margin: 0;
+  border-radius: 10px;
+  background-color: #e8f0fe;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.product-message {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fffbe5;
+}
+
+.product-message h4 {
+  margin: 5px 0;
+  color: #444;
+}
+
+.product-message p {
+  margin: 5px 0;
+}
+
+.product-message img {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+div + div {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
